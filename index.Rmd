@@ -6,7 +6,7 @@ title: "I. Présentation"
 <!-- Cette page est la page d'accueil / Présentation du site -->
 ## Autrices
 
- - Camelia Goga (https://goga.perso.math.cnrs.fr) est professeur de mathématiques appliqués, spécialité statistique au sein du Laboratoire de Mathématiques de Besançon, Université Marie et Louis Pasteur. Ses thématiques de recherche sont la théorie des sondages, statistique nonparamétrique, apprentissage statistique. 
+ - \textbf{Camelia Goga} (https://goga.perso.math.cnrs.fr) est professeur de mathématiques appliqués, spécialité statistique au sein du Laboratoire de Mathématiques de Besançon, Université Marie et Louis Pasteur. Ses thématiques de recherche sont la théorie des sondages, statistique nonparamétrique, apprentissage statistique. 
  
  - Hélène Juillard
  
@@ -31,6 +31,8 @@ Des études par simulation Monte-Carlo complètent l'analyse  en évaluant les p
 
 \medskip
 
-Alliant rigueur théorique et mise en oeuvre pratique avec R, l'ouvrage  s'adresse à toutes celles et ceux qui souhaitent maîtriser les principes et l'application des techniques de sondage. Les autrices, qui enseignent les sondages et la statistique depuis de nombreuses années, mettent ici à profit leur expérience pédagogique et leur connaissance approfondie du domaine. Le Tome 1 constitue une ressource précieuse pour un cours de sondages de niveau débutant ou intermédiaire,  tandis que le Tome 2 est consacré aux méthodes avancées~: échantillonnage spatial, estimation de paramètres non-linéaires, estimation avec prise en compte d'information auxiliaire, théorie asymptotique.
+Alliant rigueur théorique et mise en oeuvre pratique avec R, l'ouvrage  s'adresse à toutes celles et ceux qui souhaitent maîtriser les principes et l'application des techniques de sondage. Les autrices, qui enseignent les sondages et la statistique depuis de nombreuses années, mettent ici à profit leur expérience pédagogique et leur connaissance approfondie du domaine. Le \textbf{Tome 1} constitue une ressource précieuse pour un cours de sondages de niveau débutant ou intermédiaire,  tandis que le Tome 2 est consacré aux méthodes avancées: échantillonnage spatial, estimation de paramètres non-linéaires, estimation avec prise en compte d'information auxiliaire, théorie asymptotique.
+
+Table de matières
 
 
