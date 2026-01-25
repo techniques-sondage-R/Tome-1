@@ -1,0 +1,14 @@
+---
+title: "II. Code R - Chapitre 2"
+---
+
+<!-- ÉCRIVEZ VOTRE CODE R MARKDOWN ICI -->
+<!-- Cette page contient le Code R du Chapitre 2 -->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Chapitre 2
+
+Votre code R ici.

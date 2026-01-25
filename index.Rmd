@@ -1,0 +1,14 @@
+---
+title: "I. Présentation"
+---
+
+<!-- ÉCRIVEZ VOTRE CODE R MARKDOWN ICI -->
+<!-- Cette page est la page d'accueil / Présentation du site -->
+
+# Bienvenue
+
+Contenu de la présentation à ajouter ici.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```

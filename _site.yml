@@ -1,0 +1,31 @@
+name: "Mon Site R"
+output_dir: "docs"
+navbar:
+  title: "Mon Site R"
+  left:
+    - text: "I. Présentation"
+      href: index.html
+    - text: "II. Code R"
+      menu:
+        - text: "a) Chapitre 1"
+          href: code_r_chap1.html
+        - text: "b) Chapitre 2"
+          href: code_r_chap2.html
+    - text: "III. Correction Exercices"
+      menu:
+        - text: "a) Chapitre 1"
+          href: correction_chap1.html
+        - text: "b) Chapitre 2"
+          href: correction_chap2.html
+        - text: "c) Chapitre 3"
+          href: correction_chap3.html
+        - text: "d) Chapitre 4"
+          href: correction_chap4.html
+        - text: "correction_chap5_6"
+          href: correction_chap5_6.html
+output:
+  html_document:
+    theme: flatly
+    highlight: tango
+    toc: true
+    toc_float: true

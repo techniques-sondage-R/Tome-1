@@ -1,0 +1,131 @@
+---
+title: "Solutions chapitres 5 et 6"
+author: "Camelia Goga"
+date: "2026-01-14"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Solution exercice 5.1
+
+1. La taille $N$ s'écrit comme suit sur la population des grappes:
+
+$$N=\sum_{i\in U_I}N_i$$
+
+où $U_I$ est la population des $N_I$ grappes, de tailles $N_i$, $i=1, \ldots, N_I.$ L'estimateur de Horvitz-Thompson de $N$ est égal à
+
+$$\hat N=\sum_{i\in s_I}\frac{N_i}{\pi_{Ii}}=N_I\sum_{i\in s_I}\frac{N_i}{n_I}\neq N$$
+
+car $\pi_{Ii}=n_I/N_I$ pour tout $i\in U_I.$
+
+2. La variance de $\hat N$ est égale dans le cas d'un plan SIC à 
+
+$$\text{Var}_{\rm{SIC}}(\hat N)=N_I^2\frac{1-f_I}{n_I}S^2_{NU_I}$$
+
+où $S^2_{NU_I}=\sum_{i\in U_I}(N_i-(N/N_I))^2/(N_I-1)$ et $f_I=n_I/N_I.$ Cette variance est estimée par
+
+$$\widehat{\text{Var}}_{\rm{SIC}}(\hat N)=N_I^2\frac{1-f_I}{n_I}S^2_{Ns_I}$$
+
+où $S^2_{Ns_I}=\sum_{i\in s_I}(N_i-(\sum_{i\in s_I}N_i/n_I))^2/(n_I-1).$
+
+
+## Solution exercice 5.2
+
+La variance approchée de $\hat{\bar{y}}$ est donnée par 
+
+$$\text{AVar}(\hat{\bar{y}}) =\text{Var}\left(\sum_{i\in s_I}\frac{u_i}{\pi_{Ii}}\right)=\sum_{i \in U_I} \sum_{j \in U_I} \Delta_{Iij} \frac{u_i}{\pi_{Ii}} \frac{u_j}{\pi_{Ij}}$$
+
+où
+
+$$u_i=\frac{1}{N}(t_i-N_i \bar{y}_U), \quad i\in U_I$$
+
+Dans le cas d'un plan SIC, cette variance approchée devient:
+
+$$\text{AVar}_{\rm{SIC}}(\hat{\bar{y}})=N_I^2\frac{1-f_I}{n_I}S^2_{uU_I}$$
+
+où $f_I=n_I/N_I$ et 
+
+$$S^2_{uU_I}=\frac{1}{N_I-1}\sum_{i\in U_I}(u_i-\bar{u}_{U_I})^2=\frac{1}{N_I-1}\sum_{i\in U_I}u_i^2=\frac{1}{N^2(N_I-1)}\sum_{i\in U_I}(t_i-N_i\bar{y}_U)^2 = \frac{1}{N^2(N_I-1)}\sum_{i\in U_I}N_i(\bar{y}_{U_i}-\bar{y}_U)^2$$
+
+car $\bar{u}_{U_I}=\sum_{i\in U_I}u_I/N_I=0.$
+
+Pour estimer la variance, on estime d'abord les variables linéarisées $u_i$ par 
+
+$$\hat{u}_i=\frac{1}{\hat N}(t_i-N_i\hat{\bar{y}}), \quad i\in s_I$$
+
+où $\hat N=\sum_{i\in s_I}N_i/\pi_{Ii}=N_I\sum_{i\in s_I}N_i/n_I.$
+
+L'estimateur de la variance est donné par 
+
+$$\widehat{\text{Var}}(\hat{\bar{y}})=\sum_{i \in s_I} \sum_{j \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}} \frac{\hat{u}_i}{\pi_{Ii}} \frac{\hat{u}_j}{\pi_{Ij}}$$
+
+et dans le cas d'un plan SI:
+
+$$\widehat{\text{Var}}_{\rm{SIC}}(\hat{\bar{y}})=N_I^2\frac{1-f_I}{n_I}S^2_{\hat{u}s_I}$$
+
+où
+
+$$S^2_{\hat{u}s_I}=\frac{1}{n_I-1}\sum_{i\in s_I}(\hat{u}_i-\bar{\hat{u}}_{s_I})^2=\frac{1}{n_I-1}\sum_{i\in s_I}\hat{u}^2_i=\frac{1}{\hat{N}^2(n_I-1)}\sum_{i\in s_I}(t_i-N_i\hat{\bar{y}})^2 = \frac{\sum_{i\in s_I}N^2_i(\bar{y}_{U_i}-\hat{\bar{y}})^2}{N_I^2(\sum_{i\in s_I}N_i/n_I)^2(n_I-1)}$$
+
+car $\bar{\hat{u}}_{s_I}=\sum_{i\in s_I}\hat{u}_i/n_I=0.$ Donc, la variance devient
+
+$$\widehat{\text{Var}}_{\rm{SIC}}(\hat{\bar{y}})=\frac{1}{(\sum_{i\in s_I}N_i/n_I)^2}\frac{1-f_I}{n_I(n_I-1)}\sum_{i\in s_I}N^2_i(\bar{y}_{U_i}-\hat{\bar{y}})^2$$
+
+
+## Solution exercice 5.3
+
+Le coefficient d'homogénéité $\delta$ est donné par
+
+$$\delta=1-\frac{N-1}{N-N_I}\frac{\text{SSW}}{\text{SST}}$$
+
+où SSW est la variabilité intra-grappes et SST est la variabilité totale au sein de la population $U.$ La décomposition de la variabilité totale de $y$ donne:
+
+$$\text{SST}=\text{SSW}+\text{SSB}$$
+
+où SSB est la variabilité inter-grappes. On a 
+
+$$0\leq \text{SSW}\leq \text{SST}$$
+
+Donc, si SSW=0, alors $\delta_{min}=1$ et si SSW=SST, alors
+
+$$\delta_{max}=1-\frac{N-1}{N-N_I}=-\frac{N_I-1}{N-N_I}$$
+
+
+## Solution exercice 5.4
+
+On note $A=\sum_{i \in U_I} \sum_{k \in U_i} \sum_{l \neq k \in U_i} \left(y_k - \bar{y}_U\right) \left( y_l - \bar{y}_U\right)$
+et comme indiqué dans l'exercice, on montre d'abord que $\bar{N}\text{SSB}=A+\text{SST}.$
+
+On a 
+
+$$\sum_{i \in U_I} \left[\sum_{k \in U_i}\left(y_k - \bar{y}_U\right)\right]^2 = \sum_{i \in U_I} \sum_{k \in U_i} \sum_{l\in U_i} \left(y_k - \bar{y}_U\right) \left( y_l - \bar{y}_U\right) = A+\sum_{i \in U_I} \sum_{k \in U_i}\left(y_k - \bar{y}_U\right)^2=A+\text{SST}$$
+
+On a par ailleurs, 
+
+$$\sum_{i \in U_I} \left[\sum_{k \in U_i}\left(y_k - \bar{y}_U\right)\right]^2=\bar{N}\text{SSB}$$
+
+et on obtient donc, $\text{SSW}=\text{SST}-\text{SSB}=\text{SST}-A/\bar{N}-\text{SST}/\bar{N},$ 
+qu'on remplace ensuite dans l'expression de $\rho=1-(\bar{N}/(\bar{N}-1))(\text{SSW}/\text{SST}).$ 
+
+
+## Solution exercice 6.1
+
+On rappelle que 
+
+$$\widehat{\text{Var}}\left(\hat{t}_{y\text{HT}}\right) = \sum_{i \in s_I} \sum_{j \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}} \frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}} \frac{\hat{t}_{j\text{HT}}}{\pi_{Ij}} +  \sum_{i \in s_I} \frac{\widehat{\text{Var}}_i}{\pi_{Ii}}$$
+
+$$= \sum_{i \in s_I} \sum_{j\neq i \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}} \frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}} \frac{\hat{t}_{j\text{HT}}}{\pi_{Ij}} +\sum_{i \in s_I}\frac{\Delta_{Iii}}{\pi_{Ii}} \left(\frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}}\right)^2  + \sum_{i \in s_I} \frac{\widehat{\text{Var}}_i}{\pi_{Ii}}$$
+
+et en utilisant $\mathbb{E}(\widehat{\text{Var}}\left(\hat{t}_{y\text{HT}}\right))=\mathbb{E}_I\mathbb{E}_{II}(\widehat{\text{Var}}(\hat{t}_{y\text{HT}}|s_I) ),$ on obtient:
+
+$$\mathbb{E}(\widehat{\text{Var}}\left(\hat{t}_{y\text{HT}}\right)) = \mathbb{E}_I\left[\mathbb{E}_{II}\left(\sum_{i \in s_I} \sum_{j\neq i \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}} \frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}} \frac{\hat{t}_{j\text{HT}}}{\pi_{Ij}} +\sum_{i \in s_I}(1-\pi_{Ii}) \left(\frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}}\right)^2  + \sum_{i \in s_I} \frac{\widehat{\text{Var}}_i}{\pi_{Ii}}|s_I\right)\right]$$
+
+$$= \mathbb{E}_I\left(\sum_{i \in s_I} \sum_{j\neq i \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}} \frac{t_i}{\pi_{Ii}} \frac{t_j}{\pi_{Ij}}\right)+\mathbb{E}_I\left(\sum_{i \in s_I}(1-\pi_{Ii}) \frac{t_i^2+V_i}{\pi_{Ii}^2} +\sum_{i \in s_I} \frac{\text{Var}_i}{\pi_{Ii}}\right)$$
+
+$$= \sum_{i \in U_I} \sum_{j\neq i \in U_I} \Delta_{Iij} \frac{t_i}{\pi_{Ii}} \frac{t_j}{\pi_{Ij}}+\mathbb{E}_I\left(\sum_{i \in s_I} \frac{(1-\pi_{Ii})t_i^2+V_i}{\pi_{Ii}^2}\right)$$
+
+$$= \sum_{i \in U_I} \sum_{j\neq i \in U_I} \Delta_{Iij} \frac{t_i}{\pi_{Ii}} \frac{t_j}{\pi_{Ij}}+ \sum_{i\in U_I}\frac{1-\pi_{Ii}}{\pi_{Ii}}t_i^2 +\sum_{i\in U_I}\frac{V_i}{\pi_{Ii}}$$
+
+$$= \sum_{i \in U_I} \sum_{j \in U_I} \Delta_{Iij} \frac{t_i}{\pi_{Ii}} \frac{t_j}{\pi_{Ij}}+\sum_{i\in U_I}\frac{V_i}{\pi_{Ii}}=\text{Var}(\hat{t}_{y\text{HT}})$$

@@ -1,0 +1,14 @@
+---
+title: "III. Correction Exercices - Chapitre 2"
+---
+
+<!-- ÉCRIVEZ VOTRE CODE R MARKDOWN ICI -->
+<!-- Cette page contient les corrections du Chapitre 2 -->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Correction Chapitre 2
+
+Vos corrections ici.
