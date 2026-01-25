@@ -4,15 +4,15 @@ title: "I. Présentation"
 
 <!-- ÉCRIVEZ VOTRE CODE R MARKDOWN ICI -->
 <!-- Cette page est la page d'accueil / Présentation du site -->
-# Autrices:
-\begin{itemize}
-\item Camelia Goga (https://goga.perso.math.cnrs.fr)
-\item Hélène Juillard
-\item Alina Matei
-\item Anne M. Ruiz
-\end{itemize}
+## Autrices
 
-# Résumé
+ - Camelia Goga (https://goga.perso.math.cnrs.fr)
+ - Hélène Juillard
+ - Alina Matei
+ - Anne M. Ruiz
+
+
+## Résumé
 
 Dans ce premier tome de l'ouvrage \textit{Techniques de sondage: de la théorie à la pratique avec \proglang{R}}, les principales méthodes de tirage d'échantillon et d'estimation de totaux et de moyennes sont présentées d'un point de vue théorique, puis mises en \oe uvre avec \proglang{R},  à partir d'exemples inspirés de situations réelles classiques.
 Le cadre étudié est celui d'une population finie où l'inférence statistique repose sur le tirage aléatoire des unités et sur des méthodes d’estimation adaptées à ce cadre.  
