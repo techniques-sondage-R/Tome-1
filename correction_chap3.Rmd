@@ -1,14 +1,147 @@
 ---
-title: "III. Correction Exercices - Chapitre 3"
+title: "Solutions exercices chapitre 3"
+author: "Camelia Goga"
+date: "2026-01-14"
+output:
+  html_document: default
+header-includes:
+- \usepackage{amsmath,amssymb}
+- \newcommand{\E}{\mathbb{E}}
+- \DeclareMathOperator{\C}{Cov}
+- \DeclareMathOperator{\V}{V}
+- \DeclareMathOperator{\A}{AV}
 ---
-
-<!-- ÉCRIVEZ VOTRE CODE R MARKDOWN ICI -->
-<!-- Cette page contient les corrections du Chapitre 3 -->
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Correction Chapitre 3
+## Solution exercice 3.1
 
-Vos corrections ici.
+
+Le vrai paramètre à estimer est $t_{yU}=295.$
+1. Dans l'exemple 3.1, on a calculé les probabilités de sélection  $p_k=x_k/\sum_{k\in U}x_k,~k=1, \ldots, 4,$ on les rappelle ci-dessous:
+$$   
+p_1=0.094, \quad p_2=0.350, \quad p_3=0.514, \quad p_4=0.042.
+$$
+Les supermarchés 3 et 4 ont été sélectionnés après $m=2$ tirages avec remise et proportionnels à $p_k, k\in U$ et on a donné dans l'exemple 3.1 l'estimation de Hansen-Hurwitz du total de $y.$ La variance de l'estimateur de Hansen-Hurwitz est donnée par 
+$$
+\V(\hat{t}_{y\rm{HH}})=\frac{1}{2}\sum_{k\in U}p_k\left(\frac{y_k}{p_k}-t_{yU}\right)^2=\frac{1}{2}\left(\sum_{k\in U}\frac{y^2_k}{p_k}-t^2_{yU}\right)=126.1793. 
+$$
+2. Pour obtenir une estimation de type Horvitz-Thompson, on calcule d'abord les probabilités d'inclusion $\pi_k$ par rapport à $p_k,~k\in U$ (voir chapitre 1):
+\begin{eqnarray*}
+  \pi_1=1-(1-p_1)^2= 0.179 , \quad \pi_2=1-(1-p_2)^2=0.577, \\\pi_3=1-(1-p_3)^2=0.764, \quad \pi_4=1-(1-p_4)^2= 0.082.  
+\end{eqnarray*}
+Les supermarchés 3 et 4 ont été sélectionnés, l'estimation de type Horvitz-Thompson du total de la variable $y$ est égale à 
+$$
+\hat{t}_{y\rm{HT}}=\frac{y_3}{\pi_3}+\frac{y_4}{\pi_4}=\frac{150}{0.764}+\frac{15}{0.082}=379.2619. 
+$$
+
+Pour calculer la variance de l'estimateur de Horvitz-Thompson, on a besoin des probabilités d'inclusion d'ordre deux, $\pi_{kl}$ pour tous les $k\neq l\in U.$ On a (voir aussi le chapitre 1):
+$$
+\pi_{kl}=1-(1-p_k)^2-(1-p_l)^2+(1-p_k-p_l)^2, \quad k\neq l\in U
+$$
+et on obtient 
+\begin{eqnarray*}
+\pi_{12}= 0.065, \quad \pi_{13}=0.096, \quad \pi_{14}=0.007, \\\quad\pi_{23}=0.360, \quad\pi_{24}=0.029, \quad \pi_{34}=0.043. 
+\end{eqnarray*}
+La variance de l'estimateur de Horvitz-Thompson est alors égale à:
+$$
+\V(\hat{t}_{y\rm{HT}})=\sum_{k\in U}\sum_{l\in U}(\pi_{kl}-\pi_k\pi_l)\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}=7395.819.
+$$
+3. Les deux estimateurs, de Hansen-Hurwitz et de Horvitz-Thompson, peuvent être utilisés pour estimer le total de $y:$ ils sont tous les deux sans biais et ils utilisent des poids inégaux. Néanmoins, l'estimateur de  Hansen-Hurwitz et surtout sa variance sont beaucoup plus simples à obtenir.   
+
+## Solution exercice 3.2
+
+1. L'estimateur de Horvitz-Thompson du total $y_{yU}$ est 
+$$
+\hat{t}_{y\rm{HT}}=\sum_{k\in s}\frac{y_k}{\pi_k},
+$$
+de variance donnée par 
+$$
+\V(\hat{t}_{y\rm{HT}})=\sum_{k\in U}(\pi_{kl}-\pi_k\pi_l)\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}. 
+$$
+2. L'estimateur de Hansen-Hurwitz du total $y_{yU}$ pour $n$ tirages avec remise et avec des probabilités de sélection $\pi_k,~k\in U$ telles que $\pi_k=np_k, k\in U$ est égal à
+$$
+\hat{t}_{y\rm{HH}}=\frac{1}{n}\sum_{l=1}^n\frac{y_{k_l}}{\pi_{k_l}},
+$$
+de variance donnée par
+$$
+\V(\hat{t}_{y\rm{HH}})=\frac{1}{n}\sum_{k\in U}p_k\left(\frac{y_k}{p_k}-t_{yU}\right)^2=\frac{1}{n}\left(\sum_{k\in U}\frac{y_k^2}{p_k}-t^2_{yU}\right). 
+$$
+3. On écrit l'estimateur de la variance simplifié comme suit:
+\begin{eqnarray*}
+  \hat{V}_0(\hat{t}_{y\rm{HT}})&=&\frac{1}{n(n-1)}\sum_{k\in s}\left(\frac{y_k}{p_k}-\hat{t}_{y\rm{HT}}\right)^2\\
+  &=& \frac{1}{n(n-1)}\sum_{k\in s}\frac{y^2_k}{p^2_k}-\frac{2\hat{t}_{y\rm{HT}}}{n(n-1)}\sum_{k\in s}\frac{y_k}{p_k}+\frac{1}{n(n-1)}n\hat{t}^2_{y\rm{HT}}\\
+  &=& \frac{1}{n(n-1)}\sum_{k\in s}\frac{y^2_k}{p^2_k}-\frac{\hat{t}^2_{y\rm{HT}}}{n-1}=\frac{1}{n(n-1)}\sum_{k\in U}\frac{y^2_kI_k}{p^2_k}-\frac{\hat{t}^2_{y\rm{HT}}}{n-1},
+\end{eqnarray*}
+en utilisant le fait que $\pi_k=np_k,~k\in U.$ Pour calculer son biais, on utilise $\E(I_k)=\pi_k=np_k$ pour tout $k\in U$ et $\E(\hat{t}^2_{y\rm{HT}})=\V(\hat{t}_{y\rm{HT}})+t^2_{yU}.$ On obtient:
+\begin{eqnarray*}
+B(\hat{\V}_0(\hat{t}_{y\rm{HT}}))&=&\E(\hat{V}_0(\hat{t}_{y\rm{HT}}))-\V(\hat{t}_{y\rm{HT}})\\
+&=& \frac{1}{n(n-1)}\sum_{k\in U}\frac{y^2_k\E(I_k)}{p^2_k}-\frac{\E(\hat{t}^2_{y\rm{HT}})}{n-1}-\V(\hat{t}_{y\rm{HT}})\\
+&=& \frac{1}{n-1}\left(\sum_{k\in U}\frac{y_k^2}{p_k}-t^2_{yU}-\V(\hat{t}_{y\rm{HT}})\right)-\V(\hat{t}_{y\rm{HT}})\\
+&=& \frac{1}{n-1}\left(n\V(\hat{t}_{y\rm{HH}})-\V(\hat{t}_{y\rm{HT}})\right)-\V(\hat{t}_{y\rm{HT}})\\
+&=&\frac{n}{n-1}\left(\V(\hat{t}_{y\rm{HH}})-\V(\hat{t}_{y\rm{HT}})\right).
+\end{eqnarray*}
+
+## Solution exercice 3.3
+
+Tout d'abord, le plan de sondage est sans remise et de taille fixe $n,$ les probabilités d'inclusion d'ordre un $\pi_k$ satisfont
+$$
+\sum_{k\in U}\pi_k=n.
+$$
+L'estimateur de Rao est donné par 
+$$
+\hat{t}_{y\rm{Rao}}=\frac{N}{n}\sum_{k\in s} y_k= \frac{N}{n}\sum_{k\in U} y_kI_k,
+$$
+où $I_k$ est la variable (aléatoire) indicatrice d'appartenance à un échantillon avec $\E(I_k)=\pi_k,$ pour $k\in U.$ Le biais de l'estimateur de Rao se calcule alors comme suit:
+\begin{eqnarray*}
+  B(\hat{t}_{y\rm{Rao}})&=& \E(\hat{t}_{y\rm{Rao}})-t_{yU}\\
+  &=&\frac{N}{n}\sum_{k\in U} y_k\E(I_k)-t_{yU}=\frac{N}{n}\sum_{k\in U} y_k\pi_k-t_{yU}\\
+  &=& \frac{N}{n}\sum_{k\in U} (y_k-\bar{y}_U+\bar{y}_U)\left(\pi_k-\frac{n}{N}+\frac{n}{N}\right)-t_{yU}\\
+  &=& \frac{N}{n}\sum_{k\in U} (y_k-\bar{y}_U)\left(\pi_k-\frac{n}{N}\right)+\underbrace{\frac{N}{n}\sum_{k\in U} (y_k-\bar{y}_U)\frac{n}{N}}_{=0}+\underbrace{\frac{N}{n}\sum_{k\in U}\bar{y}_U\left(\pi_k-\frac{n}{N}\right)}_{=0}\\
+  & & +\underbrace{\frac{N}{n}\sum_{k\in U}\bar{y}_U\frac{n}{N}}_{=t_{yU}}-t_{yU}\\
+  &=& \frac{N}{n}\sum_{k\in U} (y_k-\bar{y}_U)\left(\pi_k-\frac{n}{N}\right)= \frac{N^2}{n}\mbox{Cov}(\mathbf{y}, \boldsymbol{\pi}),
+\end{eqnarray*}
+où $\mathbf{y}= (y_k)_{k\in U}$ et $\boldsymbol{\pi}=(\pi_k)_{k\in U}.$
+
+## Solution exercice 3.4
+
+Le plan de sondage de Poisson est un plan de sondage pour lequel la sélection des individus se fait de façon indépendante, donc les variables indicatrices d'appartenance à un échantillon $I_k,~k\in U$ sont indépendantes et $\pi_{kl}=\pi_k\pi_l$ pour $k\neq l\in U$.  Cela implique que les termes de covariance sont tous nuls, c'est-à-dire $\C(I_k, I_l)=\pi_{kl}-\pi_k\pi_l=0$ pour $k\neq l\in U.$ La variance de l'estimateur de Horvitz-Thompson $\hat t_{y\rm{HT}}$ du total $t_{yU}$ est égale à:
+\begin{eqnarray*}
+    \V_{\rm{PO}}(\hat t_{y\rm{HT}})=\sum_{k\in U}\pi_k(1-\pi_k)\frac{y_k^2}{\pi_k^2}+\sum_{k\in U}\sum_{l\in U, l\neq k}(\pi_{kl}-\pi_k\pi_l)\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}=\sum_{k\in U}\frac{1-\pi_k}{\pi_k}y_k^2.
+\end{eqnarray*}
+La variance de l'estimateur de Horvitz-Thompson se simplifie dans le cas du plan de sondage de Poisson, elle est une somme sur $U$ des quantités $(1-\pi_k)y_k^2/\pi_k,~k\in U$ et en utilisant le principe de l'estimateur de Horvitz-Thompson, elle sera estimée sans biais par 
+\begin{eqnarray*}
+    \hat{\V}_{\rm{PO}}(\hat t_{y\rm{HT}})=\sum_{k\in s}\frac{1-\pi_k}{\pi^2_k}y_k^2.
+\end{eqnarray*}    
+Le même estimateur de la variance est obtenu en utilisant la formule générale de l'estimateur de la variance et le fait que les termes de covariance sont tous nuls. 
+
+## Solution exercice 3.5
+
+Pour un plan SI(n), on a $\pi_k=n/N=f$ pour tous les $k\in U.$  On calcule d'abord les quantités $a_k,~k\in U:$
+$$
+a_k=\frac{1-\pi_k}{\sum_{l\in U}(1-\pi_l)}=\frac{1-f}{n(1-f)}=\frac{1}{n}, \quad k\in U
+$$
+et l'estimateur de la variance devient
+\begin{eqnarray*}
+    \hat{V}_{Deville} (\hat{t}_{y\rm{HT}}) &=&\frac{1}{1-\frac{n}{n^2}}\sum_{k\in s}(1-f)\left(\frac{y_k}{f}-\frac{\frac{1-f}{f}\sum_{l\in s}y_l}{n(1-f)}\right)^2\\
+    &=& \frac{n}{n-1}\frac{1-f}{f^2}\sum_{k\in s}(y_k-\bar{y}_s)^2=N^2\frac{1-f}{n}S^2_{ys},
+\end{eqnarray*}
+qui est l'estimateur de la variance de l'estimateur de Horvitz-Thompson dans le cas d'un plan SI. 
+
+## Solution exercice 3.6
+
+L'approximation de H\'ajek consiste à approcher les termes de covariance $\Delta_{kl}$ par une quantité qui dépend uniquement des probabilités d'inclusion d'ordre un:
+$$
+\tilde{\pi}_{kl}-\tilde{\pi}_k\tilde{\pi}_l \simeq -\tilde{\pi}_k\tilde{\pi}_l\frac{(1-\tilde{\pi}_k)(1-\tilde{\pi}_l)}{d(\tilde{\pi})}, \quad k\neq l\in U
+$$
+et la variance de type Yates-Grundy-Sen devient:
+\begin{eqnarray*}
+\V(\hat{t}_{y\rm{HT}})&=&-\frac{1}{2}\sum_{k\in U}\sum_{l\in U}(\tilde{\pi}_{kl}-\tilde{\pi}_k\tilde{\pi}_l)\left(\frac{y_k}{\tilde{\pi}_k}-\frac{y_l}{\tilde{\pi}_l}\right)^2\\
+&\simeq& \frac{1}{2d(\tilde{\pi})}\sum_{k\in U}\sum_{l\neq k\in U}\tilde{\pi}_k\tilde{\pi_l}(1-\tilde{\pi}_k)(1-\tilde{\pi}_l)\left(\frac{y_k}{\tilde{\pi}_k}-\frac{y_l}{\tilde{\pi}_l}\right)^2\\
+&=& \frac{1}{2d(\tilde{\pi})}\sum_{k\in U}\sum_{l\in U}\tilde{\pi}_k\tilde{\pi}_l(1-\tilde{\pi}_k)(1-\tilde{\pi}_l)\left(\frac{y^2_k}{\tilde{\pi}_k^2}-2\frac{y_k}{\tilde{\pi}_k}\frac{y_l}{\tilde{\pi}_l}+\frac{y^2_l}{\tilde{\pi}_l^2}\right)\\
+&=& \frac{1}{d(\tilde{\pi})}\left(\sum_{k\in U}\tilde{\pi}_k(1-\tilde{\pi}_k)\frac{y^2_k}{\tilde{\pi}_k^2}\right)\underbrace{\sum_{l\in U}\tilde{\pi_l}(1-\tilde{\pi}_l)}_{d(\tilde{\pi})}-\frac{1}{d(\tilde{\pi})}\left(\sum_{k\in U}y_k(1-\tilde{\pi}_k)\right)^2\\
+&=& \left(\sum_{k\in U}\tilde{\pi}_k(1-\tilde{\pi}_k)\frac{y^2_k}{\tilde{\pi_k}^2}\right)-\frac{1}{d(\tilde{\pi})}\left(\sum_{k\in U}y_k(1-\tilde{\pi}_k)\right)^2\\
+&=& \sum_{k\in U}\tilde{\pi}_k(1-\tilde{\pi}_k)\left(\frac{y_k}{\tilde{\pi}_k}-A\right)^2,
+\end{eqnarray*}
+où $A=\sum_{l\in U}y_l(1-\tilde{\pi}_l)/d(\tilde{\pi}).$

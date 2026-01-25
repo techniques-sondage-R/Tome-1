@@ -1,7 +1,7 @@
 name: "Mon Site R"
 output_dir: "docs"
 navbar:
-  title: "Mon Site R"
+  title: "Techniques de sondage avec R"
   left:
     - text: "I. Présentation"
       href: index.html

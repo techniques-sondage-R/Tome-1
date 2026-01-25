@@ -9,14 +9,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Camelia Goga" />
 
+<meta name="date" content="2026-01-15" />
 
-<title>III. Correction Exercices - Chapitre 4</title>
+<title>Solutions exercices chapitre 4</title>
 
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -29,10 +31,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -43,6 +44,16 @@
   ul.task-list{list-style: none;}
     </style>
 
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
 
 
 
@@ -210,69 +221,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -280,16 +228,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -302,7 +240,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Mon Site R</a>
+      <a class="navbar-brand" href="index.html">Techniques de sondage avec R</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -360,22 +298,487 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">III. Correction Exercices - Chapitre 4</h1>
+<h1 class="title toc-ignore">Solutions exercices chapitre 4</h1>
+<h4 class="author">Camelia Goga</h4>
+<h4 class="date">2026-01-15</h4>
 
 </div>
 
 
-<!-- ÉCRIVEZ VOTRE CODE R MARKDOWN ICI -->
-<!-- Cette page contient les corrections du Chapitre 4 -->
-<div id="correction-chapitre-4" class="section level1">
-<h1>Correction Chapitre 4</h1>
-<p>Vos corrections ici.</p>
+<div id="solution-exercice-4.1" class="section level2">
+<h2>Solution exercice 4.1</h2>
+<p>Les tailles <span class="math inline">\(n_h\)</span> des échantillons
+<span class="math inline">\(s_h\subseteq U_h, h=1, \ldots H\)</span>
+calculées selon l’allocation proportionnelle à la taille sont données
+par <span class="math display">\[
+\frac{n_h}{N_h}=\frac{n}{N}\Longleftrightarrow f_h=f \quad h=1, \ldots,
+H.
+\]</span> La variance de l’estimateur de Horvitz-Thompson du total <span
+class="math inline">\(t_{yU}\)</span> avec un plan stratifié et
+aléatoire simple sans remise au sein de chaque strate (STSI) s’écrit
+dans le cas de l’allocation proportionnelle: <span
+class="math display">\[\begin{eqnarray*}
+   \mathop{\mathrm{V}}_{\rm{STSI},p}(\hat{t}_{y\rm{HT}})=
+\sum_{h=1}^HN_h^2\frac{1-f_h}{n_h}
+S^2_{yU_h}=N\frac{1-f}{n}\sum_{h=1}^HN_hS^2_{yU_h}=N^2\frac{1-f}{n}\sum_{h=1}^H\frac{N_h}{N}S^2_{yU_h}.
+\end{eqnarray*}\]</span> La variance de l’estimateur de Horvitz-Thompson
+du total <span class="math inline">\(t_{yU}\)</span> avec un plan
+aléatoire simple sans remise au sein de <span
+class="math inline">\(U\)</span> est donnée par <span
+class="math display">\[
+\mathop{\mathrm{V}}_{\rm{SI}}(\hat{t}_{y\rm{HT}})=N^2\frac{1-f}{n}S^2_{yU}.
+\]</span> On remarque que les deux formules de variance ont la même
+constante <span class="math inline">\(N^2(1-f)/n\)</span> et elles
+différent par les termes concernant la variabilité de <span
+class="math inline">\(y:\)</span> calculée au sein de la population
+entière <span class="math inline">\(U\)</span> dans le cas du plan SI et
+au sein des strates <span class="math inline">\(U_h, h=1, \ldots,
+H,\)</span> dans le cas du plan STSI. Si les strates sont construites de
+façon à ce que la variable <span class="math inline">\(y\)</span> est
+peu variable au sein de chaque strate <span class="math inline">\(U_h,
+h=1, \ldots, H,\)</span> alors il y a de fortes chances que la variance
+<span
+class="math inline">\(\mathop{\mathrm{V}}_{\rm{STSI},p}(\hat{t}_{y\rm{HT}})\)</span>
+soit plus faible que <span
+class="math inline">\(\mathop{\mathrm{V}}_{\rm{SI}}(\hat{t}_{y\rm{HT}})\)</span>
+(cela dépendra aussi des constantes présentes dans les expressions de
+deux formules de variance).</p>
+</div>
+<div id="solution-exercice-4.2" class="section level2">
+<h2>Solution exercice 4.2</h2>
+<p>Les tailles <span class="math inline">\(n_h\)</span> des échantillons
+<span class="math inline">\(s_h\subseteq U_h, h=1, \ldots H\)</span>
+calculées selon l’allocation optimale de Neyman sont données par: <span
+class="math display">\[
+n_h=n\frac{N_hS_{yU_h}}{\sum_{h&#39;=1}^HN_{h&#39;}S_{yU_{h&#39;}}},
+\quad h=1, \ldots, 4
+\]</span> et la variance de l’estimateur de Horvitz-Thompson devient:
+<span class="math display">\[\begin{eqnarray*}
+\mathop{\mathrm{V}}_{\rm{STSI},o}(\hat{t}_{y\rm{HT}}) &amp;=&amp;
+\sum_{h=1}^HN_h^2\frac{1-f_h}{n_h}S^2_{yU_h}=  \sum_{h=1}^H\frac{N_h}{n_h}
+S^2_{yU_h}-\sum_{h=1}^HN_hS^2_{yU_h}\\
+&amp;=&amp;
+\frac{\sum_{h&#39;=1}^HN_{h&#39;}S_{yU_{h&#39;}}}{n}\sum_{h=1}^HN_hS_{yU_h}
+-N\sum_{h=1}^H\frac{N_h}{N}S^2_{yU_h}\\
+&amp;=&amp;
+\frac{N^2}{n}\left(\sum_{h=1}^H\frac{N_h}{N}S_{yU_h}\right)^2-N\sum_{h=1}^H\frac{N_h}{N}S^2_{yU_h}.
+\end{eqnarray*}\]</span></p>
+</div>
+<div id="solution-exercice-4.3" class="section level2">
+<h2>Solution exercice 4.3</h2>
+<p>En utilisant les exercices 4.1 et 4.2, on obtient: <span
+class="math display">\[\begin{eqnarray*}
+  \mathop{\mathrm{V}}_{\rm{STSI},p}(\hat{t}_{y\rm{HT}})
+-\mathop{\mathrm{V}}_{\rm{STSI},o}(\hat{t}_{y\rm{HT}})&amp;=&amp;\frac{N^2}{n}\left[\sum_{h=1}^H\frac{N_h}{N}S^2_{yU_h}-\left(\sum_{h=1}^H\frac{N_h}{N}S_{yU_h}\right)^2\right]\\
+  &amp;=&amp; \frac{N^2}{n}\mathop{\mathrm{V}}(S_{yU_h}),
+\end{eqnarray*}\]</span> où dans le calcul de la variance de <span
+class="math inline">\(S_{yU_h}, h=1, \ldots, H\)</span> on a considéré
+les poids <span class="math inline">\(N_h/N, h=1, \ldots, H.\)</span> On
+peut en déduire que l’allocation optimale de Neyman est d’autant plus
+intéressante si les écart-types de la variable <span
+class="math inline">\(y\)</span> sont très différents d’une strate à
+l’autre.</p>
+</div>
+<div id="solution-exercice-4.4" class="section level2">
+<h2>Solution exercice 4.4</h2>
+<ol style="list-style-type: decimal">
+<li><p>On a <span class="math inline">\(N=\sum_{h=1}^H\sum_{k\in
+U_h}1\)</span> et l’estimateur de Horvitz-Thompson de <span
+class="math inline">\(N\)</span> est égal à: <span
+class="math display">\[
+\hat{N}=\sum_{h=1}^H\sum_{k\in
+s_h}\frac{1}{\pi_{k,h}}=\sum_{h=1}^H\sum_{k\in s_h}\frac{N_h}{n_h}=N,
+\]</span> car <span class="math inline">\(\pi_{k,h}=n_h/N_h, h=1,
+\ldots, H.\)</span> Sa variance est égalé à <span
+class="math display">\[
+\mathop{\mathrm{V}}_{\rm{STSI}}(\hat{N})=\sum_{h=1}^HN^2_h\frac{1-f_h}{n_h}S^2_{yU_h}=0.
+\]</span></p></li>
+<li><p>On a <span class="math inline">\(\pi_{k,h}=n_h/N_h=n/N\)</span>
+pour tout <span class="math inline">\(h=1, \ldots, H\)</span> et <span
+class="math display">\[
+\hat{N}=\sum_{h=1}^H\sum_{k\in
+s_h}\frac{1}{\pi_{k,h}}=\frac{N}{n}\sum_{h=1}^H\sum_{k\in s_h}1=
+\frac{N}{n}\sum_{k\in s}1=N
+\]</span> et <span
+class="math inline">\(\mathop{\mathrm{V}}_{\rm{STSI}}(\hat{N})=0.\)</span></p></li>
+<li><p>Dans le cas d’un plan STSI, la taille <span
+class="math inline">\(N\)</span> de la population <span
+class="math inline">\(U\)</span> est estimée parfaitement, quel que soit
+l’échantillon, ce qui implique que la variance de <span
+class="math inline">\(\hat N\)</span> est nulle. Le même résultat avait
+été obtenu dans le cas d’un plan SI(n), l’exercice 2.6.</p></li>
+</ol>
+</div>
+<div id="solution-exercice-4.5" class="section level2">
+<h2>Solution exercice 4.5</h2>
+<p>:</p>
+<ol style="list-style-type: decimal">
+<li><p>L’estimateur de Horvitz-Thompson de <span
+class="math inline">\(\bar{y}_U=\sum_{h=1}^2\sum_{k\in
+U_h}y_k/N\)</span> est donné par: <span class="math display">\[
+\hat{\bar{y}}_{\rm{HT}}=\frac{1}{N}\sum_{h=1}^2\sum_{k\in
+U_h}\frac{y_k}{\pi_{k,h}}=\frac{1}{N}\sum_{h=1}^2N_h\sum_{k\in
+U_h}\frac{y_k}{n_h},
+\]</span> car <span
+class="math inline">\(\pi_{k,h}=\pi_h=n_h/N_h\)</span> pour <span
+class="math inline">\(k\in U_h\)</span> et <span
+class="math inline">\(h=1,2.\)</span> Sa variance est égale à <span
+class="math display">\[
+\mathop{\mathrm{V}}_{\rm{STBE}}(\hat{\bar{y}}_{\rm{HT}})=\frac{1}{N^2}\sum_{h=1}^2\frac{1-\pi_h}{\pi_h}\sum_{k\in
+U_h}y_k^2=\frac{1}{N^2}\sum_{h=1}^2\left(\frac{N_h}{n_h}-1\right)\sum_{k\in
+U_h}y_k^2.
+\]</span></p></li>
+<li><p>Pour trouver les tailles <span class="math inline">\(n_1,
+n_2\)</span> optimales, on écrit la variance de l’estimateur <span
+class="math inline">\(\hat{\bar{y}}_{\rm{HT}}\)</span> pour ce plan
+stratifié Bernoulli (STBE) comme suit: <span class="math display">\[
+\mathop{\mathrm{V}}_{\rm{STBE}}(\hat{\bar{y}}_{\rm{HT}})=\frac{1}{N^2}\sum_{h=1}^2\frac{N_h}{n_h}\sum_{k\in
+U_h}y_k^2-\frac{1}{N^2}\sum_{h=1}^2\sum_{k\in
+U_h}y_k^2=\sum_{h=1}^2\frac{A_h}{n_h}+B,
+\]</span> où <span class="math inline">\(A_h=N_h\sum_{k\in
+U_h}y_k^2/N^2\)</span> et <span
+class="math inline">\(B=-\sum_{h=1}^2\sum_{k\in U_h}y_k^2/N^2\)</span>
+indépendant de <span class="math inline">\(n_h, h=1, 2.\)</span> Les
+tailles <span class="math inline">\(n_h, h=1, 2\)</span> qui minimisent
+la variance de l’estimateur <span
+class="math inline">\(\hat{\bar{y}}_{\rm{HT}}\)</span> sous la
+contrainte <span class="math inline">\(n=n_1+n_2\)</span> sont égales à
+<span class="math display">\[
+n_{h,
+opt}=\frac{n\sqrt{A_h}}{\sum_{h&#39;=1}^2\sqrt{A_{h&#39;}}}=\frac{n\sqrt{N_h\sum_{k\in
+U_h}y_k^2}}{\sum_{h&#39;=1}^2\sqrt{N_{h&#39;}\sum_{k\in
+U_{h&#39;}}y_k^2}}, \quad h=1, 2.
+\]</span></p></li>
+</ol>
+<p>:</p>
+<ol style="list-style-type: decimal">
+<li>L’estimateur de Horvitz-Thompson de <span
+class="math inline">\(\Delta_y=\sum_{k\in U_1}y_k/N_1-\sum_{k\in
+U_2}y_k/N_2\)</span> est la différence des estimateurs de
+Horvitz-Thompson des moyennes de <span class="math inline">\(y\)</span>
+au sein des strates <span class="math inline">\(U_1, U_2\)</span>: <span
+class="math display">\[
+\hat{\Delta}_{y\rm{HT}}=\frac{1}{N_1}\sum_{k\in
+U_1}\frac{y_k}{\pi_{k,1}}-\frac{1}{N_2}\sum_{k\in
+U_2}\frac{y_k}{\pi_{k,2}}=\frac{1}{n_1}\sum_{k\in
+U_1}y_k-\frac{1}{n_2}\sum_{k\in U_2}y_k.
+\]</span> Due à l’indépendance des tirages au sein de deux strates, la
+variance se calcule facilement comme suit: <span class="math display">\[
+\mathop{\mathrm{V}}_{\rm{STBE}}(\hat{\Delta}_{y\rm{HT}})=\sum_{h=1}^2\frac{1}{N_h^2}\frac{1-\pi_h}{\pi_h}\sum_{k\in
+U_h}y_k^2=\sum_{h=1}^2\frac{1}{N_h^2}\left(\frac{N_h}{n_h}-1\right)\sum_{k\in
+U_h}y_k^2.
+\]</span></li>
+<li>Comme dans la première partie, on écrit la variance comme suit:
+<span class="math display">\[
+\mathop{\mathrm{V}}_{\rm{STBE}}(\hat{\Delta}_{y\rm{HT}})=\sum_{h=1}^2\frac{A_h}{n_h}+B,
+\]</span> où <span class="math inline">\(A_h=\sum_{k\in
+U_h}y_k^2/N_h\)</span> et <span
+class="math inline">\(B=-\sum_{h=1}^2\sum_{k\in U_h}y_k^2/N_h^2\)</span>
+indépendant de <span class="math inline">\(n_h, h=1, 2.\)</span> Les
+tailles <span class="math inline">\(n_h, h=1, 2\)</span> qui minimisent
+la variance de l’estimateur <span
+class="math inline">\(\hat{\Delta}_{y\rm{HT}}\)</span> sous la
+contrainte <span class="math inline">\(n=n_1+n_2\)</span> sont égales à
+<span class="math display">\[
+n_{h,
+opt}=\frac{n\sqrt{A_h}}{\sum_{h&#39;=1}^2\sqrt{A_{h&#39;}}}=\frac{n\sqrt{N^{-1}_h\sum_{k\in
+U_h}y_k^2}}{\sum_{h&#39;=1}^2\sqrt{N^{-1}_{h&#39;}\sum_{k\in
+U_{h&#39;}}y_k^2}}, \quad h=1, 2.
+\]</span></li>
+</ol>
+<p>:</p>
+<ol style="list-style-type: decimal">
+<li><p>On remplace dans les formules trouvées au point 1 et on obtient
+<span class="math inline">\(n_{1, opt}=153\)</span> et <span
+class="math inline">\(n_{2, opt}=47.\)</span></p></li>
+<li><p>On trouve <span class="math inline">\(n_{1, opt}=90\)</span> et
+<span class="math inline">\(n_{2, opt}=110.\)</span></p></li>
+</ol>
+</div>
+<div id="solution-exercice-4.6" class="section level2">
+<h2>Solution exercice 4.6</h2>
+<ol style="list-style-type: decimal">
+<li><ol style="list-style-type: lower-alpha">
+<li>On note <span class="math inline">\(x\)</span>=api99 et <span
+class="math inline">\(y\)</span>=api00. On doit trouver <span
+class="math inline">\(n\)</span> tel que <span class="math display">\[
+2z_{1-\alpha/2}\sqrt{\mathop{\mathrm{V}}(\hat{\bar{y}}_{\rm{HT}})}&lt;40,
+\]</span> où <span class="math inline">\(z_{1-\alpha/2}\)</span> est le
+quantile d’ordre <span class="math inline">\(1-\alpha/2\)</span> d’une
+loi normale centrée et réduite; pour <span
+class="math inline">\(\alpha=0.95,\)</span> on a <span
+class="math inline">\(z_{1-\alpha/2}  =1.96 \simeq  2\)</span>. On
+obtient donc <span class="math display">\[
+\mathop{\mathrm{V}}(\hat{\bar{y}}_{\rm{HT}}) &lt; 100
+\Longleftrightarrow \left(\frac{1}{n}-\frac{1}{N}\right)
+S^2_{yU}&lt;100.
+\]</span> La variance (corrigée) <span
+class="math inline">\(S^2_{yU}\)</span> est inconnue mais comme elle est
+corrélée avec <span class="math inline">\(S^2_{xU}=17639,\)</span> on
+remplace avec cette valeur et on obtient <span
+class="math inline">\(n&gt;171.50,\)</span> donc <span
+class="math inline">\(n=172.\)</span></li>
+</ol></li>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li>Soit <span class="math inline">\(U=U_1\cup U_2,\)</span> avec <span
+class="math inline">\(U_1\)</span> la strate des écoles avec <span
+class="math inline">\(x&lt; 600,\)</span> de taille <span
+class="math inline">\(N_1=2594\)</span> et <span
+class="math inline">\(U_2\)</span> la strate des écoles avec <span
+class="math inline">\(x\geq  600,\)</span> de taille <span
+class="math inline">\(N_2=3600.\)</span> On a aussi que <span
+class="math display">\[
+\bar{x}_{U_1}=\sum_{k\in U_1}x_k/N_1=503, \quad S^2_{xU_1}=3940
+\]</span> et <span class="math display">\[
+\bar{x}_{U_2}=\sum_{k\in U_2}x_k/N_2=725, \quad S^2_{xU_2}=6725.
+\]</span></li>
+</ol></li>
+</ol>
+<ol style="list-style-type: lower-roman">
+<li>L’allocation proportionnelle à la taille est donnée par: <span
+class="math display">\[
+n_1=n\frac{N_1}{N}=50\times\frac{2594}{6194}\simeq 20.93, \quad
+\mbox{donc} \quad n_1=21,
+\]</span> <span class="math display">\[
+n_2=n\frac{N_2}{N}=50\times\frac{3600}{6194}\simeq 29.06, \quad
+\mbox{donc} \quad n_2=29
+\]</span></li>
+<li>On peut calculer les tailles <span
+class="math inline">\(n_h\)</span> des échantillons <span
+class="math inline">\(s_h, h=1, 2\)</span> selon l’allocation <span
+class="math inline">\(x\)</span>-optimale: <span class="math display">\[
+n_1=n\frac{N_1S_{xU_1}}{N_1S_{xU_1}+N_2S_{xU_2}}=50\frac{2594\times\sqrt{3940}}{2594\times\sqrt{3940}+3600\times
+\sqrt{6725}}\simeq 17.73
+\]</span></li>
+</ol>
+<p><span class="math display">\[
+n_2=n\frac{N_2S_{xU_2}}{N_1S_{xU_1}+N_2S_{xU_2}}=50\frac{3600\times
+\sqrt{6725}}{2594\times\sqrt{3940}+3600\times \sqrt{6725}}\simeq 32.22
+\]</span> donc <span class="math inline">\(n_1=18\)</span> et <span
+class="math inline">\(n_2=32.\)</span> Il n’y a pas beaucoup de
+différence entre les tailles <span class="math inline">\(n_h, h=1,
+2\)</span> calculées selon les deux allocations. On pouvait s’attendre à
+ce résultat car les écart-types de la variable <span
+class="math inline">\(x\)</span> au sein des deux strates <span
+class="math inline">\(U_1\)</span> et <span
+class="math inline">\(U_2\)</span> ne sont pas trop différents: <span
+class="math inline">\(\sqrt{3940}\simeq 62.77\)</span> et <span
+class="math inline">\(\sqrt{6725}\simeq 82\)</span>. Comme la variance
+de <span class="math inline">\(x\)</span> est corrélée avec la variance
+de <span class="math inline">\(y,\)</span> l’allocation <span
+class="math inline">\(x\)</span>-optimale sera très proche de
+l’allocation optimale de Neyman. La variance de l’estimateur de
+Horvitz-Thompson de la moyenne de <span class="math inline">\(y\)</span>
+calculée pour l’allocation <span
+class="math inline">\(x\)</span>-optimale sera proche de la variance
+optimale (calculée pour l’allocation de Neyman) et plus faible que la
+variance calculée pour l’allocation proportionnelle à la taille;
+néanmoins, le gain ne sera pas important.</p>
+</div>
+<div id="solution-exercice-4.7" class="section level2">
+<h2>Solution exercice 4.7</h2>
+<p>Le coefficient de variation de la variable <span
+class="math inline">\(y\)</span> au sein de la strate <span
+class="math inline">\(U_h\)</span> est donné par: <span
+class="math display">\[
+\mbox{CV}_h=\frac{S_{yU_h}}{\bar{y}_h}, \quad h=1, \ldots, H
+\]</span> et comme ils sont égaux pour toutes les strates, on a <span
+class="math inline">\(\mbox{CV}_h=\mbox{CV}\)</span> pour tout <span
+class="math inline">\(h=1, \ldots, H\)</span> et <span
+class="math inline">\(S_{yU_h}=\bar{y}_h\mbox{CV}\)</span> pour $h=1, ,
+H. $ Les tailles <span class="math inline">\(n_h, h=1, \ldots,
+H\)</span> calculées selon l’allocation optimale de Neyman devient:
+<span class="math display">\[
+n_h=n\frac{N_hS_{yU_h}}{\sum_{h&#39;=1}^HN_{h&#39;}S_{yU_{h&#39;}}}=n\frac{N_h\bar{y}_h\mbox{CV}}{\mbox{CV}\sum_{h&#39;=1}^HN_{h&#39;}\bar{y}_{h&#39;}}=n\frac{t_{yU_h}}{\sum_{h&#39;=1}^Ht_{yU_{h&#39;}}}=n\frac{t_{yU_h}}{t_{yU}},
+\]</span> pour <span class="math inline">\(h=1, \ldots, H,\)</span> qui
+est exactement l’allocation proportionnelle au total de <span
+class="math inline">\(y\)</span>.</p>
+</div>
+<div id="solution-exercice-4.8" class="section level2">
+<h2>Solution exercice 4.8</h2>
+<ol style="list-style-type: decimal">
+<li>Le plan de sondage <span class="math inline">\(p(s)\)</span> d’un
+échantillon <span class="math inline">\(s=s_1\cup s_2\)</span> est <span
+class="math inline">\(p(s)=p_1(s_1)p_2(s_2),\)</span> où <span
+class="math inline">\(p_1(\cdot)\)</span> est un plan de Bernoulli de
+paramètre <span class="math inline">\(\pi=n_1/N_1\)</span> et <span
+class="math inline">\(p_2(\cdot)\)</span> est un plan de sondage
+aléatoire simple sans remise de taille <span
+class="math inline">\(n_2\)</span> dans <span
+class="math inline">\(U_2\)</span> de taille <span
+class="math inline">\(N_2.\)</span> Les plans <span
+class="math inline">\(p_1\)</span> et <span
+class="math inline">\(p_2\)</span> sont sans remise, le plan <span
+class="math inline">\(p\)</span> le sera également.</li>
+</ol>
+<p>Les probabilités d’inclusion d’ordre un sont données par <span
+class="math display">\[\begin{eqnarray*}
+    \pi_k=\mathbb{P}(k\in s)&amp;=&amp;\mathbb{P}(k\in
+s_1)=\pi_{k,1}=\pi=\frac{n_1}{N_1}\quad \mbox{si} \quad k\in U_1\\
+    &amp;=&amp; \mathbb{P}(k\in s_2)=\pi_{k,2}=\frac{n_2}{N_2}\quad
+\mbox{si} \quad k\in U_2.
+\end{eqnarray*}\]</span> Sauf le cas <span
+class="math inline">\(n_1/N_1=n_2/N_2,\)</span> le plan est à
+probabilités inégales.</p>
+<p>Le plan <span class="math inline">\(p_1\)</span> est un plan de
+Bernoulli, donc de taille aléatoire <span
+class="math inline">\(n_{s_1}\)</span> avec <span
+class="math inline">\(\mathbb{E}_{p_1}(n_{s_1})=N_1\pi=n_1.\)</span> Le
+plan <span class="math inline">\(p_2\)</span> est un plan aléatoire
+simple de taille fixe <span class="math inline">\(n_2.\)</span> Le plan
+<span class="math inline">\(p\)</span> est également de taille <span
+class="math inline">\(n_s\)</span> aléatoire. L’espérance de <span
+class="math inline">\(n_s\)</span> est <span class="math display">\[
+\mathbb{E}_p(n_s)=\mathbb{E}_{p}(n_{s_1}+n_{s_2})=\mathbb{E}_{p_1}(n_{s_1})+n_2=n_1+n_2.
+\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Le total <span
+class="math inline">\(t_{yU}=t_{yU_1}+t_{yU_2}\)</span> est estimé par
+<span class="math display">\[\begin{eqnarray*}
+\hat t_{y\rm{HT}}=\hat t_{y\rm{HT}, 1}+\hat t_{y\rm{HT},2},
+\end{eqnarray*}\]</span> où <span class="math display">\[
+\hat t_{y\rm{HT},1}=\sum_{k\in s_1}y_k/\pi_{k,1}=\sum_{k\in
+s_1}y_k/\pi=N_1\sum_{k\in s_1}y_k/n_1
+\]</span> et <span class="math display">\[
+\hat t_{y\rm{HT},2}=\sum_{k\in s_2}y_k/\pi_{k,2}=N_2\sum_{k\in
+s_1}y_k/n_2.
+\]</span> La variance de <span class="math inline">\(\hat
+t_{y\rm{HT}}\)</span> est égale à <span class="math display">\[
+\mathop{\mathrm{V}}_{\rm{STSI}}(\hat
+t_{y\rm{HT}})=\mathop{\mathrm{V}}_{\rm{BE}}(\hat t_{y\rm{HT},
+1})+\mathop{\mathrm{V}}_{\rm{SI}}(\hat t_{y\rm{HT},
+2})=\frac{1-\pi}{\pi}\sum_{k\in
+U_1}y_k^2+N_2^2\frac{1-f_2}{n_2}S^2_{yU_2},
+\]</span> où <span class="math inline">\(S^2_{yU_2}=\sum_{k\in
+U_2}(y_k-\bar{y}_{U_2})^2/N_2;\)</span> la variance de <span
+class="math inline">\(\hat t_{y\rm{HT}}\)</span> est estimée par <span
+class="math display">\[
+\hat{\mathop{\mathrm{V}}}_{\rm{STSI}}(\hat
+t_{y\rm{HT}})=\hat{\mathop{\mathrm{V}}}_{\rm{BE}}(\hat t_{y\rm{HT},
+1})+\hat{\mathop{\mathrm{V}}}_{\rm{SI}}(\hat t_{y\rm{HT},
+2})=\frac{1-\pi}{\pi^2}\sum_{k\in
+s_1}y_k^2+N_2^2\frac{1-f_2}{n_2}S^2_{ys_2},
+\]</span> où <span class="math inline">\(S^2_{ys_2}=\sum_{k\in
+s_2}(y_k-\bar{y}_{s_2})^2/n_2.\)</span></li>
+</ol>
+</div>
+<div id="solution-exercice-4.9" class="section level2">
+<h2>Solution exercice 4.9</h2>
+<p>1.(a) On a un plan SI de taille <span
+class="math inline">\(n=2\)</span> dans une population <span
+class="math inline">\(U\)</span> de taille N=4, les probabilités
+d’inclusion d’ordre un sont égales à <span
+class="math inline">\(\pi_k=2/4=1/2\)</span> pour tout élément <span
+class="math inline">\(k\)</span> de <span
+class="math inline">\(U\)</span> et <span
+class="math inline">\(\pi_{kl}=n(n-1)/(N(N-1))=1/6\)</span> pour tout
+<span class="math inline">\(k\neq l\in U\)</span>.</p>
+<p>1.(b) L’estimateur de Horvitz-Thompson du <span
+class="math inline">\(\bar{y}_U\)</span> est donné par <span
+class="math display">\[
+\hat{\bar{y}}_{\rm{HT}}=\frac{1}{2}\sum_{k\in s}y_k=\bar{y}_s
+\]</span> et sa variance est égale à: <span class="math display">\[
+\mathop{\mathrm{V}}_{\rm{SI}}(\hat{\bar{y}}_{\rm{HT}})=\frac{1-f}{n}S^2_{yU}=4^2\left(\frac{1}{2}-\frac{1}{4}\right)\frac{1}{3}\sum_{k\in
+U}y_k^2=0.1667,
+\]</span> car <span class="math inline">\(\bar{y}_U=\sum_{k\in
+U}y_k/4=0\)</span>.</p>
+<p>2.(a) On a un plan STSI de taille <span
+class="math inline">\(n_1=n_2=1\)</span> au sein de strates <span
+class="math inline">\(U_1\)</span> et respectivement, <span
+class="math inline">\(U_2,\)</span> les probabilités d’inclusion un sont
+données par: <span class="math display">\[\begin{eqnarray*}
+    \pi_k=\mathbb{P}(k\in
+s)=\frac{n_h}{N_h}=\frac{1}{2}\quad\mbox{si}\quad k\in U_h, h=1, 2
+\end{eqnarray*}\]</span> car <span
+class="math inline">\(U_1=U_2=2\)</span> et <span
+class="math inline">\(n_1=n_2=1.\)</span> Les probabilités d’inclusion
+d’ordre deux sont égales à <span
+class="math display">\[\begin{eqnarray*}
+    \pi_{kl}=\mathbb{P}(k, l\in
+s)&amp;=&amp;\frac{n_h(n_h-1)}{N_h(N_h-1)}=0\quad\mbox{si}\quad k\neq
+l\in U_h, h=1, 2\\
+    &amp;=&amp;\frac{n_1}{N_1}\frac{n_2}{N_2}\quad\mbox{si}\quad k\in
+U_h, l\in U_{h&#39;}, h\neq h&#39;\in \{1, 2\}
+\end{eqnarray*}\]</span> 2.(b) On a un plan STSI avec une allocation
+proportionnelle à la taille, l’estimateur de Horvitz-Thompson avec ce
+plan STSI est donc le même que l’estimateur de Horvitz-Thompson avec le
+plan SI: <span class="math display">\[
+\hat{\bar{y}}_{\rm{HT}}=\frac{1}{2}\sum_{k\in s}y_k=\bar{y}_s.
+\]</span> Sa variance est par contre différente de celle obtenue dans le
+cas du plan SI et égale à: <span
+class="math display">\[\begin{eqnarray*}
+\mathop{\mathrm{V}}_{\rm{STSI,p}}(\hat{\bar{y}}_{\rm{HT}})=\frac{1-f}{n}\sum_{h=1}^2\frac{N_h}{N}S^2_{yU_h}=\left(\frac{1}{2}-\frac{1}{4}\right)\frac{1}{2}\left(S^2_{yU_1}+S^2_{yU_2}\right)=0.25,
+\end{eqnarray*}\]</span> car <span
+class="math inline">\(S^2_{yU_1}=\sum_{k\in
+U_1}(y_k-\bar{y}_{U_1})^2=0\)</span> et <span
+class="math inline">\(S^2_{yU_2}=\sum_{k\in
+U_2}(y_k-\bar{y}_{U_2})^2=2.\)</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>On remarque que <span class="math display">\[
+\mathop{\mathrm{V}}_{\rm{SI}}(\hat{\bar{y}}_{\rm{HT}})&lt;\mathop{\mathrm{V}}_{\rm{STSI,p}}(\hat{\bar{y}}_{\rm{HT}}),
+\]</span> donc la stratégie d’échantillonnage basée sur le plan
+stratifié est moins performante que celle basée sur le plan aléatoire
+simple sans remise. Cela n’est pas surprenant car dans ce cas, les
+moyennes de <span class="math inline">\(y\)</span> au sein des strates
+sont égales entre elles et égales à la moyenne de <span
+class="math inline">\(y\)</span> au sein de la population globale, donc
+la variabilité de <span class="math inline">\(y\)</span> inter-strates
+est nulle, SSB=0, et en conséquence, SST=SSW. Dans ce cas, la variance
+de l’estimateur de Horvitz-Thompson du <span
+class="math inline">\(\bar{y}_U\)</span> avec le plan SI devient: <span
+class="math display">\[
+\mathop{\mathrm{V}}_{\rm{SI}}(\hat{\bar{y}}_{\rm{HT}})=
+\frac{1-f}{n}S^2_{yU}=\frac{1-f}{n}\frac{\mbox{SST}}{N-1}=\frac{1-f}{n}\frac{\mbox{SSW}}{3}
+\]</span> et sous le plan STSI avec l’allocation proportionnelle à la
+taille: <span class="math display">\[\begin{eqnarray*}
+\mathop{\mathrm{V}}_{\rm{STSI,p}}(\hat{\bar{y}}_{\rm{HT}})=\frac{1-f}{n}\sum_{h=1}^2\frac{N_h}{N}S^2_{yU_h}&amp;
+=&amp;\frac{1-f}{n}\frac{2}{N}\sum_{h=1}^2\sum_{k\in
+U_h}(y_k-\bar{y}_{U_h})^2\\
+&amp;=&amp; \frac{1-f}{n}\frac{2\times \mbox{SSW}}{4} &lt;
+\frac{1-f}{n}\frac{\mbox{SSW}}{3}=\mathop{\mathrm{V}}_{\rm{SI}}(\hat{\bar{y}}_{\rm{HT}}).
+\end{eqnarray*}\]</span> En effet, les constantes qui se trouvent devant
+les termes de variance <span class="math inline">\(S^2_{yU}\)</span> et
+<span class="math inline">\(S^2_{yU_h}, h=1,\ldots, 2,\)</span> font que
+la variance de l’estimateur de Horvitz-Thompson avec le plan SI est plus
+faible qu’avec le plan STSI.</li>
+</ol>
+</div>
+<div id="solution-exercice-4.10" class="section level2">
+<h2>Solution exercice 4.10</h2>
+<ol style="list-style-type: decimal">
+<li><p>Pour un certain <span class="math inline">\(h=1, \ldots,
+H,\)</span> la sélection de l’échantillon <span
+class="math inline">\(s_h\)</span> se fait selon un plan de Bernoulli de
+paramètre <span class="math inline">\(\pi_h\)</span>, donc on a <span
+class="math inline">\(p_h(s_h)=\pi^{n_{s_h}}_h(1-\pi_{h})^{N_h-n_{s_h}}\)</span>
+et la sélection de <span class="math inline">\(s\)</span> est donc selon
+le plan suivant: <span class="math display">\[
+p(s)=\Pi_{h=1}^Hp_h(s_h)=\Pi_{h=1}^H\pi^{n_{s_h}}_h(1-\pi_{h})^{N_h-n_{s_h}}.
+\]</span> L’estimateur de Horvitz-Thompson de <span
+class="math inline">\(t_{yU}\)</span> est égal à <span
+class="math display">\[
+\hat{t}_{y\rm{HT}}=\sum_{h=1}^H\frac{1}{\pi_h}\sum_{k\in s_h}y_k
+\]</span> de variance: <span class="math display">\[
+\mathop{\mathrm{V}}_{\rm{STBE}}(\hat{t}_{y\rm{HT}})=\sum_{h=1}^H\frac{1-\pi_h}{\pi_h}\sum_{k\in
+U_h}y_k^2.
+\]</span></p></li>
+<li><p>La taille <span class="math inline">\(n_{s_h}\)</span> suit une
+loi de Bernoulli des paramètres <span class="math inline">\(N_h\)</span>
+et <span class="math inline">\(\pi_h,\)</span> pour <span
+class="math inline">\(h=1, \ldots, H.\)</span></p></li>
+<li><p>On a <span class="math display">\[\begin{eqnarray*}
+p(s|\mathbf{n}_s=\mathbf{n})=\frac{\mathbb{P}(s\cap
+\mathbf{n}_s=\mathbf{n})}{\mathbb{P}(\mathbf{n}_s=\mathbf{n})}=\frac{\Pi_{h=1}^H\pi^{n_{h}}_h(1-\pi_{h})^{N_h-n_{h}}}{\Pi_{h=1}^H\binom{N_h}{n_h}\pi^{n_{h}}_h(1-\pi_{h})^{N_h-n_{h}}}=
+\Pi_{h=1}^H\frac{1}{\binom{N_h}{n_h}},
+\end{eqnarray*}\]</span> ce qui correspond à un plan STSI de tailles
+<span class="math inline">\(n_h, h=1, \ldots, H. H\)</span> au sein des
+strates de tailles <span class="math inline">\(N_h, h=1, \ldots,
+H.\)</span></p></li>
+</ol>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -408,35 +811,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

@@ -1,14 +1,267 @@
 ---
-title: "III. Correction Exercices - Chapitre 1"
+title: "Solutions exercices chapitre 1"
+author: "Camelia Goga"
+date: "2026-01-14"
+output:
+  html_document: default
+header-includes:
+- \usepackage{amsmath,amssymb}
+- \newcommand{\E}{\mathbb{E}}
+- \DeclareMathOperator{\C}{Cov}
+- \DeclareMathOperator{\V}{V}
+- \DeclareMathOperator{\A}{AV}
 ---
-
-<!-- ÉCRIVEZ VOTRE CODE R MARKDOWN ICI -->
-<!-- Cette page contient les corrections du Chapitre 1 -->
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Correction Chapitre 1
+## Solution exercice 1.1
 
-Vos corrections ici.
+
+On utilise la définition pour calculer les probabilités d'inclusion d'ordre un, $\pi_k,$ et d'ordre deux,  $\pi_{kl}.$ Les échantillons $\{1,2\}$ et $\{1,3\}$ contiennent l'individu $k=1$ et ils ont une probabilités non-nulle d'être sélectionnés. Donc,
+$$
+\pi_1=p(\{1,2\})+p(\{1,3\})=0.1+0.3=0.4.
+$$
+Par le même raisonnement,  on obtient: 
+$$
+\pi_2=p(\{1,2\})+p(\{2,3\})=0.7; \quad \pi_3=p(\{1,3\})+p(\{2,3\})=0.9.
+$$
+On peut vérifier que $\sum_{k\in U}\pi_k=2,$ ce qui confirme la propriété des plans de taille fixe, $n=2$ dans notre cas ici. Les probabilités d'ordre deux sont données par:
+$$
+\pi_{12}=p(\{1,2\})=0.1;\quad \pi_{13}=p(\{1,3\})=0.3;\quad \pi_{23}=p(\{2,3\})=0.6.
+$$
+
+## Solution exercice 1.2
+
+On procède de la même façon que dans la solution de l'exercice 1.1. 
+On obtient $\pi_1=0.15+0.2+0.1=0.45,$   $\pi_2=0.15+0.35+0.1=0.6,$ $\pi_3=0.2+0.35+0.1=0.65$ et $\pi_4=3\times 0.1=0.3.$ On vérifie de nouveau que $\sum_{k\in U}\pi_k=2,$ le plan de sondage étant de taille fixe $n=2.$ Pour les probabilités d'inclusion d'ordre deux, $\pi_{kl},$ pour $k\neq l\in U,$ un unique échantillon de taille deux contient les unités $k$ et $l$ à la fois, on a donc $\pi_{kl}=p(\{k,l\})$ pour $k\neq l\in U.$
+
+## Solution exercice 1.3
+
+1. Pour calculer les probabilités d'inclusion $\pi_k,$ on énumère les échantillons de taille $n=2$ qui contiennent l'unité $k:$ il y en a $\binom{3}{1}$ et chacun de ces échantillons $s$ a la même probabilité d'être sélectionné:  $p(s)=1/\binom{4}{2}=1/6.$ On obtient alors:
+$$
+\pi_k=\frac{\binom{3}{1}}{\binom{4}{2}}=\frac{2}{4}=\frac{1}{2}, \quad k\neq l\in U.
+$$
+Pour les probabilités d'inclusion d'ordre deux, $\pi_{kl},$ pour $k\neq l\in U,$ un unique échantillon de taille deux contient les unités $k$ et $l$ à la fois, on a donc $\pi_{kl}=p(\{k,l\})=1/6$ pour $k\neq l\in U.$
+
+2. Les probabilités d'inclusion d'ordre un sont $\pi_k=1/2$ pour tous $k\in U,$ l'estimateur de Horvitz-Thompson de la moyenne $\bar{y}_U$ est donné par:
+$$
+\hat{\bar{y}}_{\rm{HT}}=\frac{1}{3}\sum_{k\in s}\frac{y_k}{\pi_k}=\frac{1}{2}\sum_{k\in s}y_k=\bar{y}_s. 
+$$
+Pour calculer le biais de cet estimateur, on procède comme dans la solution de l'exercice 1.4, 
+on obtient que $\hat{\bar{y}}_{\rm{HT}}$ est sans biais pour $\bar{y}_U.$ La variance de $\hat{\bar{y}}_{\rm{HT}}$ est calculée selon la définition:
+\begin{eqnarray*}
+\V(\hat{\bar{y}}_{\rm{HT}})=\sum_{s\in \mathcal S}p(s)(\hat{\bar{y}}_{\rm{HT}}(s)-\bar{y}_U)^2=\sum_{s\in \mathcal S}p(s)\bar{y}_s^2-2\bar{y}_U\underbrace{\sum_{s\in \mathcal S}p(s)\bar{y}_s}_{\bar{y}_U}+\bar{y}^2_U=\sum_{s\in \mathcal S}p(s)\bar{y}_s^2-\bar{y}^2_U
+\end{eqnarray*}
+et comme $p(s)=1/6$ pour tous les échantillons $s$ de taille $n=2$ et zéro sinon, la variance devient:
+\begin{eqnarray*}
+\V(\hat{\bar{y}}_{\rm{HT}})=\frac{1}{6}\sum_{s\in \mathcal S, |s|=2}\bar{y}_s^2-\bar{y}^2_U= 989.0625.
+\end{eqnarray*}
+Dans le chapitre 2, on donnera une deuxième façon pour calculer la variance de $\hat{\bar{y}}_{\rm{HT}}$ pour ce plan aléatoire simple sans remise de taille $n=2$ basée sur les termes de covariance  $\Delta_{kl}$.
+
+## Solution exercice 1.4
+
+Les probabilités d'inclusion d'ordre un sont  $\pi_k=2/3$ pour $k\in U,$ l'estimateur de Horvitz-Thompson de $\bar{y}_U$ est donc égal à:
+$$
+\hat{\bar{y}}_{\rm{HT}}=\frac{1}{3}\sum_{k\in s}\frac{y_k}{\pi_k}=\frac{1}{2}\sum_{k\in s}y_k=\bar{y}_s. 
+$$
+Calcul du biais de $\hat{\bar{y}}_{\rm{HT}}$ \textit{avec les indicatrices d'appartenance}:
+$$
+B(\hat{\bar{y}}_{\rm{HT}})=\E(\hat{\bar{y}}_{\rm{HT}})-\bar{y}_U=\frac{1}{3}\sum_{k\in U}\frac{y_k}{\pi_k}\E(I_k)- \bar{y}_U=0,
+$$
+car $\E(I_k)=\pi_k, k\in U.$ 
+
+
+Calcul du biais de $\hat{\bar{y}}_{\rm{HT}}$ \textit{sans les indicatrices d'appartenance}: 
+$$
+B(\hat{\bar{y}}_{\rm{HT}})=\sum_{s\in \mathcal S}p(s)\bar{y}_s-\bar{y}_U=\frac{1}{3}\sum_{s\in \mathcal S, |s|=2}\bar{y}_s-\bar{y}_U=\frac{1}{3\times 2}(y_1+y_2+y_1+y_3+y_2+y_3)-\bar{y}_U=0,
+$$
+car $p(s)=1/3$ si $s$ est un des échantillons $\{1, 2\},$ $\{1,3\}$ et $\{2,3\}$ et zéro sinon.
+
+## Solution exercice 1.5 
+
+L'estimateur de Horvitz-Thompson $\hat{t}_{y\rm{HT}}$ du total $t_{yU}$ est donné par 
+$$
+\hat{t}_{y\rm{HT}}=\sum_{k\in s}\frac{y_k}{\pi_k}=\sum_{k\in U_0}\frac{y_k}{\pi_k}I_k
+$$
+car les probabilités d'inclusion $\pi_k>0$ uniquement pour $k\in U_0.$ Le biais de l'estimateur de Horvitz-Thompson est donné par
+$$
+B(\hat{t}_{y\rm{HT}})=\E(\hat{t}_{y\rm{HT}})-t_{yU}=\sum_{k\in U_0}y_k-\sum_{k\in U}y_k=-\sum_{k\in U\backslash U_0}y_k,
+$$
+car $\E(I_k)=\pi_k$ pour $k\in U_0.$
+
+## Solution exercice 1.6
+
+Le vrai paramètre qu'on cherche à estimer est $\bar{y}_U=68/3=22.667.$
+
+1. Pour calculer l'espérance de l'estimateur $\hat{t}$ sous le plan de sondage $p(\cdot),$ on utilise la définition: 
+    \begin{eqnarray*}
+        \E (\hat{t}) &=& \sum_{s \in \mathcal S}  p(s)\hat{t}(s) = p(s_1) \hat{t}(s_1) + p(s_2) \hat{t}(s_2) + p(s_3) \hat{t}(s_3) \\
+        &=& p(s_1) \frac{y_1 + y_2}{6 p(s_1)} + p(s_2) \frac{y_1 + y_3}{6 p(s_2)} + p(s_3) \frac{y_2 + y_3}{6 p(s_3)} \\
+        &=&\frac{y_1 + y_2 + y_3}{3} = \bar{y}_U,
+    \end{eqnarray*}
+ce qui implique que  l'estimateur $\hat{t}$ est sans biais pour $\bar{y}_U$ sous le plan de sondage $p(\cdot).$
+
+2. On procède de la même façon que dans le point précédent.
+
+3. La distribution de $\hat{t}$ sous $p(\cdot)$ est donnée par : 
+\begin{eqnarray*}
+    \hat{t}(s_1) &=& \frac{y_1 + y_2}{6p(s_1)} = \frac{48}{6 \times 0.32} = 25 ~\ \textrm{si} ~\ S= s_1 \\
+    \hat{t}(s_2) &=& \frac{y_1 + y_3}{6p(s_2)} = \frac{48}{6 \times 0.40} = 20 ~\ \textrm{si} ~\ S= s_2 \\
+    \hat{t}(s_3) &=& \frac{y_2 + y_3}{6p(s_3)} = \frac{40}{6 \times 0.28} \approx 23.80 ~\ \textrm{si} ~\ S= s_3 
+\end{eqnarray*}
+La distribution de $\hat{t}$ sous $p_1(\cdot)$ est : 
+\begin{eqnarray*}
+    \hat{t}(s_1) &=& \frac{y_1 + y_2}{6p_1(s_1)}=\frac{48}{6 \times \frac{1}{3}} = 24 ~\ \textrm{si} ~\ S= s_1 \\
+    \hat{t}(s_2) &=& \frac{y_1 + y_3}{6p_1(s_2)}=\frac{48}{6 \times \frac{1}{3}} = 24 ~\ \textrm{si} ~\ S= s_2 \\
+    \hat{t}(s_3) &=& \frac{y_2 + y_3}{6p_1(s_3)}= \frac{40}{6 \times \frac{1}{3}} = 20 ~\ \textrm{si} ~\ S= s_3 
+\end{eqnarray*}
+
+## Solution exercice 1.7
+
+Le vrai paramètre qu'on cherche à estimer est $\bar{y}_U=68/3=22.667.$
+
+1. L'espérance de $\hat{\bar{y}}_U$ sous le plan de sondage $p(\cdot)$ est donnée par:
+\begin{eqnarray*}
+    \E (\hat{\bar{y}}_U)=\sum_{s\in \mathcal S}p(s)\hat{\bar{y}}_U(s)=\frac{0.32}{2} \left(y_1 + y_2 \right) +  \frac{0.4}{2} \left(y_1 + y_3 \right) +  \frac{0.28}{2} \left(y_2 + y_3 \right) = 22.88
+\end{eqnarray*}
+qui est différente de $\bar{y}_U=22.667,$ donc l'estimateur $\hat{\bar{y}}_U$ est biaisé pour $\bar{y}_U$ sous ce plan de sondage $p(\cdot).$ 
+
+2. L'espérance de $\hat{\bar{y}}_U$ sous le plan de sondage $p_1(\cdot)$ est donnée par:
+\begin{eqnarray*}
+    \E (\hat{\bar{y}}_U)=\sum_{s\in \mathcal S}p_1(s)\hat{\bar{y}}_U(s)=\frac{1}{3\times 2}(y_1+y_2+y_1+y_3+y_2+y_3)=\bar{y}_U=22.667,
+\end{eqnarray*}   
+l'estimateur $\hat{\bar{y}}_U$  est sans biais pour $\bar{y}_U$ sous le plan de sondage $p_1(\cdot).$
+
+3. L'estimateur $\hat{\bar{y}}_U$ est biaisé sous le plan de sondage $p(\cdot)$ et sans biais sous le plan de sondage $p_1(\cdot).$ La différence vient du fait que cet estimateur ne tient pas compte du plan de sondage utilisé, il considère la moyenne des valeurs de la variable $y$ pour les individus échantillonnés quel que soit le plan de sondage utilisé. Dans le cas du plan $p_1(\cdot),$ les probabilités d'inclusion sont les mêmes pour tous les individus et données par $\pi_k=2/3,$ pour tout $k\in U;$ l'estimateur $\hat{\bar{y}}_U$ est exactement  l'estimateur de Horvitz-Thompson de la moyenne $\bar{y}_U,$ qui est sans biais pour $\bar{y}_U.$ Dans le cas du plan $p(\cdot),$ les probabilités $\pi_k$ sont différentes d'un individu à l'autre (vous pouvez les calculer!), donc les poids $1/\pi_k$ dont différentes aussi, tandis que $\hat{\bar{y}}_U$ donne le même poids à tous les individus, ce qui explique le fait qu'il est biaisé. 
+
+## Solution exercice 1.8
+
+1. L'espérance de $\hat{t}$ sous le plan $p(\cdot)$ est calculée selon la définition:
+\begin{eqnarray*}
+    \E (\hat{t}) = \sum_{s \in \mathcal S}p(s) \hat{t}(s)  &=& \sum_{j=1}^3p(s_j) \hat{t}(s_j)\\
+    &=&\frac{1}{3} \left( \frac{y_1}{2} + \frac{y_2}{2} + \frac{y_1}{2} + \frac{2y_3}{3} + \frac{y_2}{2} + \frac{y_3}{3} \right)= \bar{y}_U,
+\end{eqnarray*}
+donc $\hat{t}$ est sans biais pour $\bar{y}_U.$ La variance est calculée également en utilisant la définition:
+\begin{eqnarray*} \label{ex1.8eq1}
+    \V (\hat{t}) &=& \sum_{s \in \mathcal S}  p(s) \left( \hat{t}(s) - \E (\hat{t}) \right)^2=\sum_{s \in \mathcal S}  p(s)(\hat{t}(s))^2-\bar{y}_U^2= \frac{1}{3} \sum_{j=1}^3 \hat{t}^2(s_j) - \bar{y}_U^2\nonumber\\
+    &=& \frac{y_1^2}{2} + \frac{y_2^2}{2} + \frac{5y_3^2}{9} + \frac{y_1 y_2}{2} + \frac{2 y_1 y_3}{3} + \frac{y_2 y_3}{3}-\bar{y}_U^2
+\end{eqnarray*}
+2. Considérons maintenant l'estimateur $\hat{\bar{y}}_U.$ Son espérance est 
+\begin{eqnarray*}
+    \E (\hat{\bar{y}}_U)=\sum_{s \in \mathcal S} p(s)\hat{\bar{y}}_U(s) =\sum_{j=1}^3 p(s_j)  \hat{\bar{y}}_U(s_j) = \frac{1}{3} (y_1 + y_2 + y_3) = \bar{y}_U 
+\end{eqnarray*}
+ et la variance: 
+ \begin{eqnarray*}
+    \V (\hat{\bar{y}}_U) &=& \sum_{s\in \mathcal S} p(s)  \left( \hat{\bar{y}}_U(s) - \bar{y}_U \right)^2= \frac{1}{3} \sum_{j=1}^3  \hat{\bar{y}}^2_U(s_j) - \bar{y}_U^2 \\
+    &=& \frac{1}{6} \left[ y_1^2 + y_2^2 + y_3^2 + y_1y_2 + y_1y_3 + y_2y_3  \right] - \bar{y}^2_U.
+\end{eqnarray*}
+3. On obtient
+    \begin{eqnarray*}
+        \V \left( \hat{\bar{y}}_U \right) - \V \left(\hat{t}\right) %&=& \frac{y_1^2 + y_2^2 + y_3^2}{6} - \frac{y_1^2}{6} - \frac{y_2^2}{6} - \frac{5y_3^2}{27} + \frac{y_1y_2 + y_1y_3 + y_2y_3}{6} - \frac{y_1y_2}{6} - \frac{2y_1y_3}{9} - \frac{y_2y_3}{9} \\
+        %&=& \frac{y_3}{3} \left( \frac{y_3}{2} - \frac{5y_3}{9} + \frac{y_1}{2} - \frac{2y_1}{3} - \frac{y_2}{3} + \frac{y_2}{2} \right) \\
+         %\frac{y_3}{3} \left( - \frac{y_3}{18} - \frac{y_1}{6} + \frac{y_2}{6} \right) 
+        = \frac{y_3 (3y_2 - 3y_1 - y_3)}{54}\cdot
+    \end{eqnarray*}
+    
+## Solution exercice 1.9
+
+1. On considère la variable $y_d$ de valeurs $y_{kd}=y_k\mathbf{1}_{\{k\in U_d\}}$ pour $k\in U.$ On peut écrire le total de $y$ sur $U_d$ comme le total de la variable $y_d$ sur la population $U:$ 
+$$
+t_{yU_d}=\sum_{k\in U_d}y_k=\sum_{k\in U}y_k\mathbf{1}_{\{k\in U_d\}}=\sum_{k\in U}y_{kd}.
+$$
+L'échantillon d'individus est sélectionné dans la population $U,$ l'estimateur de Horvitz-Thompson de $t_{yU_d}$ s'obtient donc facilement comme suit:
+$$
+\hat{t}_{y_d}=\sum_{k\in s}\frac{y_{kd}}{\pi_k}=\sum_{k\in s}\frac{y_k\mathbf{1}_{\{k\in U_d\}}}{\pi_k}=\sum_{k\in s_d}\frac{y_k}{\pi_k},
+$$
+où $s_d=s\cap U_d.$ La variance de $\hat{t}_{y_d}$ est égale à
+$$
+\V(\hat{t}_{y_d})=\sum_{k\in U}\sum_{k\in U}\Delta_{kl}\frac{y_{kd}}{\pi_k}\frac{y_{ld}}{\pi_l}=\sum_{k\in U_d}\sum_{l\in U_d}\Delta_{kl}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}
+$$
+et elle peut être estimée sans biais par 
+$$
+\hat{\V}(\hat{t}_{y_d})=\sum_{k\in s}\sum_{k\in s}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_{kd}}{\pi_k}\frac{y_{ld}}{\pi_l}=\sum_{k\in s_d}\sum_{l\in s_d}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l},
+$$
+en supposant que $\pi_{kl}>0$ pour tous les $k\neq l\in U.$
+
+3. La taille du domaine $U_d$ peut s'écrire comme un total sur la population $U:$
+$$
+N_d=\sum_{k\in U}\mathbf{1}_{\{k\in U_d\}},
+$$
+on peut utiliser ensuite les points 1 et 2 avec  $y_k=1$ pour tout $k\in U.$
+
+## Solution exercice 1.10
+
+L'estimateur de Horvitz-Thompson du total $t_{yU}$ s'écrit à l'aide des variables indicatrices $I_k$ d'appartenance à un échantillon:
+$$
+\hat t_{y\rm{HT}}=\sum_{k\in U}\frac{y_k}{\pi_k}I_k
+$$
+et donc sa variance est égale à:
+\begin{eqnarray*}
+\V(\hat t_{y\rm{HT}})=\sum_{k\in U}\sum_{l\in U}\C(I_k,I_l)\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}=\sum_{k\in U}\sum_{l\in U}\Delta_{kl}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l},   
+\end{eqnarray*}
+car pour $k=l\in U,$ $\C(I_k,I_l)=\V(I_k)=\pi_k(1-\pi_k)=\Delta_{kk}$ et pour $k\neq l\in U,$ $\C(I_k,I_l)=\pi_{kl}-\pi_k\pi_l=\Delta_{kl}.$ En utilisant de nouveau les indicatrices $I_k, k\in U,$ et si $\pi_{kl}>0$ pour tous les $k,l\in U,$ l'estimateur de la variance $\hat{V}(\hat t_{y\rm{HT}})$ peut s'écrire:
+$$
+\hat{V}(\hat t_{y\rm{HT}})=\sum_{k\in U}\sum_{l\in U}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}I_kI_l
+$$
+et 
+$$
+\E(\hat{V}(\hat t_{y\rm{HT}}))=\sum_{k\in U}\sum_{l\in U}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}\E(I_kI_l)=\sum_{k\in U}\sum_{l\in U}\Delta_{kl}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}=\V(\hat t_{y\rm{HT}}).
+$$
+## Solution exercice 1.11
+
+On a $\pi_k = \mathbb P(k \in S)$ et 
+$$
+1 - \pi_k = \mathbb P(k \notin S) = [\mathbb P(k ~\ \textrm{n'est pas sélectionné})]^m=(1-p_k)^m,
+$$ 
+car $k$ n'est sélectionné à aucun des $m$ tirages et la probabilité que $k$ ne soit pas sélectionné à un certain tirage est $1-p_k$. On a 
+$\pi_{kl} = \mathbb P(k \in S, l \in S)$ et 
+\begin{eqnarray*}
+1 - \pi_{kl} &=& \mathbb{P}( k \notin S ~\ \textrm{ou} ~\ l \notin S)\\
+   &=& \mathbb{P}(\{ k \notin S \}) + \mathbb P(\{ l \notin S\}) - \mathbb P(\{k \notin S, l \notin S \})\\ %P( k\notin S ~\ \textrm{ou} ~\ l\notin S)
+   &=& (1-p_k)^m + (1-p_l)^m - (1-p_k - p_l)^m.   
+\end{eqnarray*}
+
+## Solution exercice 1.12 
+
+On a 
+$p(s_o) = \mathbb P(k_1 \mbox{ sélectionné au 1er tirage}, k_2 \mbox{  au 2ème tirage}, ..., k_m \mbox{au m-ème tirage})
+ = \mathbb P( k_1 \mbox{ sélectionné au 1er tirage})\times \mathbb P( k_2 \mbox{ sélectionné au 2ème tirage})\times ... \times\mathbb P( k_m \mbox{  sélectionné au m-ème tirage}) = p_{k_1} p_{k_2} ... p_{k_m}$ car les tirages des individus se font de façon indépendante.
+
+
+## Solution exercice 1.13
+
+L'estimateur de Hansen-Hurwitz s'écrit:
+$$
+\hat{t}_{y\mbox{\sc hh}}= \sum_{k\in U} \frac{y_k}{m \, p_k}  R_k,
+$$
+où $R_k$ est la variable aléatoire égale au nombre de fois que l'unité $k$ a été sélectionnée après $m$ tirages avec remise avec $\V(R_k)=mp_k(1-p_k)$ et $\C(R_k,R_l)=-mp_kp_l,$ $k\neq l\in U.$
+Sa variance de l'estimateur de Hansen-Hurwitz est égale à:
+\begin{eqnarray*}
+\V(\hat{t}_{y\mbox{\sc hh}}) &=&\sum_{k\in U}\left(\frac{y_k}{m \, p_k}\right)^2\V(R_k)+\sum_{k\in U}\sum_{l\neq k\in U}\frac{y_k}{m \, p_k}\frac{y_l}{m \, p_l}\C(R_k, R_l).\\
+&=&\sum_{k\in U}\left(\frac{y_k}{m \, p_k}\right)^2 mp_k(1-p_k)-\sum_{k\in U}\sum_{l\neq k\in U}\frac{y_k}{m \, p_k}\frac{y_l}{m \, p_l}mp_kp_l\\
+&=& \frac{1}{m}\sum_{k\in U}p_k\left(\frac{y_k}{p_k}\right)^2-\frac{1}{m}\left(\sum_{k\in U}y^2_k+\sum_{k\in U}\sum_{l\neq k\in U}y_ky_l\right)\\
+&= & \frac{1}{m}\left(\sum_{k\in U}p_k\left(\frac{y_k}{p_k}\right)^2-t^2_{yU}\right)
+= \V(\hat{t}_{y\mbox{\sc hh}}). 
+\end{eqnarray*}
+L'estimateur de la variance s'écrit:
+\begin{eqnarray*}
+\hat{\V}(\hat{t}_{y\mbox{\sc hh}}) = \frac{1}{m(m-1)}\left(\sum_{k\in U}\left(\frac{y_k}{p_k}\right)^2R_k-m\,\hat{t}^2_{y\mbox{\sc hh}}\right)
+\end{eqnarray*}
+et donc, 
+\begin{eqnarray*}
+\E(\hat{\V}(\hat{t}_{y\mbox{\sc hh}})) &=& \frac{1}{m(m-1)}\left(\sum_{k\in U}\left(\frac{y_k}{p_k}\right)^2\E(R_k)-m\,\E(\hat{t}^2_{y\mbox{\sc hh}})\right)\\
+&=& \frac{1}{m-1}\left(\sum_{k\in U}\left(\frac{y_k}{p_k}\right)^2p_k-t^2_{yU}\right)-\frac{\V(\hat{t}_{y\mbox{\sc hh}})}{m-1}\\
+&=& \frac{m\V(\hat{t}_{y\mbox{\sc hh}})}{m-1}-\frac{\V(\hat{t}_{y\mbox{\sc hh}})}{m-1}=\V(\hat{t}_{y\mbox{\sc hh}}),
+\end{eqnarray*}
+car $\E(R_k)=mp_k$ et $\E(\hat{t}^2_{y\mbox{\sc hh}})=\V(\hat{t}_{y\mbox{\sc hh}})+t^2_{yU}.$
+
+## Solution exercice 1.14
+
+La variable $y$ est dichotomique: $y_k=1$ si l'individu $k$ a une certaine propriété et zéro sinon. On a $P=\sum_{k\in U}y_k/N=\bar{y}_U.$ La variance corrigée empirique de $y$ calculée sur la population $U$ est donnée par:
+\begin{eqnarray*}
+S^2_{yU}=\frac{1}{N-1}\sum_{k\in U}(y_k-\bar{y}_U)^2=\frac{1}{N-1}\left(\sum_{k\in U}y_k^2-N\bar{y}^2_U\right)&=&\frac{1}{N-1}\left(NP-NP^2\right)\\
+&=& \frac{N}{N-1}P(1-P),
+\end{eqnarray*}
+car $y_k^2=y_k$ pour tout $k\in U$ dû au fait que $y$ est une variable dichotomique $0-1.$

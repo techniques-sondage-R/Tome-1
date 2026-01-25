@@ -9,14 +9,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Camelia Goga" />
 
+<meta name="date" content="2026-01-14" />
 
-<title>III. Correction Exercices - Chapitre 1</title>
+<title>Solutions exercices chapitre 1</title>
 
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -29,10 +31,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -43,6 +44,16 @@
   ul.task-list{list-style: none;}
     </style>
 
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
 
 
 
@@ -210,69 +221,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -280,16 +228,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -302,7 +240,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Mon Site R</a>
+      <a class="navbar-brand" href="index.html">Techniques de sondage avec R</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -360,22 +298,480 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">III. Correction Exercices - Chapitre 1</h1>
+<h1 class="title toc-ignore">Solutions exercices chapitre 1</h1>
+<h4 class="author">Camelia Goga</h4>
+<h4 class="date">2026-01-14</h4>
 
 </div>
 
 
-<!-- ÉCRIVEZ VOTRE CODE R MARKDOWN ICI -->
-<!-- Cette page contient les corrections du Chapitre 1 -->
-<div id="correction-chapitre-1" class="section level1">
-<h1>Correction Chapitre 1</h1>
-<p>Vos corrections ici.</p>
+<div id="solution-exercice-1.1" class="section level2">
+<h2>Solution exercice 1.1</h2>
+<p>On utilise la définition pour calculer les probabilités d’inclusion
+d’ordre un, <span class="math inline">\(\pi_k,\)</span> et d’ordre deux,
+<span class="math inline">\(\pi_{kl}.\)</span> Les échantillons <span
+class="math inline">\(\{1,2\}\)</span> et <span
+class="math inline">\(\{1,3\}\)</span> contiennent l’individu <span
+class="math inline">\(k=1\)</span> et ils ont une probabilités non-nulle
+d’être sélectionnés. Donc, <span class="math display">\[
+\pi_1=p(\{1,2\})+p(\{1,3\})=0.1+0.3=0.4.
+\]</span> Par le même raisonnement, on obtient: <span
+class="math display">\[
+\pi_2=p(\{1,2\})+p(\{2,3\})=0.7; \quad \pi_3=p(\{1,3\})+p(\{2,3\})=0.9.
+\]</span> On peut vérifier que <span class="math inline">\(\sum_{k\in
+U}\pi_k=2,\)</span> ce qui confirme la propriété des plans de taille
+fixe, <span class="math inline">\(n=2\)</span> dans notre cas ici. Les
+probabilités d’ordre deux sont données par: <span
+class="math display">\[
+\pi_{12}=p(\{1,2\})=0.1;\quad \pi_{13}=p(\{1,3\})=0.3;\quad
+\pi_{23}=p(\{2,3\})=0.6.
+\]</span></p>
+</div>
+<div id="solution-exercice-1.2" class="section level2">
+<h2>Solution exercice 1.2</h2>
+<p>On procède de la même façon que dans la solution de l’exercice 1.1.
+On obtient <span class="math inline">\(\pi_1=0.15+0.2+0.1=0.45,\)</span>
+<span class="math inline">\(\pi_2=0.15+0.35+0.1=0.6,\)</span> <span
+class="math inline">\(\pi_3=0.2+0.35+0.1=0.65\)</span> et <span
+class="math inline">\(\pi_4=3\times 0.1=0.3.\)</span> On vérifie de
+nouveau que <span class="math inline">\(\sum_{k\in U}\pi_k=2,\)</span>
+le plan de sondage étant de taille fixe <span
+class="math inline">\(n=2.\)</span> Pour les probabilités d’inclusion
+d’ordre deux, <span class="math inline">\(\pi_{kl},\)</span> pour <span
+class="math inline">\(k\neq l\in U,\)</span> un unique échantillon de
+taille deux contient les unités <span class="math inline">\(k\)</span>
+et <span class="math inline">\(l\)</span> à la fois, on a donc <span
+class="math inline">\(\pi_{kl}=p(\{k,l\})\)</span> pour <span
+class="math inline">\(k\neq l\in U.\)</span></p>
+</div>
+<div id="solution-exercice-1.3" class="section level2">
+<h2>Solution exercice 1.3</h2>
+<ol style="list-style-type: decimal">
+<li><p>Pour calculer les probabilités d’inclusion <span
+class="math inline">\(\pi_k,\)</span> on énumère les échantillons de
+taille <span class="math inline">\(n=2\)</span> qui contiennent l’unité
+<span class="math inline">\(k:\)</span> il y en a <span
+class="math inline">\(\binom{3}{1}\)</span> et chacun de ces
+échantillons <span class="math inline">\(s\)</span> a la même
+probabilité d’être sélectionné: <span
+class="math inline">\(p(s)=1/\binom{4}{2}=1/6.\)</span> On obtient
+alors: <span class="math display">\[
+\pi_k=\frac{\binom{3}{1}}{\binom{4}{2}}=\frac{2}{4}=\frac{1}{2}, \quad
+k\neq l\in U.
+\]</span> Pour les probabilités d’inclusion d’ordre deux, <span
+class="math inline">\(\pi_{kl},\)</span> pour <span
+class="math inline">\(k\neq l\in U,\)</span> un unique échantillon de
+taille deux contient les unités <span class="math inline">\(k\)</span>
+et <span class="math inline">\(l\)</span> à la fois, on a donc <span
+class="math inline">\(\pi_{kl}=p(\{k,l\})=1/6\)</span> pour <span
+class="math inline">\(k\neq l\in U.\)</span></p></li>
+<li><p>Les probabilités d’inclusion d’ordre un sont <span
+class="math inline">\(\pi_k=1/2\)</span> pour tous <span
+class="math inline">\(k\in U,\)</span> l’estimateur de Horvitz-Thompson
+de la moyenne <span class="math inline">\(\bar{y}_U\)</span> est donné
+par: <span class="math display">\[
+\hat{\bar{y}}_{\rm{HT}}=\frac{1}{3}\sum_{k\in
+s}\frac{y_k}{\pi_k}=\frac{1}{2}\sum_{k\in s}y_k=\bar{y}_s.
+\]</span> Pour calculer le biais de cet estimateur, on procède comme
+dans la solution de l’exercice 1.4, on obtient que <span
+class="math inline">\(\hat{\bar{y}}_{\rm{HT}}\)</span> est sans biais
+pour <span class="math inline">\(\bar{y}_U.\)</span> La variance de
+<span class="math inline">\(\hat{\bar{y}}_{\rm{HT}}\)</span> est
+calculée selon la définition: <span
+class="math display">\[\begin{eqnarray*}
+\mathop{\mathrm{V}}(\hat{\bar{y}}_{\rm{HT}})=\sum_{s\in \mathcal
+S}p(s)(\hat{\bar{y}}_{\rm{HT}}(s)-\bar{y}_U)^2=\sum_{s\in \mathcal
+S}p(s)\bar{y}_s^2-2\bar{y}_U\underbrace{\sum_{s\in \mathcal
+S}p(s)\bar{y}_s}_{\bar{y}_U}+\bar{y}^2_U=\sum_{s\in \mathcal
+S}p(s)\bar{y}_s^2-\bar{y}^2_U
+\end{eqnarray*}\]</span> et comme <span
+class="math inline">\(p(s)=1/6\)</span> pour tous les échantillons <span
+class="math inline">\(s\)</span> de taille <span
+class="math inline">\(n=2\)</span> et zéro sinon, la variance devient:
+<span class="math display">\[\begin{eqnarray*}
+\mathop{\mathrm{V}}(\hat{\bar{y}}_{\rm{HT}})=\frac{1}{6}\sum_{s\in
+\mathcal S, |s|=2}\bar{y}_s^2-\bar{y}^2_U= 989.0625.
+\end{eqnarray*}\]</span> Dans le chapitre 2, on donnera une deuxième
+façon pour calculer la variance de <span
+class="math inline">\(\hat{\bar{y}}_{\rm{HT}}\)</span> pour ce plan
+aléatoire simple sans remise de taille <span
+class="math inline">\(n=2\)</span> basée sur les termes de covariance
+<span class="math inline">\(\Delta_{kl}\)</span>.</p></li>
+</ol>
+</div>
+<div id="solution-exercice-1.4" class="section level2">
+<h2>Solution exercice 1.4</h2>
+<p>Les probabilités d’inclusion d’ordre un sont <span
+class="math inline">\(\pi_k=2/3\)</span> pour <span
+class="math inline">\(k\in U,\)</span> l’estimateur de Horvitz-Thompson
+de <span class="math inline">\(\bar{y}_U\)</span> est donc égal à: <span
+class="math display">\[
+\hat{\bar{y}}_{\rm{HT}}=\frac{1}{3}\sum_{k\in
+s}\frac{y_k}{\pi_k}=\frac{1}{2}\sum_{k\in s}y_k=\bar{y}_s.
+\]</span> Calcul du biais de <span
+class="math inline">\(\hat{\bar{y}}_{\rm{HT}}\)</span> : <span
+class="math display">\[
+B(\hat{\bar{y}}_{\rm{HT}})=\mathbb{E}(\hat{\bar{y}}_{\rm{HT}})-\bar{y}_U=\frac{1}{3}\sum_{k\in
+U}\frac{y_k}{\pi_k}\mathbb{E}(I_k)- \bar{y}_U=0,
+\]</span> car <span class="math inline">\(\mathbb{E}(I_k)=\pi_k, k\in
+U.\)</span></p>
+<p>Calcul du biais de <span
+class="math inline">\(\hat{\bar{y}}_{\rm{HT}}\)</span> : <span
+class="math display">\[
+B(\hat{\bar{y}}_{\rm{HT}})=\sum_{s\in \mathcal
+S}p(s)\bar{y}_s-\bar{y}_U=\frac{1}{3}\sum_{s\in \mathcal S,
+|s|=2}\bar{y}_s-\bar{y}_U=\frac{1}{3\times
+2}(y_1+y_2+y_1+y_3+y_2+y_3)-\bar{y}_U=0,
+\]</span> car <span class="math inline">\(p(s)=1/3\)</span> si <span
+class="math inline">\(s\)</span> est un des échantillons <span
+class="math inline">\(\{1, 2\},\)</span> <span
+class="math inline">\(\{1,3\}\)</span> et <span
+class="math inline">\(\{2,3\}\)</span> et zéro sinon.</p>
+</div>
+<div id="solution-exercice-1.5" class="section level2">
+<h2>Solution exercice 1.5</h2>
+<p>L’estimateur de Horvitz-Thompson <span
+class="math inline">\(\hat{t}_{y\rm{HT}}\)</span> du total <span
+class="math inline">\(t_{yU}\)</span> est donné par <span
+class="math display">\[
+\hat{t}_{y\rm{HT}}=\sum_{k\in s}\frac{y_k}{\pi_k}=\sum_{k\in
+U_0}\frac{y_k}{\pi_k}I_k
+\]</span> car les probabilités d’inclusion <span
+class="math inline">\(\pi_k&gt;0\)</span> uniquement pour <span
+class="math inline">\(k\in U_0.\)</span> Le biais de l’estimateur de
+Horvitz-Thompson est donné par <span class="math display">\[
+B(\hat{t}_{y\rm{HT}})=\mathbb{E}(\hat{t}_{y\rm{HT}})-t_{yU}=\sum_{k\in
+U_0}y_k-\sum_{k\in U}y_k=-\sum_{k\in U\backslash U_0}y_k,
+\]</span> car <span class="math inline">\(\mathbb{E}(I_k)=\pi_k\)</span>
+pour <span class="math inline">\(k\in U_0.\)</span></p>
+</div>
+<div id="solution-exercice-1.6" class="section level2">
+<h2>Solution exercice 1.6</h2>
+<p>Le vrai paramètre qu’on cherche à estimer est <span
+class="math inline">\(\bar{y}_U=68/3=22.667.\)</span></p>
+<ol style="list-style-type: decimal">
+<li><p>Pour calculer l’espérance de l’estimateur <span
+class="math inline">\(\hat{t}\)</span> sous le plan de sondage <span
+class="math inline">\(p(\cdot),\)</span> on utilise la définition: <span
+class="math display">\[\begin{eqnarray*}
+     \mathbb{E}(\hat{t}) &amp;=&amp; \sum_{s \in \mathcal
+S}  p(s)\hat{t}(s) = p(s_1) \hat{t}(s_1) + p(s_2) \hat{t}(s_2) + p(s_3)
+\hat{t}(s_3) \\
+     &amp;=&amp; p(s_1) \frac{y_1 + y_2}{6 p(s_1)} + p(s_2) \frac{y_1 +
+y_3}{6 p(s_2)} + p(s_3) \frac{y_2 + y_3}{6 p(s_3)} \\
+     &amp;=&amp;\frac{y_1 + y_2 + y_3}{3} = \bar{y}_U,
+\end{eqnarray*}\]</span> ce qui implique que l’estimateur <span
+class="math inline">\(\hat{t}\)</span> est sans biais pour <span
+class="math inline">\(\bar{y}_U\)</span> sous le plan de sondage <span
+class="math inline">\(p(\cdot).\)</span></p></li>
+<li><p>On procède de la même façon que dans le point précédent.</p></li>
+<li><p>La distribution de <span class="math inline">\(\hat{t}\)</span>
+sous <span class="math inline">\(p(\cdot)\)</span> est donnée par :
+<span class="math display">\[\begin{eqnarray*}
+\hat{t}(s_1) &amp;=&amp; \frac{y_1 + y_2}{6p(s_1)} = \frac{48}{6 \times
+0.32} = 25 ~\ \textrm{si} ~\ S= s_1 \\
+\hat{t}(s_2) &amp;=&amp; \frac{y_1 + y_3}{6p(s_2)} = \frac{48}{6 \times
+0.40} = 20 ~\ \textrm{si} ~\ S= s_2 \\
+\hat{t}(s_3) &amp;=&amp; \frac{y_2 + y_3}{6p(s_3)} = \frac{40}{6 \times
+0.28} \approx 23.80 ~\ \textrm{si} ~\ S= s_3
+\end{eqnarray*}\]</span> La distribution de <span
+class="math inline">\(\hat{t}\)</span> sous <span
+class="math inline">\(p_1(\cdot)\)</span> est : <span
+class="math display">\[\begin{eqnarray*}
+\hat{t}(s_1) &amp;=&amp; \frac{y_1 + y_2}{6p_1(s_1)}=\frac{48}{6 \times
+\frac{1}{3}} = 24 ~\ \textrm{si} ~\ S= s_1 \\
+\hat{t}(s_2) &amp;=&amp; \frac{y_1 + y_3}{6p_1(s_2)}=\frac{48}{6 \times
+\frac{1}{3}} = 24 ~\ \textrm{si} ~\ S= s_2 \\
+\hat{t}(s_3) &amp;=&amp; \frac{y_2 + y_3}{6p_1(s_3)}= \frac{40}{6 \times
+\frac{1}{3}} = 20 ~\ \textrm{si} ~\ S= s_3
+\end{eqnarray*}\]</span></p></li>
+</ol>
+</div>
+<div id="solution-exercice-1.7" class="section level2">
+<h2>Solution exercice 1.7</h2>
+<p>Le vrai paramètre qu’on cherche à estimer est <span
+class="math inline">\(\bar{y}_U=68/3=22.667.\)</span></p>
+<ol style="list-style-type: decimal">
+<li><p>L’espérance de <span
+class="math inline">\(\hat{\bar{y}}_U\)</span> sous le plan de sondage
+<span class="math inline">\(p(\cdot)\)</span> est donnée par: <span
+class="math display">\[\begin{eqnarray*}
+\mathbb{E}(\hat{\bar{y}}_U)=\sum_{s\in \mathcal
+S}p(s)\hat{\bar{y}}_U(s)=\frac{0.32}{2} \left(y_1 + y_2 \right)
++  \frac{0.4}{2} \left(y_1 + y_3 \right) +  \frac{0.28}{2} \left(y_2 +
+y_3 \right) = 22.88
+\end{eqnarray*}\]</span> qui est différente de <span
+class="math inline">\(\bar{y}_U=22.667,\)</span> donc l’estimateur <span
+class="math inline">\(\hat{\bar{y}}_U\)</span> est biaisé pour <span
+class="math inline">\(\bar{y}_U\)</span> sous ce plan de sondage <span
+class="math inline">\(p(\cdot).\)</span></p></li>
+<li><p>L’espérance de <span
+class="math inline">\(\hat{\bar{y}}_U\)</span> sous le plan de sondage
+<span class="math inline">\(p_1(\cdot)\)</span> est donnée par: <span
+class="math display">\[\begin{eqnarray*}
+\mathbb{E}(\hat{\bar{y}}_U)=\sum_{s\in \mathcal
+S}p_1(s)\hat{\bar{y}}_U(s)=\frac{1}{3\times
+2}(y_1+y_2+y_1+y_3+y_2+y_3)=\bar{y}_U=22.667,
+\end{eqnarray*}\]</span><br />
+l’estimateur <span class="math inline">\(\hat{\bar{y}}_U\)</span> est
+sans biais pour <span class="math inline">\(\bar{y}_U\)</span> sous le
+plan de sondage <span
+class="math inline">\(p_1(\cdot).\)</span></p></li>
+<li><p>L’estimateur <span class="math inline">\(\hat{\bar{y}}_U\)</span>
+est biaisé sous le plan de sondage <span
+class="math inline">\(p(\cdot)\)</span> et sans biais sous le plan de
+sondage <span class="math inline">\(p_1(\cdot).\)</span> La différence
+vient du fait que cet estimateur ne tient pas compte du plan de sondage
+utilisé, il considère la moyenne des valeurs de la variable <span
+class="math inline">\(y\)</span> pour les individus échantillonnés quel
+que soit le plan de sondage utilisé. Dans le cas du plan <span
+class="math inline">\(p_1(\cdot),\)</span> les probabilités d’inclusion
+sont les mêmes pour tous les individus et données par <span
+class="math inline">\(\pi_k=2/3,\)</span> pour tout <span
+class="math inline">\(k\in U;\)</span> l’estimateur <span
+class="math inline">\(\hat{\bar{y}}_U\)</span> est exactement
+l’estimateur de Horvitz-Thompson de la moyenne <span
+class="math inline">\(\bar{y}_U,\)</span> qui est sans biais pour <span
+class="math inline">\(\bar{y}_U.\)</span> Dans le cas du plan <span
+class="math inline">\(p(\cdot),\)</span> les probabilités <span
+class="math inline">\(\pi_k\)</span> sont différentes d’un individu à
+l’autre (vous pouvez les calculer!), donc les poids <span
+class="math inline">\(1/\pi_k\)</span> dont différentes aussi, tandis
+que <span class="math inline">\(\hat{\bar{y}}_U\)</span> donne le même
+poids à tous les individus, ce qui explique le fait qu’il est
+biaisé.</p></li>
+</ol>
+</div>
+<div id="solution-exercice-1.8" class="section level2">
+<h2>Solution exercice 1.8</h2>
+<ol style="list-style-type: decimal">
+<li>L’espérance de <span class="math inline">\(\hat{t}\)</span> sous le
+plan <span class="math inline">\(p(\cdot)\)</span> est calculée selon la
+définition: <span class="math display">\[\begin{eqnarray*}
+\mathbb{E}(\hat{t}) = \sum_{s \in \mathcal S}p(s)
+\hat{t}(s)  &amp;=&amp; \sum_{j=1}^3p(s_j) \hat{t}(s_j)\\
+&amp;=&amp;\frac{1}{3} \left( \frac{y_1}{2} + \frac{y_2}{2} +
+\frac{y_1}{2} + \frac{2y_3}{3} + \frac{y_2}{2} + \frac{y_3}{3} \right)=
+\bar{y}_U,
+\end{eqnarray*}\]</span> donc <span
+class="math inline">\(\hat{t}\)</span> est sans biais pour <span
+class="math inline">\(\bar{y}_U.\)</span> La variance est calculée
+également en utilisant la définition: <span
+class="math display">\[\begin{eqnarray*} \label{ex1.8eq1}
+\mathop{\mathrm{V}}(\hat{t}) &amp;=&amp; \sum_{s \in \mathcal S}  p(s)
+\left( \hat{t}(s) - \mathbb{E}(\hat{t}) \right)^2=\sum_{s \in \mathcal
+S}  p(s)(\hat{t}(s))^2-\bar{y}_U^2= \frac{1}{3} \sum_{j=1}^3
+\hat{t}^2(s_j) - \bar{y}_U^2\nonumber\\
+&amp;=&amp; \frac{y_1^2}{2} + \frac{y_2^2}{2} + \frac{5y_3^2}{9} +
+\frac{y_1 y_2}{2} + \frac{2 y_1 y_3}{3} + \frac{y_2 y_3}{3}-\bar{y}_U^2
+\end{eqnarray*}\]</span></li>
+<li>Considérons maintenant l’estimateur <span
+class="math inline">\(\hat{\bar{y}}_U.\)</span> Son espérance est <span
+class="math display">\[\begin{eqnarray*}
+\mathbb{E}(\hat{\bar{y}}_U)=\sum_{s \in \mathcal S}
+p(s)\hat{\bar{y}}_U(s) =\sum_{j=1}^3 p(s_j)  \hat{\bar{y}}_U(s_j) =
+\frac{1}{3} (y_1 + y_2 + y_3) = \bar{y}_U
+\end{eqnarray*}\]</span> et la variance: <span
+class="math display">\[\begin{eqnarray*}
+\mathop{\mathrm{V}}(\hat{\bar{y}}_U) &amp;=&amp; \sum_{s\in \mathcal S}
+p(s)  \left( \hat{\bar{y}}_U(s) - \bar{y}_U \right)^2= \frac{1}{3}
+\sum_{j=1}^3  \hat{\bar{y}}^2_U(s_j) - \bar{y}_U^2 \\
+&amp;=&amp; \frac{1}{6} \left[ y_1^2 + y_2^2 + y_3^2 + y_1y_2 + y_1y_3 +
+y_2y_3  \right] - \bar{y}^2_U.
+\end{eqnarray*}\]</span></li>
+<li>On obtient <span class="math display">\[\begin{eqnarray*}
+     \mathop{\mathrm{V}}\left( \hat{\bar{y}}_U \right) -
+\mathop{\mathrm{V}}\left(\hat{t}\right) %&amp;=&amp; \frac{y_1^2 + y_2^2
++ y_3^2}{6} - \frac{y_1^2}{6} - \frac{y_2^2}{6} - \frac{5y_3^2}{27} +
+\frac{y_1y_2 + y_1y_3 + y_2y_3}{6} - \frac{y_1y_2}{6} -
+\frac{2y_1y_3}{9} - \frac{y_2y_3}{9} \\
+     %&amp;=&amp; \frac{y_3}{3} \left( \frac{y_3}{2} - \frac{5y_3}{9} +
+\frac{y_1}{2} - \frac{2y_1}{3} - \frac{y_2}{3} + \frac{y_2}{2} \right)
+\\
+      %\frac{y_3}{3} \left( - \frac{y_3}{18} - \frac{y_1}{6} +
+\frac{y_2}{6} \right)
+     = \frac{y_3 (3y_2 - 3y_1 - y_3)}{54}\cdot
+\end{eqnarray*}\]</span></li>
+</ol>
+</div>
+<div id="solution-exercice-1.9" class="section level2">
+<h2>Solution exercice 1.9</h2>
+<ol style="list-style-type: decimal">
+<li><p>On considère la variable <span class="math inline">\(y_d\)</span>
+de valeurs <span class="math inline">\(y_{kd}=y_k\mathbf{1}_{\{k\in
+U_d\}}\)</span> pour <span class="math inline">\(k\in U.\)</span> On
+peut écrire le total de <span class="math inline">\(y\)</span> sur <span
+class="math inline">\(U_d\)</span> comme le total de la variable <span
+class="math inline">\(y_d\)</span> sur la population <span
+class="math inline">\(U:\)</span> <span class="math display">\[
+t_{yU_d}=\sum_{k\in U_d}y_k=\sum_{k\in U}y_k\mathbf{1}_{\{k\in
+U_d\}}=\sum_{k\in U}y_{kd}.
+\]</span> L’échantillon d’individus est sélectionné dans la population
+<span class="math inline">\(U,\)</span> l’estimateur de Horvitz-Thompson
+de <span class="math inline">\(t_{yU_d}\)</span> s’obtient donc
+facilement comme suit: <span class="math display">\[
+\hat{t}_{y_d}=\sum_{k\in s}\frac{y_{kd}}{\pi_k}=\sum_{k\in
+s}\frac{y_k\mathbf{1}_{\{k\in U_d\}}}{\pi_k}=\sum_{k\in
+s_d}\frac{y_k}{\pi_k},
+\]</span> où <span class="math inline">\(s_d=s\cap U_d.\)</span> La
+variance de <span class="math inline">\(\hat{t}_{y_d}\)</span> est égale
+à <span class="math display">\[
+\mathop{\mathrm{V}}(\hat{t}_{y_d})=\sum_{k\in U}\sum_{k\in
+U}\Delta_{kl}\frac{y_{kd}}{\pi_k}\frac{y_{ld}}{\pi_l}=\sum_{k\in
+U_d}\sum_{l\in U_d}\Delta_{kl}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}
+\]</span> et elle peut être estimée sans biais par <span
+class="math display">\[
+\hat{\mathop{\mathrm{V}}}(\hat{t}_{y_d})=\sum_{k\in s}\sum_{k\in
+s}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_{kd}}{\pi_k}\frac{y_{ld}}{\pi_l}=\sum_{k\in
+s_d}\sum_{l\in
+s_d}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l},
+\]</span> en supposant que <span
+class="math inline">\(\pi_{kl}&gt;0\)</span> pour tous les <span
+class="math inline">\(k\neq l\in U.\)</span></p></li>
+<li><p>La taille du domaine <span class="math inline">\(U_d\)</span>
+peut s’écrire comme un total sur la population <span
+class="math inline">\(U:\)</span> <span class="math display">\[
+N_d=\sum_{k\in U}\mathbf{1}_{\{k\in U_d\}},
+\]</span> on peut utiliser ensuite les points 1 et 2 avec <span
+class="math inline">\(y_k=1\)</span> pour tout <span
+class="math inline">\(k\in U.\)</span></p></li>
+</ol>
+</div>
+<div id="solution-exercice-1.10" class="section level2">
+<h2>Solution exercice 1.10</h2>
+<p>L’estimateur de Horvitz-Thompson du total <span
+class="math inline">\(t_{yU}\)</span> s’écrit à l’aide des variables
+indicatrices <span class="math inline">\(I_k\)</span> d’appartenance à
+un échantillon: <span class="math display">\[
+\hat t_{y\rm{HT}}=\sum_{k\in U}\frac{y_k}{\pi_k}I_k
+\]</span> et donc sa variance est égale à: <span
+class="math display">\[\begin{eqnarray*}
+\mathop{\mathrm{V}}(\hat t_{y\rm{HT}})=\sum_{k\in U}\sum_{l\in
+U}\mathop{\mathrm{Cov}}(I_k,I_l)\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}=\sum_{k\in
+U}\sum_{l\in U}\Delta_{kl}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l},   
+\end{eqnarray*}\]</span> car pour <span class="math inline">\(k=l\in
+U,\)</span> <span
+class="math inline">\(\mathop{\mathrm{Cov}}(I_k,I_l)=\mathop{\mathrm{V}}(I_k)=\pi_k(1-\pi_k)=\Delta_{kk}\)</span>
+et pour <span class="math inline">\(k\neq l\in U,\)</span> <span
+class="math inline">\(\mathop{\mathrm{Cov}}(I_k,I_l)=\pi_{kl}-\pi_k\pi_l=\Delta_{kl}.\)</span>
+En utilisant de nouveau les indicatrices <span
+class="math inline">\(I_k, k\in U,\)</span> et si <span
+class="math inline">\(\pi_{kl}&gt;0\)</span> pour tous les <span
+class="math inline">\(k,l\in U,\)</span> l’estimateur de la variance
+<span class="math inline">\(\hat{V}(\hat t_{y\rm{HT}})\)</span> peut
+s’écrire: <span class="math display">\[
+\hat{V}(\hat t_{y\rm{HT}})=\sum_{k\in U}\sum_{l\in
+U}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}I_kI_l
+\]</span> et <span class="math display">\[
+\mathbb{E}(\hat{V}(\hat t_{y\rm{HT}}))=\sum_{k\in U}\sum_{l\in
+U}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}\mathbb{E}(I_kI_l)=\sum_{k\in
+U}\sum_{l\in
+U}\Delta_{kl}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}=\mathop{\mathrm{V}}(\hat
+t_{y\rm{HT}}).
+\]</span> ## Solution exercice 1.11</p>
+<p>On a <span class="math inline">\(\pi_k = \mathbb P(k \in S)\)</span>
+et <span class="math display">\[
+1 - \pi_k = \mathbb P(k \notin S) = [\mathbb P(k ~\ \textrm{n&#39;est
+pas sélectionné})]^m=(1-p_k)^m,
+\]</span> car <span class="math inline">\(k\)</span> n’est sélectionné à
+aucun des <span class="math inline">\(m\)</span> tirages et la
+probabilité que <span class="math inline">\(k\)</span> ne soit pas
+sélectionné à un certain tirage est <span
+class="math inline">\(1-p_k\)</span>. On a <span
+class="math inline">\(\pi_{kl} = \mathbb P(k \in S, l \in S)\)</span> et
+<span class="math display">\[\begin{eqnarray*}
+1 - \pi_{kl} &amp;=&amp; \mathbb{P}( k \notin S ~\ \textrm{ou} ~\ l
+\notin S)\\
+   &amp;=&amp; \mathbb{P}(\{ k \notin S \}) + \mathbb P(\{ l \notin S\})
+- \mathbb P(\{k \notin S, l \notin S \})\\ %P( k\notin S ~\ \textrm{ou}
+~\ l\notin S)
+   &amp;=&amp; (1-p_k)^m + (1-p_l)^m - (1-p_k - p_l)^m.   
+\end{eqnarray*}\]</span></p>
+</div>
+<div id="solution-exercice-1.12" class="section level2">
+<h2>Solution exercice 1.12</h2>
+<p>On a <span class="math inline">\(p(s_o) = \mathbb P(k_1 \mbox{
+sélectionné au 1er tirage}, k_2 \mbox{  au 2ème tirage}, ..., k_m
+\mbox{au m-ème tirage})
+= \mathbb P( k_1 \mbox{ sélectionné au 1er tirage})\times \mathbb P( k_2
+\mbox{ sélectionné au 2ème tirage})\times ... \times\mathbb P( k_m
+\mbox{  sélectionné au m-ème tirage}) = p_{k_1} p_{k_2} ...
+p_{k_m}\)</span> car les tirages des individus se font de façon
+indépendante.</p>
+</div>
+<div id="solution-exercice-1.13" class="section level2">
+<h2>Solution exercice 1.13</h2>
+<p>L’estimateur de Hansen-Hurwitz s’écrit: <span class="math display">\[
+\hat{t}_{y\mbox{\sc hh}}= \sum_{k\in U} \frac{y_k}{m \, p_k}  R_k,
+\]</span> où <span class="math inline">\(R_k\)</span> est la variable
+aléatoire égale au nombre de fois que l’unité <span
+class="math inline">\(k\)</span> a été sélectionnée après <span
+class="math inline">\(m\)</span> tirages avec remise avec <span
+class="math inline">\(\mathop{\mathrm{V}}(R_k)=mp_k(1-p_k)\)</span> et
+<span
+class="math inline">\(\mathop{\mathrm{Cov}}(R_k,R_l)=-mp_kp_l,\)</span>
+<span class="math inline">\(k\neq l\in U.\)</span> Sa variance de
+l’estimateur de Hansen-Hurwitz est égale à: <span
+class="math display">\[\begin{eqnarray*}
+\mathop{\mathrm{V}}(\hat{t}_{y\mbox{\sc hh}}) &amp;=&amp;\sum_{k\in
+U}\left(\frac{y_k}{m \, p_k}\right)^2\mathop{\mathrm{V}}(R_k)+\sum_{k\in
+U}\sum_{l\neq k\in U}\frac{y_k}{m \, p_k}\frac{y_l}{m \,
+p_l}\mathop{\mathrm{Cov}}(R_k, R_l).\\
+&amp;=&amp;\sum_{k\in U}\left(\frac{y_k}{m \, p_k}\right)^2
+mp_k(1-p_k)-\sum_{k\in U}\sum_{l\neq k\in U}\frac{y_k}{m \,
+p_k}\frac{y_l}{m \, p_l}mp_kp_l\\
+&amp;=&amp; \frac{1}{m}\sum_{k\in
+U}p_k\left(\frac{y_k}{p_k}\right)^2-\frac{1}{m}\left(\sum_{k\in
+U}y^2_k+\sum_{k\in U}\sum_{l\neq k\in U}y_ky_l\right)\\
+&amp;= &amp; \frac{1}{m}\left(\sum_{k\in
+U}p_k\left(\frac{y_k}{p_k}\right)^2-t^2_{yU}\right)
+= \mathop{\mathrm{V}}(\hat{t}_{y\mbox{\sc hh}}).
+\end{eqnarray*}\]</span> L’estimateur de la variance s’écrit: <span
+class="math display">\[\begin{eqnarray*}
+\hat{\mathop{\mathrm{V}}}(\hat{t}_{y\mbox{\sc hh}}) =
+\frac{1}{m(m-1)}\left(\sum_{k\in
+U}\left(\frac{y_k}{p_k}\right)^2R_k-m\,\hat{t}^2_{y\mbox{\sc hh}}\right)
+\end{eqnarray*}\]</span> et donc, <span
+class="math display">\[\begin{eqnarray*}
+\mathbb{E}(\hat{\mathop{\mathrm{V}}}(\hat{t}_{y\mbox{\sc hh}}))
+&amp;=&amp; \frac{1}{m(m-1)}\left(\sum_{k\in
+U}\left(\frac{y_k}{p_k}\right)^2\mathbb{E}(R_k)-m\,\mathbb{E}(\hat{t}^2_{y\mbox{\sc
+hh}})\right)\\
+&amp;=&amp; \frac{1}{m-1}\left(\sum_{k\in
+U}\left(\frac{y_k}{p_k}\right)^2p_k-t^2_{yU}\right)-\frac{\mathop{\mathrm{V}}(\hat{t}_{y\mbox{\sc
+hh}})}{m-1}\\
+&amp;=&amp; \frac{m\mathop{\mathrm{V}}(\hat{t}_{y\mbox{\sc
+hh}})}{m-1}-\frac{\mathop{\mathrm{V}}(\hat{t}_{y\mbox{\sc
+hh}})}{m-1}=\mathop{\mathrm{V}}(\hat{t}_{y\mbox{\sc hh}}),
+\end{eqnarray*}\]</span> car <span
+class="math inline">\(\mathbb{E}(R_k)=mp_k\)</span> et <span
+class="math inline">\(\mathbb{E}(\hat{t}^2_{y\mbox{\sc
+hh}})=\mathop{\mathrm{V}}(\hat{t}_{y\mbox{\sc
+hh}})+t^2_{yU}.\)</span></p>
+</div>
+<div id="solution-exercice-1.14" class="section level2">
+<h2>Solution exercice 1.14</h2>
+<p>La variable <span class="math inline">\(y\)</span> est dichotomique:
+<span class="math inline">\(y_k=1\)</span> si l’individu <span
+class="math inline">\(k\)</span> a une certaine propriété et zéro sinon.
+On a <span class="math inline">\(P=\sum_{k\in
+U}y_k/N=\bar{y}_U.\)</span> La variance corrigée empirique de <span
+class="math inline">\(y\)</span> calculée sur la population <span
+class="math inline">\(U\)</span> est donnée par: <span
+class="math display">\[\begin{eqnarray*}
+S^2_{yU}=\frac{1}{N-1}\sum_{k\in
+U}(y_k-\bar{y}_U)^2=\frac{1}{N-1}\left(\sum_{k\in
+U}y_k^2-N\bar{y}^2_U\right)&amp;=&amp;\frac{1}{N-1}\left(NP-NP^2\right)\\
+&amp;=&amp; \frac{N}{N-1}P(1-P),
+\end{eqnarray*}\]</span> car <span
+class="math inline">\(y_k^2=y_k\)</span> pour tout <span
+class="math inline">\(k\in U\)</span> dû au fait que <span
+class="math inline">\(y\)</span> est une variable dichotomique <span
+class="math inline">\(0-1.\)</span></p>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -408,35 +804,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

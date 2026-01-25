@@ -9,14 +9,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Camelia Goga" />
 
+<meta name="date" content="2026-01-14" />
 
-<title>III. Correction Exercices - Chapitre 3</title>
+<title>Solutions exercices chapitre 3</title>
 
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -29,10 +31,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -43,6 +44,16 @@
   ul.task-list{list-style: none;}
     </style>
 
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
 
 
 
@@ -210,69 +221,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -280,16 +228,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -302,7 +240,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Mon Site R</a>
+      <a class="navbar-brand" href="index.html">Techniques de sondage avec R</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -360,22 +298,235 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">III. Correction Exercices - Chapitre 3</h1>
+<h1 class="title toc-ignore">Solutions exercices chapitre 3</h1>
+<h4 class="author">Camelia Goga</h4>
+<h4 class="date">2026-01-14</h4>
 
 </div>
 
 
-<!-- ÉCRIVEZ VOTRE CODE R MARKDOWN ICI -->
-<!-- Cette page contient les corrections du Chapitre 3 -->
-<div id="correction-chapitre-3" class="section level1">
-<h1>Correction Chapitre 3</h1>
-<p>Vos corrections ici.</p>
+<div id="solution-exercice-3.1" class="section level2">
+<h2>Solution exercice 3.1</h2>
+<p>Le vrai paramètre à estimer est <span
+class="math inline">\(t_{yU}=295.\)</span> 1. Dans l’exemple 3.1, on a
+calculé les probabilités de sélection <span
+class="math inline">\(p_k=x_k/\sum_{k\in U}x_k,~k=1, \ldots, 4,\)</span>
+on les rappelle ci-dessous: <span class="math display">\[   
+p_1=0.094, \quad p_2=0.350, \quad p_3=0.514, \quad p_4=0.042.
+\]</span> Les supermarchés 3 et 4 ont été sélectionnés après <span
+class="math inline">\(m=2\)</span> tirages avec remise et proportionnels
+à <span class="math inline">\(p_k, k\in U\)</span> et on a donné dans
+l’exemple 3.1 l’estimation de Hansen-Hurwitz du total de <span
+class="math inline">\(y.\)</span> La variance de l’estimateur de
+Hansen-Hurwitz est donnée par <span class="math display">\[
+\mathop{\mathrm{V}}(\hat{t}_{y\rm{HH}})=\frac{1}{2}\sum_{k\in
+U}p_k\left(\frac{y_k}{p_k}-t_{yU}\right)^2=\frac{1}{2}\left(\sum_{k\in
+U}\frac{y^2_k}{p_k}-t^2_{yU}\right)=126.1793.
+\]</span> 2. Pour obtenir une estimation de type Horvitz-Thompson, on
+calcule d’abord les probabilités d’inclusion <span
+class="math inline">\(\pi_k\)</span> par rapport à <span
+class="math inline">\(p_k,~k\in U\)</span> (voir chapitre 1): <span
+class="math display">\[\begin{eqnarray*}
+  \pi_1=1-(1-p_1)^2= 0.179 , \quad \pi_2=1-(1-p_2)^2=0.577,
+\\\pi_3=1-(1-p_3)^2=0.764, \quad \pi_4=1-(1-p_4)^2= 0.082.  
+\end{eqnarray*}\]</span> Les supermarchés 3 et 4 ont été sélectionnés,
+l’estimation de type Horvitz-Thompson du total de la variable <span
+class="math inline">\(y\)</span> est égale à <span
+class="math display">\[
+\hat{t}_{y\rm{HT}}=\frac{y_3}{\pi_3}+\frac{y_4}{\pi_4}=\frac{150}{0.764}+\frac{15}{0.082}=379.2619.
+\]</span></p>
+<p>Pour calculer la variance de l’estimateur de Horvitz-Thompson, on a
+besoin des probabilités d’inclusion d’ordre deux, <span
+class="math inline">\(\pi_{kl}\)</span> pour tous les <span
+class="math inline">\(k\neq l\in U.\)</span> On a (voir aussi le
+chapitre 1): <span class="math display">\[
+\pi_{kl}=1-(1-p_k)^2-(1-p_l)^2+(1-p_k-p_l)^2, \quad k\neq l\in U
+\]</span> et on obtient <span class="math display">\[\begin{eqnarray*}
+\pi_{12}= 0.065, \quad \pi_{13}=0.096, \quad \pi_{14}=0.007,
+\\\quad\pi_{23}=0.360, \quad\pi_{24}=0.029, \quad \pi_{34}=0.043.
+\end{eqnarray*}\]</span> La variance de l’estimateur de Horvitz-Thompson
+est alors égale à: <span class="math display">\[
+\mathop{\mathrm{V}}(\hat{t}_{y\rm{HT}})=\sum_{k\in U}\sum_{l\in
+U}(\pi_{kl}-\pi_k\pi_l)\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}=7395.819.
+\]</span> 3. Les deux estimateurs, de Hansen-Hurwitz et de
+Horvitz-Thompson, peuvent être utilisés pour estimer le total de <span
+class="math inline">\(y:\)</span> ils sont tous les deux sans biais et
+ils utilisent des poids inégaux. Néanmoins, l’estimateur de
+Hansen-Hurwitz et surtout sa variance sont beaucoup plus simples à
+obtenir.</p>
+</div>
+<div id="solution-exercice-3.2" class="section level2">
+<h2>Solution exercice 3.2</h2>
+<ol style="list-style-type: decimal">
+<li>L’estimateur de Horvitz-Thompson du total <span
+class="math inline">\(y_{yU}\)</span> est <span class="math display">\[
+\hat{t}_{y\rm{HT}}=\sum_{k\in s}\frac{y_k}{\pi_k},
+\]</span> de variance donnée par <span class="math display">\[
+\mathop{\mathrm{V}}(\hat{t}_{y\rm{HT}})=\sum_{k\in
+U}(\pi_{kl}-\pi_k\pi_l)\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}.
+\]</span></li>
+<li>L’estimateur de Hansen-Hurwitz du total <span
+class="math inline">\(y_{yU}\)</span> pour <span
+class="math inline">\(n\)</span> tirages avec remise et avec des
+probabilités de sélection <span class="math inline">\(\pi_k,~k\in
+U\)</span> telles que <span class="math inline">\(\pi_k=np_k, k\in
+U\)</span> est égal à <span class="math display">\[
+\hat{t}_{y\rm{HH}}=\frac{1}{n}\sum_{l=1}^n\frac{y_{k_l}}{\pi_{k_l}},
+\]</span> de variance donnée par <span class="math display">\[
+\mathop{\mathrm{V}}(\hat{t}_{y\rm{HH}})=\frac{1}{n}\sum_{k\in
+U}p_k\left(\frac{y_k}{p_k}-t_{yU}\right)^2=\frac{1}{n}\left(\sum_{k\in
+U}\frac{y_k^2}{p_k}-t^2_{yU}\right).
+\]</span></li>
+<li>On écrit l’estimateur de la variance simplifié comme suit: <span
+class="math display">\[\begin{eqnarray*}
+  \hat{V}_0(\hat{t}_{y\rm{HT}})&amp;=&amp;\frac{1}{n(n-1)}\sum_{k\in
+s}\left(\frac{y_k}{p_k}-\hat{t}_{y\rm{HT}}\right)^2\\
+  &amp;=&amp; \frac{1}{n(n-1)}\sum_{k\in
+s}\frac{y^2_k}{p^2_k}-\frac{2\hat{t}_{y\rm{HT}}}{n(n-1)}\sum_{k\in
+s}\frac{y_k}{p_k}+\frac{1}{n(n-1)}n\hat{t}^2_{y\rm{HT}}\\
+  &amp;=&amp; \frac{1}{n(n-1)}\sum_{k\in
+s}\frac{y^2_k}{p^2_k}-\frac{\hat{t}^2_{y\rm{HT}}}{n-1}=\frac{1}{n(n-1)}\sum_{k\in
+U}\frac{y^2_kI_k}{p^2_k}-\frac{\hat{t}^2_{y\rm{HT}}}{n-1},
+\end{eqnarray*}\]</span> en utilisant le fait que <span
+class="math inline">\(\pi_k=np_k,~k\in U.\)</span> Pour calculer son
+biais, on utilise <span
+class="math inline">\(\mathbb{E}(I_k)=\pi_k=np_k\)</span> pour tout
+<span class="math inline">\(k\in U\)</span> et <span
+class="math inline">\(\mathbb{E}(\hat{t}^2_{y\rm{HT}})=\mathop{\mathrm{V}}(\hat{t}_{y\rm{HT}})+t^2_{yU}.\)</span>
+On obtient: <span class="math display">\[\begin{eqnarray*}
+B(\hat{\mathop{\mathrm{V}}}_0(\hat{t}_{y\rm{HT}}))&amp;=&amp;\mathbb{E}(\hat{V}_0(\hat{t}_{y\rm{HT}}))-\mathop{\mathrm{V}}(\hat{t}_{y\rm{HT}})\\
+&amp;=&amp; \frac{1}{n(n-1)}\sum_{k\in
+U}\frac{y^2_k\mathbb{E}(I_k)}{p^2_k}-\frac{\mathbb{E}(\hat{t}^2_{y\rm{HT}})}{n-1}-\mathop{\mathrm{V}}(\hat{t}_{y\rm{HT}})\\
+&amp;=&amp; \frac{1}{n-1}\left(\sum_{k\in
+U}\frac{y_k^2}{p_k}-t^2_{yU}-\mathop{\mathrm{V}}(\hat{t}_{y\rm{HT}})\right)-\mathop{\mathrm{V}}(\hat{t}_{y\rm{HT}})\\
+&amp;=&amp;
+\frac{1}{n-1}\left(n\mathop{\mathrm{V}}(\hat{t}_{y\rm{HH}})-\mathop{\mathrm{V}}(\hat{t}_{y\rm{HT}})\right)-\mathop{\mathrm{V}}(\hat{t}_{y\rm{HT}})\\
+&amp;=&amp;\frac{n}{n-1}\left(\mathop{\mathrm{V}}(\hat{t}_{y\rm{HH}})-\mathop{\mathrm{V}}(\hat{t}_{y\rm{HT}})\right).
+\end{eqnarray*}\]</span></li>
+</ol>
+</div>
+<div id="solution-exercice-3.3" class="section level2">
+<h2>Solution exercice 3.3</h2>
+<p>Tout d’abord, le plan de sondage est sans remise et de taille fixe
+<span class="math inline">\(n,\)</span> les probabilités d’inclusion
+d’ordre un <span class="math inline">\(\pi_k\)</span> satisfont <span
+class="math display">\[
+\sum_{k\in U}\pi_k=n.
+\]</span> L’estimateur de Rao est donné par <span
+class="math display">\[
+\hat{t}_{y\rm{Rao}}=\frac{N}{n}\sum_{k\in s} y_k= \frac{N}{n}\sum_{k\in
+U} y_kI_k,
+\]</span> où <span class="math inline">\(I_k\)</span> est la variable
+(aléatoire) indicatrice d’appartenance à un échantillon avec <span
+class="math inline">\(\mathbb{E}(I_k)=\pi_k,\)</span> pour <span
+class="math inline">\(k\in U.\)</span> Le biais de l’estimateur de Rao
+se calcule alors comme suit: <span
+class="math display">\[\begin{eqnarray*}
+  B(\hat{t}_{y\rm{Rao}})&amp;=&amp;
+\mathbb{E}(\hat{t}_{y\rm{Rao}})-t_{yU}\\
+  &amp;=&amp;\frac{N}{n}\sum_{k\in U}
+y_k\mathbb{E}(I_k)-t_{yU}=\frac{N}{n}\sum_{k\in U} y_k\pi_k-t_{yU}\\
+  &amp;=&amp; \frac{N}{n}\sum_{k\in U}
+(y_k-\bar{y}_U+\bar{y}_U)\left(\pi_k-\frac{n}{N}+\frac{n}{N}\right)-t_{yU}\\
+  &amp;=&amp; \frac{N}{n}\sum_{k\in U}
+(y_k-\bar{y}_U)\left(\pi_k-\frac{n}{N}\right)+\underbrace{\frac{N}{n}\sum_{k\in
+U} (y_k-\bar{y}_U)\frac{n}{N}}_{=0}+\underbrace{\frac{N}{n}\sum_{k\in
+U}\bar{y}_U\left(\pi_k-\frac{n}{N}\right)}_{=0}\\
+  &amp; &amp; +\underbrace{\frac{N}{n}\sum_{k\in
+U}\bar{y}_U\frac{n}{N}}_{=t_{yU}}-t_{yU}\\
+  &amp;=&amp; \frac{N}{n}\sum_{k\in U}
+(y_k-\bar{y}_U)\left(\pi_k-\frac{n}{N}\right)=
+\frac{N^2}{n}\mbox{Cov}(\mathbf{y}, \boldsymbol{\pi}),
+\end{eqnarray*}\]</span> où <span class="math inline">\(\mathbf{y}=
+(y_k)_{k\in U}\)</span> et <span
+class="math inline">\(\boldsymbol{\pi}=(\pi_k)_{k\in U}.\)</span></p>
+</div>
+<div id="solution-exercice-3.4" class="section level2">
+<h2>Solution exercice 3.4</h2>
+<p>Le plan de sondage de Poisson est un plan de sondage pour lequel la
+sélection des individus se fait de façon indépendante, donc les
+variables indicatrices d’appartenance à un échantillon <span
+class="math inline">\(I_k,~k\in U\)</span> sont indépendantes et <span
+class="math inline">\(\pi_{kl}=\pi_k\pi_l\)</span> pour <span
+class="math inline">\(k\neq l\in U\)</span>. Cela implique que les
+termes de covariance sont tous nuls, c’est-à-dire <span
+class="math inline">\(\mathop{\mathrm{Cov}}(I_k,
+I_l)=\pi_{kl}-\pi_k\pi_l=0\)</span> pour <span
+class="math inline">\(k\neq l\in U.\)</span> La variance de l’estimateur
+de Horvitz-Thompson <span class="math inline">\(\hat
+t_{y\rm{HT}}\)</span> du total <span
+class="math inline">\(t_{yU}\)</span> est égale à: <span
+class="math display">\[\begin{eqnarray*}
+    \mathop{\mathrm{V}}_{\rm{PO}}(\hat t_{y\rm{HT}})=\sum_{k\in
+U}\pi_k(1-\pi_k)\frac{y_k^2}{\pi_k^2}+\sum_{k\in U}\sum_{l\in U, l\neq
+k}(\pi_{kl}-\pi_k\pi_l)\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}=\sum_{k\in
+U}\frac{1-\pi_k}{\pi_k}y_k^2.
+\end{eqnarray*}\]</span> La variance de l’estimateur de Horvitz-Thompson
+se simplifie dans le cas du plan de sondage de Poisson, elle est une
+somme sur <span class="math inline">\(U\)</span> des quantités <span
+class="math inline">\((1-\pi_k)y_k^2/\pi_k,~k\in U\)</span> et en
+utilisant le principe de l’estimateur de Horvitz-Thompson, elle sera
+estimée sans biais par <span class="math display">\[\begin{eqnarray*}
+    \hat{\mathop{\mathrm{V}}}_{\rm{PO}}(\hat t_{y\rm{HT}})=\sum_{k\in
+s}\frac{1-\pi_k}{\pi^2_k}y_k^2.
+\end{eqnarray*}\]</span><br />
+Le même estimateur de la variance est obtenu en utilisant la formule
+générale de l’estimateur de la variance et le fait que les termes de
+covariance sont tous nuls.</p>
+</div>
+<div id="solution-exercice-3.5" class="section level2">
+<h2>Solution exercice 3.5</h2>
+<p>Pour un plan SI(n), on a <span
+class="math inline">\(\pi_k=n/N=f\)</span> pour tous les <span
+class="math inline">\(k\in U.\)</span> On calcule d’abord les quantités
+<span class="math inline">\(a_k,~k\in U:\)</span> <span
+class="math display">\[
+a_k=\frac{1-\pi_k}{\sum_{l\in
+U}(1-\pi_l)}=\frac{1-f}{n(1-f)}=\frac{1}{n}, \quad k\in U
+\]</span> et l’estimateur de la variance devient <span
+class="math display">\[\begin{eqnarray*}
+    \hat{V}_{Deville} (\hat{t}_{y\rm{HT}})
+&amp;=&amp;\frac{1}{1-\frac{n}{n^2}}\sum_{k\in
+s}(1-f)\left(\frac{y_k}{f}-\frac{\frac{1-f}{f}\sum_{l\in
+s}y_l}{n(1-f)}\right)^2\\
+    &amp;=&amp; \frac{n}{n-1}\frac{1-f}{f^2}\sum_{k\in
+s}(y_k-\bar{y}_s)^2=N^2\frac{1-f}{n}S^2_{ys},
+\end{eqnarray*}\]</span> qui est l’estimateur de la variance de
+l’estimateur de Horvitz-Thompson dans le cas d’un plan SI.</p>
+</div>
+<div id="solution-exercice-3.6" class="section level2">
+<h2>Solution exercice 3.6</h2>
+<p>L’approximation de H'ajek consiste à approcher les termes de
+covariance <span class="math inline">\(\Delta_{kl}\)</span> par une
+quantité qui dépend uniquement des probabilités d’inclusion d’ordre un:
+<span class="math display">\[
+\tilde{\pi}_{kl}-\tilde{\pi}_k\tilde{\pi}_l \simeq
+-\tilde{\pi}_k\tilde{\pi}_l\frac{(1-\tilde{\pi}_k)(1-\tilde{\pi}_l)}{d(\tilde{\pi})},
+\quad k\neq l\in U
+\]</span> et la variance de type Yates-Grundy-Sen devient: <span
+class="math display">\[\begin{eqnarray*}
+\mathop{\mathrm{V}}(\hat{t}_{y\rm{HT}})&amp;=&amp;-\frac{1}{2}\sum_{k\in
+U}\sum_{l\in
+U}(\tilde{\pi}_{kl}-\tilde{\pi}_k\tilde{\pi}_l)\left(\frac{y_k}{\tilde{\pi}_k}-\frac{y_l}{\tilde{\pi}_l}\right)^2\\
+&amp;\simeq&amp; \frac{1}{2d(\tilde{\pi})}\sum_{k\in U}\sum_{l\neq k\in
+U}\tilde{\pi}_k\tilde{\pi_l}(1-\tilde{\pi}_k)(1-\tilde{\pi}_l)\left(\frac{y_k}{\tilde{\pi}_k}-\frac{y_l}{\tilde{\pi}_l}\right)^2\\
+&amp;=&amp; \frac{1}{2d(\tilde{\pi})}\sum_{k\in U}\sum_{l\in
+U}\tilde{\pi}_k\tilde{\pi}_l(1-\tilde{\pi}_k)(1-\tilde{\pi}_l)\left(\frac{y^2_k}{\tilde{\pi}_k^2}-2\frac{y_k}{\tilde{\pi}_k}\frac{y_l}{\tilde{\pi}_l}+\frac{y^2_l}{\tilde{\pi}_l^2}\right)\\
+&amp;=&amp; \frac{1}{d(\tilde{\pi})}\left(\sum_{k\in
+U}\tilde{\pi}_k(1-\tilde{\pi}_k)\frac{y^2_k}{\tilde{\pi}_k^2}\right)\underbrace{\sum_{l\in
+U}\tilde{\pi_l}(1-\tilde{\pi}_l)}_{d(\tilde{\pi})}-\frac{1}{d(\tilde{\pi})}\left(\sum_{k\in
+U}y_k(1-\tilde{\pi}_k)\right)^2\\
+&amp;=&amp; \left(\sum_{k\in
+U}\tilde{\pi}_k(1-\tilde{\pi}_k)\frac{y^2_k}{\tilde{\pi_k}^2}\right)-\frac{1}{d(\tilde{\pi})}\left(\sum_{k\in
+U}y_k(1-\tilde{\pi}_k)\right)^2\\
+&amp;=&amp; \sum_{k\in
+U}\tilde{\pi}_k(1-\tilde{\pi}_k)\left(\frac{y_k}{\tilde{\pi}_k}-A\right)^2,
+\end{eqnarray*}\]</span> où <span class="math inline">\(A=\sum_{l\in
+U}y_l(1-\tilde{\pi}_l)/d(\tilde{\pi}).\)</span></p>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -408,35 +559,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

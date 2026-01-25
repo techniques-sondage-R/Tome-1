@@ -1,14 +1,285 @@
 ---
-title: "III. Correction Exercices - Chapitre 4"
+title: "Solutions exercices chapitre 4"
+author: "Camelia Goga"
+date: "2026-01-15"
+output:
+  html_document: default
+header-includes:
+- \usepackage{amsmath,amssymb}
+- \newcommand{\E}{\mathbb{E}}
+- \DeclareMathOperator{\C}{Cov}
+- \DeclareMathOperator{\V}{V}
+- \DeclareMathOperator{\A}{AV}
 ---
-
-<!-- ÉCRIVEZ VOTRE CODE R MARKDOWN ICI -->
-<!-- Cette page contient les corrections du Chapitre 4 -->
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Correction Chapitre 4
+## Solution exercice 4.1
 
-Vos corrections ici.
+
+Les tailles $n_h$ des échantillons $s_h\subseteq U_h, h=1, \ldots H$  calculées selon l'allocation proportionnelle à la taille sont données par
+$$
+\frac{n_h}{N_h}=\frac{n}{N}\Longleftrightarrow f_h=f \quad h=1, \ldots, H.
+$$
+La variance de l'estimateur de Horvitz-Thompson du total $t_{yU}$ avec un plan stratifié et aléatoire simple sans remise au sein de chaque strate (STSI) s'écrit dans le cas de l'allocation proportionnelle:
+\begin{eqnarray*}
+   \V_{\rm{STSI},p}(\hat{t}_{y\rm{HT}})= \sum_{h=1}^HN_h^2\frac{1-f_h}{n_h} S^2_{yU_h}=N\frac{1-f}{n}\sum_{h=1}^HN_hS^2_{yU_h}=N^2\frac{1-f}{n}\sum_{h=1}^H\frac{N_h}{N}S^2_{yU_h}. 
+\end{eqnarray*}
+La variance de l'estimateur de Horvitz-Thompson du total $t_{yU}$ avec un plan aléatoire simple sans remise au sein de $U$ est donnée par 
+$$
+\V_{\rm{SI}}(\hat{t}_{y\rm{HT}})=N^2\frac{1-f}{n}S^2_{yU}.
+$$
+On remarque que les deux formules de variance ont la même constante $N^2(1-f)/n$ et elles différent par les termes concernant la variabilité de $y:$ calculée au sein de la population entière $U$ dans le cas du plan SI et au sein des strates $U_h, h=1, \ldots, H,$ dans le cas du plan STSI. Si les strates sont construites de façon à ce que la variable $y$ est peu variable au sein de chaque strate $U_h, h=1, \ldots, H,$ alors il y a de fortes chances que la variance  $\V_{\rm{STSI},p}(\hat{t}_{y\rm{HT}})$ soit plus faible que $\V_{\rm{SI}}(\hat{t}_{y\rm{HT}})$ (cela dépendra aussi des constantes présentes dans les expressions de deux formules de variance). 
+
+## Solution exercice 4.2
+
+Les tailles $n_h$ des échantillons $s_h\subseteq U_h, h=1, \ldots H$ calculées selon l'allocation optimale de Neyman sont données par:
+$$
+n_h=n\frac{N_hS_{yU_h}}{\sum_{h'=1}^HN_{h'}S_{yU_{h'}}}, \quad h=1, \ldots, 4
+$$
+et la variance de l'estimateur de Horvitz-Thompson devient:
+\begin{eqnarray*}
+ \V_{\rm{STSI},o}(\hat{t}_{y\rm{HT}}) &=& \sum_{h=1}^HN_h^2\frac{1-f_h}{n_h}S^2_{yU_h}=  \sum_{h=1}^H\frac{N_h}{n_h} S^2_{yU_h}-\sum_{h=1}^HN_hS^2_{yU_h}\\
+ &=& \frac{\sum_{h'=1}^HN_{h'}S_{yU_{h'}}}{n}\sum_{h=1}^HN_hS_{yU_h} -N\sum_{h=1}^H\frac{N_h}{N}S^2_{yU_h}\\
+ &=& \frac{N^2}{n}\left(\sum_{h=1}^H\frac{N_h}{N}S_{yU_h}\right)^2-N\sum_{h=1}^H\frac{N_h}{N}S^2_{yU_h}.
+\end{eqnarray*}
+
+## Solution exercice 4.3
+
+En utilisant les exercices 4.1 et 4.2, on obtient:
+\begin{eqnarray*}
+  \V_{\rm{STSI},p}(\hat{t}_{y\rm{HT}}) -\V_{\rm{STSI},o}(\hat{t}_{y\rm{HT}})&=&\frac{N^2}{n}\left[\sum_{h=1}^H\frac{N_h}{N}S^2_{yU_h}-\left(\sum_{h=1}^H\frac{N_h}{N}S_{yU_h}\right)^2\right]\\
+  &=& \frac{N^2}{n}\V(S_{yU_h}), 
+\end{eqnarray*}
+où dans le calcul de la variance de  $S_{yU_h}, h=1, \ldots, H$ on a considéré les poids  $N_h/N, h=1, \ldots, H.$ On peut en déduire que l'allocation optimale de Neyman est d'autant plus intéressante si les écart-types  de la variable $y$ sont très différents d'une strate à l'autre.  
+
+## Solution exercice 4.4
+
+
+1. On a $N=\sum_{h=1}^H\sum_{k\in U_h}1$ et l'estimateur de Horvitz-Thompson de $N$ est égal à:
+$$
+\hat{N}=\sum_{h=1}^H\sum_{k\in s_h}\frac{1}{\pi_{k,h}}=\sum_{h=1}^H\sum_{k\in s_h}\frac{N_h}{n_h}=N,
+$$
+car $\pi_{k,h}=n_h/N_h, h=1, \ldots, H.$ Sa variance est égalé à
+$$
+\V_{\rm{STSI}}(\hat{N})=\sum_{h=1}^HN^2_h\frac{1-f_h}{n_h}S^2_{yU_h}=0. 
+$$
+2. On a $\pi_{k,h}=n_h/N_h=n/N$ pour tout  $h=1, \ldots, H$ et 
+$$
+\hat{N}=\sum_{h=1}^H\sum_{k\in s_h}\frac{1}{\pi_{k,h}}=\frac{N}{n}\sum_{h=1}^H\sum_{k\in s_h}1= \frac{N}{n}\sum_{k\in s}1=N
+$$
+et $\V_{\rm{STSI}}(\hat{N})=0.$
+
+3. Dans le cas d'un plan STSI, la taille $N$ de la population $U$ est estimée parfaitement, quel que soit l'échantillon, ce qui implique que la variance de $\hat N$ est nulle. Le même résultat avait été obtenu dans le cas d'un plan SI(n), l'exercice 2.6.
+
+## Solution exercice 4.5
+
+\noindent\textit{Première partie}:
+
+1. L'estimateur de Horvitz-Thompson de $\bar{y}_U=\sum_{h=1}^2\sum_{k\in U_h}y_k/N$ est donné par:
+$$
+\hat{\bar{y}}_{\rm{HT}}=\frac{1}{N}\sum_{h=1}^2\sum_{k\in U_h}\frac{y_k}{\pi_{k,h}}=\frac{1}{N}\sum_{h=1}^2N_h\sum_{k\in U_h}\frac{y_k}{n_h},
+$$
+car  $\pi_{k,h}=\pi_h=n_h/N_h$ pour $k\in U_h$ et $h=1,2.$ Sa variance est égale à 
+$$
+\V_{\rm{STBE}}(\hat{\bar{y}}_{\rm{HT}})=\frac{1}{N^2}\sum_{h=1}^2\frac{1-\pi_h}{\pi_h}\sum_{k\in U_h}y_k^2=\frac{1}{N^2}\sum_{h=1}^2\left(\frac{N_h}{n_h}-1\right)\sum_{k\in U_h}y_k^2.
+$$
+
+2. Pour trouver les tailles $n_1, n_2$ optimales, on écrit la variance de l'estimateur $\hat{\bar{y}}_{\rm{HT}}$ pour ce plan stratifié Bernoulli (STBE) comme suit:
+$$
+\V_{\rm{STBE}}(\hat{\bar{y}}_{\rm{HT}})=\frac{1}{N^2}\sum_{h=1}^2\frac{N_h}{n_h}\sum_{k\in U_h}y_k^2-\frac{1}{N^2}\sum_{h=1}^2\sum_{k\in U_h}y_k^2=\sum_{h=1}^2\frac{A_h}{n_h}+B,
+$$
+où $A_h=N_h\sum_{k\in U_h}y_k^2/N^2$ et $B=-\sum_{h=1}^2\sum_{k\in U_h}y_k^2/N^2$ indépendant de $n_h, h=1, 2.$ Les tailles $n_h, h=1, 2$ qui minimisent la variance de l'estimateur $\hat{\bar{y}}_{\rm{HT}}$ sous la contrainte $n=n_1+n_2$ sont égales à 
+$$
+n_{h, opt}=\frac{n\sqrt{A_h}}{\sum_{h'=1}^2\sqrt{A_{h'}}}=\frac{n\sqrt{N_h\sum_{k\in U_h}y_k^2}}{\sum_{h'=1}^2\sqrt{N_{h'}\sum_{k\in U_{h'}}y_k^2}}, \quad h=1, 2.
+$$
+
+\noindent\textit{Deuxième partie}:
+
+1. L'estimateur de Horvitz-Thompson de $\Delta_y=\sum_{k\in U_1}y_k/N_1-\sum_{k\in U_2}y_k/N_2$ est la différence des estimateurs de Horvitz-Thompson des moyennes de $y$ au sein des strates $U_1, U_2$:
+$$
+\hat{\Delta}_{y\rm{HT}}=\frac{1}{N_1}\sum_{k\in U_1}\frac{y_k}{\pi_{k,1}}-\frac{1}{N_2}\sum_{k\in U_2}\frac{y_k}{\pi_{k,2}}=\frac{1}{n_1}\sum_{k\in U_1}y_k-\frac{1}{n_2}\sum_{k\in U_2}y_k.
+$$
+Due à l'indépendance des tirages au sein de deux strates, la variance se calcule facilement comme suit:
+$$
+\V_{\rm{STBE}}(\hat{\Delta}_{y\rm{HT}})=\sum_{h=1}^2\frac{1}{N_h^2}\frac{1-\pi_h}{\pi_h}\sum_{k\in U_h}y_k^2=\sum_{h=1}^2\frac{1}{N_h^2}\left(\frac{N_h}{n_h}-1\right)\sum_{k\in U_h}y_k^2.
+$$
+2. Comme dans la première partie, on écrit la variance comme suit:
+$$
+\V_{\rm{STBE}}(\hat{\Delta}_{y\rm{HT}})=\sum_{h=1}^2\frac{A_h}{n_h}+B,
+$$
+où $A_h=\sum_{k\in U_h}y_k^2/N_h$ et $B=-\sum_{h=1}^2\sum_{k\in U_h}y_k^2/N_h^2$ indépendant de $n_h, h=1, 2.$ Les tailles $n_h, h=1, 2$ qui minimisent la variance de l'estimateur $\hat{\Delta}_{y\rm{HT}}$ sous la contrainte $n=n_1+n_2$ sont égales à 
+$$
+n_{h, opt}=\frac{n\sqrt{A_h}}{\sum_{h'=1}^2\sqrt{A_{h'}}}=\frac{n\sqrt{N^{-1}_h\sum_{k\in U_h}y_k^2}}{\sum_{h'=1}^2\sqrt{N^{-1}_{h'}\sum_{k\in U_{h'}}y_k^2}}, \quad h=1, 2.
+$$
+
+\noindent\textit{Troisième partie}:
+
+1. On remplace dans les formules trouvées au point 1 et on obtient $n_{1, opt}=153$ et $n_{2, opt}=47.$ 
+
+2. On trouve $n_{1, opt}=90$ et $n_{2, opt}=110.$
+
+## Solution exercice 4.6
+
+1. (a) On note $x$=api99 et $y$=api00. On doit trouver $n$ tel que 
+$$
+2z_{1-\alpha/2}\sqrt{\V(\hat{\bar{y}}_{\rm{HT}})}<40,
+$$
+où $z_{1-\alpha/2}$ est le quantile d'ordre $1-\alpha/2$ d'une loi normale centrée et réduite; pour $\alpha=0.95,$ on a $z_{1-\alpha/2}  =1.96 \simeq  2$.  On obtient donc
+$$
+\V(\hat{\bar{y}}_{\rm{HT}}) < 100 \Longleftrightarrow \left(\frac{1}{n}-\frac{1}{N}\right) S^2_{yU}<100. 
+$$
+La variance (corrigée) $S^2_{yU}$ est inconnue mais comme elle est corrélée avec $S^2_{xU}=17639,$ on remplace avec cette valeur et on obtient $n>171.50,$ donc $n=172.$
+
+1. (b) Soit $U=U_1\cup U_2,$ avec $U_1$ la strate  des écoles avec  $x< 600,$ de taille $N_1=2594$ et  $U_2$ la strate  des écoles avec  $x\geq  600,$ de taille $N_2=3600.$ On a aussi que 
+$$
+\bar{x}_{U_1}=\sum_{k\in U_1}x_k/N_1=503, \quad S^2_{xU_1}=3940
+$$
+et 
+$$
+\bar{x}_{U_2}=\sum_{k\in U_2}x_k/N_2=725, \quad S^2_{xU_2}=6725.
+$$
+i. L'allocation proportionnelle à la taille est donnée par:
+$$
+n_1=n\frac{N_1}{N}=50\times\frac{2594}{6194}\simeq 20.93, \quad \mbox{donc} \quad n_1=21,
+$$
+$$
+n_2=n\frac{N_2}{N}=50\times\frac{3600}{6194}\simeq 29.06, \quad \mbox{donc} \quad n_2=29 
+$$
+ii. On peut calculer les tailles $n_h$ des échantillons $s_h, h=1, 2$ selon l'allocation $x$-optimale:
+$$
+n_1=n\frac{N_1S_{xU_1}}{N_1S_{xU_1}+N_2S_{xU_2}}=50\frac{2594\times\sqrt{3940}}{2594\times\sqrt{3940}+3600\times \sqrt{6725}}\simeq 17.73
+$$
+
+$$
+n_2=n\frac{N_2S_{xU_2}}{N_1S_{xU_1}+N_2S_{xU_2}}=50\frac{3600\times \sqrt{6725}}{2594\times\sqrt{3940}+3600\times \sqrt{6725}}\simeq 32.22
+$$
+donc $n_1=18$ et $n_2=32.$ Il n'y a pas beaucoup de différence entre les tailles $n_h, h=1, 2$ calculées selon les deux allocations. On pouvait s'attendre à ce résultat car les écart-types de la variable $x$ au sein des deux strates $U_1$ et $U_2$ ne sont pas trop différents: $\sqrt{3940}\simeq 62.77$ et $\sqrt{6725}\simeq 82$.  Comme la variance de $x$ est corrélée avec la variance de $y,$ l'allocation $x$-optimale sera très proche de l'allocation optimale de Neyman. La variance de l'estimateur de Horvitz-Thompson de la moyenne de $y$ calculée pour l'allocation $x$-optimale sera proche de la variance optimale (calculée pour l'allocation de Neyman) et  plus faible que la variance calculée pour l'allocation proportionnelle à la taille; néanmoins, le gain ne sera pas important.  
+
+
+## Solution exercice 4.7
+
+Le coefficient de variation de la variable $y$ au sein de la strate $U_h$ est donné par:
+$$
+\mbox{CV}_h=\frac{S_{yU_h}}{\bar{y}_h}, \quad h=1, \ldots, H
+$$
+et comme ils sont égaux pour toutes les strates, on a $\mbox{CV}_h=\mbox{CV}$ pour tout $h=1, \ldots, H$ et $S_{yU_h}=\bar{y}_h\mbox{CV}$ pour  $h=1, \ldots, H. $ Les tailles $n_h, h=1, \ldots, H$ calculées selon l'allocation optimale de Neyman devient:
+$$
+n_h=n\frac{N_hS_{yU_h}}{\sum_{h'=1}^HN_{h'}S_{yU_{h'}}}=n\frac{N_h\bar{y}_h\mbox{CV}}{\mbox{CV}\sum_{h'=1}^HN_{h'}\bar{y}_{h'}}=n\frac{t_{yU_h}}{\sum_{h'=1}^Ht_{yU_{h'}}}=n\frac{t_{yU_h}}{t_{yU}}, 
+$$
+pour $h=1, \ldots, H,$ qui est exactement l'allocation proportionnelle au total de $y$.
+
+## Solution exercice 4.8
+
+1. Le plan de sondage $p(s)$ d'un échantillon $s=s_1\cup s_2$ est $p(s)=p_1(s_1)p_2(s_2),$ où $p_1(\cdot)$ est un plan de Bernoulli de paramètre $\pi=n_1/N_1$ et $p_2(\cdot)$ est un plan de sondage aléatoire simple sans remise de taille $n_2$ dans $U_2$ de taille $N_2.$ Les plans $p_1$ et $p_2$ sont sans remise, le plan $p$ le sera également. 
+
+Les probabilités d'inclusion d'ordre un sont données par 
+\begin{eqnarray*}
+    \pi_k=\mathbb{P}(k\in s)&=&\mathbb{P}(k\in s_1)=\pi_{k,1}=\pi=\frac{n_1}{N_1}\quad \mbox{si} \quad k\in U_1\\
+    &=& \mathbb{P}(k\in s_2)=\pi_{k,2}=\frac{n_2}{N_2}\quad \mbox{si} \quad k\in U_2.
+\end{eqnarray*}
+Sauf le cas $n_1/N_1=n_2/N_2,$ le plan est à probabilités inégales.
+
+Le plan $p_1$ est un plan de Bernoulli, donc de taille aléatoire $n_{s_1}$ avec $\E_{p_1}(n_{s_1})=N_1\pi=n_1.$ Le plan $p_2$ est un plan aléatoire simple de taille fixe $n_2.$ Le plan $p$ est également de taille $n_s$ aléatoire. L'espérance de $n_s$ est 
+$$
+\E_p(n_s)=\E_{p}(n_{s_1}+n_{s_2})=\E_{p_1}(n_{s_1})+n_2=n_1+n_2. 
+$$
+
+
+2. Le total $t_{yU}=t_{yU_1}+t_{yU_2}$ est estimé par 
+\begin{eqnarray*}
+    \hat t_{y\rm{HT}}=\hat t_{y\rm{HT}, 1}+\hat t_{y\rm{HT},2},
+\end{eqnarray*}
+où 
+$$
+\hat t_{y\rm{HT},1}=\sum_{k\in s_1}y_k/\pi_{k,1}=\sum_{k\in s_1}y_k/\pi=N_1\sum_{k\in s_1}y_k/n_1
+$$
+et 
+$$
+\hat t_{y\rm{HT},2}=\sum_{k\in s_2}y_k/\pi_{k,2}=N_2\sum_{k\in s_1}y_k/n_2.
+$$
+La variance de $\hat t_{y\rm{HT}}$ est égale à 
+$$
+\V_{\rm{STSI}}(\hat t_{y\rm{HT}})=\V_{\rm{BE}}(\hat t_{y\rm{HT}, 1})+\V_{\rm{SI}}(\hat t_{y\rm{HT}, 2})=\frac{1-\pi}{\pi}\sum_{k\in U_1}y_k^2+N_2^2\frac{1-f_2}{n_2}S^2_{yU_2},
+$$
+où $S^2_{yU_2}=\sum_{k\in U_2}(y_k-\bar{y}_{U_2})^2/N_2;$ la variance de $\hat t_{y\rm{HT}}$ est estimée par
+$$
+\hat{\V}_{\rm{STSI}}(\hat t_{y\rm{HT}})=\hat{\V}_{\rm{BE}}(\hat t_{y\rm{HT}, 1})+\hat{\V}_{\rm{SI}}(\hat t_{y\rm{HT}, 2})=\frac{1-\pi}{\pi^2}\sum_{k\in s_1}y_k^2+N_2^2\frac{1-f_2}{n_2}S^2_{ys_2}, 
+$$
+où $S^2_{ys_2}=\sum_{k\in s_2}(y_k-\bar{y}_{s_2})^2/n_2.$
+
+## Solution exercice 4.9
+
+1.(a) On a un plan SI de taille $n=2$ dans une population $U$ de taille N=4,  les probabilités d'inclusion d'ordre un sont égales à $\pi_k=2/4=1/2$ pour tout élément $k$ de $U$  et $\pi_{kl}=n(n-1)/(N(N-1))=1/6$ pour tout $k\neq l\in U$. 
+
+1.(b) L'estimateur de Horvitz-Thompson du $\bar{y}_U$ est donné par 
+$$
+\hat{\bar{y}}_{\rm{HT}}=\frac{1}{2}\sum_{k\in s}y_k=\bar{y}_s
+$$
+et sa variance est égale à:
+$$
+\V_{\rm{SI}}(\hat{\bar{y}}_{\rm{HT}})=\frac{1-f}{n}S^2_{yU}=4^2\left(\frac{1}{2}-\frac{1}{4}\right)\frac{1}{3}\sum_{k\in U}y_k^2=0.1667,
+$$
+car $\bar{y}_U=\sum_{k\in U}y_k/4=0$.
+
+2.(a) On a un plan STSI de taille $n_1=n_2=1$ au sein de strates $U_1$ et respectivement, $U_2,$ les probabilités d'inclusion un sont données par:
+\begin{eqnarray*}
+    \pi_k=\mathbb{P}(k\in s)=\frac{n_h}{N_h}=\frac{1}{2}\quad\mbox{si}\quad k\in U_h, h=1, 2
+\end{eqnarray*}
+car $U_1=U_2=2$ et $n_1=n_2=1.$ Les probabilités d'inclusion d'ordre deux sont égales à 
+\begin{eqnarray*}
+    \pi_{kl}=\mathbb{P}(k, l\in s)&=&\frac{n_h(n_h-1)}{N_h(N_h-1)}=0\quad\mbox{si}\quad k\neq l\in U_h, h=1, 2\\
+    &=&\frac{n_1}{N_1}\frac{n_2}{N_2}\quad\mbox{si}\quad k\in U_h, l\in U_{h'}, h\neq h'\in \{1, 2\}
+\end{eqnarray*}
+2.(b) On a un plan STSI avec une allocation proportionnelle à la taille, l'estimateur de Horvitz-Thompson avec ce plan STSI est donc le même que l'estimateur de Horvitz-Thompson avec le plan SI:
+$$
+\hat{\bar{y}}_{\rm{HT}}=\frac{1}{2}\sum_{k\in s}y_k=\bar{y}_s.
+$$
+Sa variance est par contre différente de celle obtenue dans le cas du plan SI et égale à:
+\begin{eqnarray*}
+\V_{\rm{STSI,p}}(\hat{\bar{y}}_{\rm{HT}})=\frac{1-f}{n}\sum_{h=1}^2\frac{N_h}{N}S^2_{yU_h}=\left(\frac{1}{2}-\frac{1}{4}\right)\frac{1}{2}\left(S^2_{yU_1}+S^2_{yU_2}\right)=0.25,
+\end{eqnarray*}
+car $S^2_{yU_1}=\sum_{k\in U_1}(y_k-\bar{y}_{U_1})^2=0$ et $S^2_{yU_2}=\sum_{k\in U_2}(y_k-\bar{y}_{U_2})^2=2.$
+
+3. On remarque que 
+$$
+\V_{\rm{SI}}(\hat{\bar{y}}_{\rm{HT}})<\V_{\rm{STSI,p}}(\hat{\bar{y}}_{\rm{HT}}),
+$$
+donc la stratégie d'échantillonnage basée sur le plan stratifié est moins performante que celle basée sur le plan aléatoire simple sans remise. Cela n'est pas surprenant car dans ce cas, les moyennes de $y$ au sein des strates sont égales entre elles et égales à la moyenne de $y$ au sein de la population globale, donc la variabilité de $y$ inter-strates est nulle, SSB=0, et en conséquence, SST=SSW. Dans ce cas, la variance de l'estimateur de Horvitz-Thompson du $\bar{y}_U$ avec le plan SI devient:
+$$
+\V_{\rm{SI}}(\hat{\bar{y}}_{\rm{HT}})= \frac{1-f}{n}S^2_{yU}=\frac{1-f}{n}\frac{\mbox{SST}}{N-1}=\frac{1-f}{n}\frac{\mbox{SSW}}{3}
+$$
+et sous le plan STSI avec l'allocation proportionnelle à la taille:
+\begin{eqnarray*}
+\V_{\rm{STSI,p}}(\hat{\bar{y}}_{\rm{HT}})=\frac{1-f}{n}\sum_{h=1}^2\frac{N_h}{N}S^2_{yU_h}& =&\frac{1-f}{n}\frac{2}{N}\sum_{h=1}^2\sum_{k\in U_h}(y_k-\bar{y}_{U_h})^2\\
+&=& \frac{1-f}{n}\frac{2\times \mbox{SSW}}{4} < \frac{1-f}{n}\frac{\mbox{SSW}}{3}=\V_{\rm{SI}}(\hat{\bar{y}}_{\rm{HT}}).
+\end{eqnarray*}
+En effet, les constantes qui se trouvent devant les termes de variance $S^2_{yU}$ et $S^2_{yU_h}, h=1,\ldots, 2,$ font que la variance de l'estimateur de Horvitz-Thompson avec le plan SI est plus faible qu'avec le plan STSI. 
+
+## Solution exercice 4.10
+
+
+1. Pour un certain $h=1, \ldots, H,$ la sélection de l'échantillon $s_h$ se fait selon un plan de Bernoulli de paramètre $\pi_h$, donc on a 
+$p_h(s_h)=\pi^{n_{s_h}}_h(1-\pi_{h})^{N_h-n_{s_h}}$ et la sélection de $s$ est donc selon le plan suivant:
+$$
+p(s)=\Pi_{h=1}^Hp_h(s_h)=\Pi_{h=1}^H\pi^{n_{s_h}}_h(1-\pi_{h})^{N_h-n_{s_h}}.
+$$
+L'estimateur de Horvitz-Thompson de $t_{yU}$ est égal à
+$$
+\hat{t}_{y\rm{HT}}=\sum_{h=1}^H\frac{1}{\pi_h}\sum_{k\in s_h}y_k
+$$
+de variance:
+$$
+\V_{\rm{STBE}}(\hat{t}_{y\rm{HT}})=\sum_{h=1}^H\frac{1-\pi_h}{\pi_h}\sum_{k\in U_h}y_k^2.
+$$
+2. La taille $n_{s_h}$ suit une loi de Bernoulli des paramètres $N_h$ et $\pi_h,$ pour $h=1, \ldots, H.$ 
+
+3. On a 
+\begin{eqnarray*}
+   p(s|\mathbf{n}_s=\mathbf{n})=\frac{\mathbb{P}(s\cap \mathbf{n}_s=\mathbf{n})}{\mathbb{P}(\mathbf{n}_s=\mathbf{n})}=\frac{\Pi_{h=1}^H\pi^{n_{h}}_h(1-\pi_{h})^{N_h-n_{h}}}{\Pi_{h=1}^H\binom{N_h}{n_h}\pi^{n_{h}}_h(1-\pi_{h})^{N_h-n_{h}}}= \Pi_{h=1}^H\frac{1}{\binom{N_h}{n_h}},
+\end{eqnarray*}
+ce qui correspond à un plan STSI de tailles $n_h, h=1, \ldots, H. H$ au sein des strates de tailles $N_h, h=1, \ldots, H.$
+
+

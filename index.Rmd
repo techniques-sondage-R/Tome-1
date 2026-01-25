@@ -11,7 +11,7 @@ Dans ce premier tome de l'ouvrage \textit{Techniques de sondage: de la théorie 
 Le cadre étudié est celui d'une population finie où l'inférence statistique repose sur le tirage aléatoire des unités et sur des méthodes d’estimation adaptées à ce cadre.  
 
 \medskip 
-Ce premier tome étudie les stratégies d'échantillonnage probabilistes élémentaires, à probabilités égales ou inégales, avec ou sans remise, utilisant les estimateurs classiques de Horvitz-Thompson et Hansen-Hurwitz. Les plans de sondage stratifiés, en grappes et à deux degrés y sont également décrits de manière détaillée. De nombreux exemples numériques et applications à des enquêtes réelles facilitent la compréhension des résultats théoriques. %La mise en \oe uvre \proglang{R} de ces méthodes à partir d'exemples de données réelles. 
+Ce premier tome étudie les stratégies d'échantillonnage probabilistes élémentaires, à probabilités égales ou inégales, avec ou sans remise, utilisant les estimateurs classiques de Horvitz-Thompson et Hansen-Hurwitz. Les plans de sondage stratifiés, en grappes et à deux degrés y sont également décrits de manière détaillée. De nombreux exemples numériques et applications à des enquêtes réelles facilitent la compréhension des résultats théoriques. 
 Des études par simulation Monte-Carlo complètent l'analyse  en évaluant les performances statistiques (biais et variance) des estimateurs sous différents plans de sondage, soulignant les avantages, les limites et les pistes d'amélioration possibles des stratégies étudiées.
 
 
