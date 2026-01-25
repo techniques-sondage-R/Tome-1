@@ -5,10 +5,19 @@ title: "I. Présentation"
 <!-- ÉCRIVEZ VOTRE CODE R MARKDOWN ICI -->
 <!-- Cette page est la page d'accueil / Présentation du site -->
 
-# Bienvenue
+# Techniques de sondage : de la théorie à la pratique avec R, Tome 1
 
-Contenu de la présentation à ajouter ici.
+Dans ce premier tome de l'ouvrage \textit{Techniques de sondage: de la théorie à la pratique avec \proglang{R}}, les principales méthodes de tirage d'échantillon et d'estimation de totaux et de moyennes sont présentées d'un point de vue théorique, puis mises en \oe uvre avec \proglang{R},  à partir d'exemples inspirés de situations réelles classiques.
+Le cadre étudié est celui d'une population finie où l'inférence statistique repose sur le tirage aléatoire des unités et sur des méthodes d’estimation adaptées à ce cadre.  
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+\medskip 
+Ce premier tome étudie les stratégies d'échantillonnage probabilistes élémentaires, à probabilités égales ou inégales, avec ou sans remise, utilisant les estimateurs classiques de Horvitz-Thompson et Hansen-Hurwitz. Les plans de sondage stratifiés, en grappes et à deux degrés y sont également décrits de manière détaillée. De nombreux exemples numériques et applications à des enquêtes réelles facilitent la compréhension des résultats théoriques. %La mise en \oe uvre \proglang{R} de ces méthodes à partir d'exemples de données réelles. 
+Des études par simulation Monte-Carlo complètent l'analyse  en évaluant les performances statistiques (biais et variance) des estimateurs sous différents plans de sondage, soulignant les avantages, les limites et les pistes d'amélioration possibles des stratégies étudiées.
+
+
+
+\medskip
+
+Alliant rigueur théorique et mise en \oe uvre pratique avec \proglang{R}, l'ouvrage  s'adresse à toutes celles et ceux qui souhaitent maîtriser les principes et l'application des techniques de sondage. Les autrices, qui enseignent les sondages et la statistique depuis de nombreuses années, mettent ici à profit leur expérience pédagogique et leur connaissance approfondie du domaine. Le \textit{Tome 1} constitue une ressource précieuse pour un cours de sondages de niveau débutant ou intermédiaire,  tandis que le \textit{Tome 2} est consacré aux méthodes avancées~: échantillonnage spatial, estimation de paramètres non-linéaires, estimation avec prise en compte d'information auxiliaire, théorie asymptotique.
+
+

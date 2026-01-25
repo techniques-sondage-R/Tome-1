@@ -21,7 +21,7 @@ navbar:
           href: correction_chap3.html
         - text: "d) Chapitre 4"
           href: correction_chap4.html
-        - text: "correction_chap5_6"
+        - text: "e) Chapitres 5 et 6"
           href: correction_chap5_6.html
 output:
   html_document:
