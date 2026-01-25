@@ -7,13 +7,13 @@ header-includes: \usepackage{amsmath,amssymb}
 <!-- Cette page est la page d'accueil / Présentation du site -->
 ## Les auteures
 
- - **Camelia Goga** (https://goga.perso.math.cnrs.fr) est professeur de mathématiques appliqués, spécialité statistique au sein du Laboratoire de Mathématiques de Besançon, Université Marie et Louis Pasteur. Ses thématiques de recherche sont la théorie des sondages, la statistique nonparamétrique, l'apprentissage statistique. 
+ - [Camelia Goga](https://goga.perso.math.cnrs.fr) est professeur de mathématiques appliqués, spécialité statistique au sein du Laboratoire de Mathématiques de Besançon, Université Marie et Louis Pasteur. Ses thématiques de recherche sont la théorie des sondages, la statistique nonparamétrique, l'apprentissage statistique. 
  
- - **Hélène Juillard**
+ - **Hélène Juillard** possède un doctorat en mathématiques appliquées, statistique à l'Université Toulouse 1 Capitole réalisé en collaboration avec l'Ined. Elle enseigne actuellement les techniques de sondages dans le cadre de l'enseignement à distance. 
  
- - **Alina Matei** est professeure titulaire de statistique à l'Université de Neuchâtel (Suisse). Elle mène des recherches sur divers sujets liés à l'échantillonnage et à l'estimation en populations finies.
+ - [Alina Matei](https://libra.unine.ch/entities/person/a44b172f-bff3-4312-89eb-be682028c603) est professeur titulaire de statistique à l'Université de Neuchâtel (Suisse). Elle mène des recherches sur divers sujets liés à l'échantillonnage et à l'estimation en populations finies.
  
- - **Anne M. Ruiz** (https://www.tse-fr.eu/fr/people/anne-m-ruiz) est professeur de mathématiques appliqués, spécialité statistique au sein de Toulouse School of Economics. Ses thématiques de recherche privilégiées sont l'analyse de données multivariée, la théorie des sondages, l'économétrie et la statistique spatiales.
+ - [Anne M. Ruiz](https://www.tse-fr.eu/fr/people/anne-m-ruiz) est professeur de mathématiques appliqués, spécialité statistique au sein de Toulouse School of Economics. Ses thématiques de recherche privilégiées sont l'analyse de données multivariée, la théorie des sondages, l'économétrie et la statistique spatiales.
 
 
 \vspace{1cm}
