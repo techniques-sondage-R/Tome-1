@@ -11,7 +11,7 @@ header-includes: \usepackage{amsmath,amssymb}
  
  - **Hélène Juillard**
  
- - **Alina Matei**
+ - **Alina Matei** est professeure titulaire de statistique à l'Université de Neuchâtel (Suisse). Elle mène des recherches sur divers sujets liés à l'échantillonnage et à l'estimation en populations finies.
  
  - **Anne M. Ruiz** (https://www.tse-fr.eu/fr/people/anne-m-ruiz) est professeur de mathématiques appliqués, spécialité statistique au sein de Toulouse School of Economics. Ses thématiques de recherche privilégiées sont l'analyse de données multivariée, la théorie des sondages, l'économétrie et la statistique spatiales.
 
@@ -36,5 +36,6 @@ Alliant rigueur théorique et mise en oeuvre pratique avec R, l'ouvrage  s'adres
 
 # Table de matières
 
-docs/table-matieres.pdf
 
+
+[Télécharger le rapport (PDF)](docs/table-matieres.pdf)
