@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Camelia Goga" />
+
+<meta name="date" content="2026-01-14" />
+
+<title>Solutions chapitres 5 et 6</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Mon Site R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">I. Présentation</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    II. Code R
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="code_r_chap1.html">a) Chapitre 1</a>
+    </li>
+    <li>
+      <a href="code_r_chap2.html">b) Chapitre 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    III. Correction Exercices
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="correction_chap1.html">a) Chapitre 1</a>
+    </li>
+    <li>
+      <a href="correction_chap2.html">b) Chapitre 2</a>
+    </li>
+    <li>
+      <a href="correction_chap3.html">c) Chapitre 3</a>
+    </li>
+    <li>
+      <a href="correction_chap4.html">d) Chapitre 4</a>
+    </li>
+    <li>
+      <a href="correction_chap5_6.html">correction_chap5_6</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Solutions chapitres 5 et 6</h1>
+<h4 class="author">Camelia Goga</h4>
+<h4 class="date">2026-01-14</h4>
+
+</div>
+
+
+<div id="solution-exercice-5.1" class="section level2">
+<h2>Solution exercice 5.1</h2>
+<ol style="list-style-type: decimal">
+<li>La taille <span class="math inline">\(N\)</span> s’écrit comme suit
+sur la population des grappes:</li>
+</ol>
+<p><span class="math display">\[N=\sum_{i\in U_I}N_i\]</span></p>
+<p>où <span class="math inline">\(U_I\)</span> est la population des
+<span class="math inline">\(N_I\)</span> grappes, de tailles <span
+class="math inline">\(N_i\)</span>, <span class="math inline">\(i=1,
+\ldots, N_I.\)</span> L’estimateur de Horvitz-Thompson de <span
+class="math inline">\(N\)</span> est égal à</p>
+<p><span class="math display">\[\hat N=\sum_{i\in
+s_I}\frac{N_i}{\pi_{Ii}}=N_I\sum_{i\in s_I}\frac{N_i}{n_I}\neq
+N\]</span></p>
+<p>car <span class="math inline">\(\pi_{Ii}=n_I/N_I\)</span> pour tout
+<span class="math inline">\(i\in U_I.\)</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>La variance de <span class="math inline">\(\hat N\)</span> est égale
+dans le cas d’un plan SIC à</li>
+</ol>
+<p><span class="math display">\[\text{Var}_{\rm{SIC}}(\hat
+N)=N_I^2\frac{1-f_I}{n_I}S^2_{NU_I}\]</span></p>
+<p>où <span class="math inline">\(S^2_{NU_I}=\sum_{i\in
+U_I}(N_i-(N/N_I))^2/(N_I-1)\)</span> et <span
+class="math inline">\(f_I=n_I/N_I.\)</span> Cette variance est estimée
+par</p>
+<p><span class="math display">\[\widehat{\text{Var}}_{\rm{SIC}}(\hat
+N)=N_I^2\frac{1-f_I}{n_I}S^2_{Ns_I}\]</span></p>
+<p>où <span class="math inline">\(S^2_{Ns_I}=\sum_{i\in
+s_I}(N_i-(\sum_{i\in s_I}N_i/n_I))^2/(n_I-1).\)</span></p>
+</div>
+<div id="solution-exercice-5.2" class="section level2">
+<h2>Solution exercice 5.2</h2>
+<p>La variance approchée de <span
+class="math inline">\(\hat{\bar{y}}\)</span> est donnée par</p>
+<p><span class="math display">\[\text{AVar}(\hat{\bar{y}})
+=\text{Var}\left(\sum_{i\in s_I}\frac{u_i}{\pi_{Ii}}\right)=\sum_{i \in
+U_I} \sum_{j \in U_I} \Delta_{Iij} \frac{u_i}{\pi_{Ii}}
+\frac{u_j}{\pi_{Ij}}\]</span></p>
+<p>où</p>
+<p><span class="math display">\[u_i=\frac{1}{N}(t_i-N_i \bar{y}_U),
+\quad i\in U_I\]</span></p>
+<p>Dans le cas d’un plan SIC, cette variance approchée devient:</p>
+<p><span
+class="math display">\[\text{AVar}_{\rm{SIC}}(\hat{\bar{y}})=N_I^2\frac{1-f_I}{n_I}S^2_{uU_I}\]</span></p>
+<p>où <span class="math inline">\(f_I=n_I/N_I\)</span> et</p>
+<p><span class="math display">\[S^2_{uU_I}=\frac{1}{N_I-1}\sum_{i\in
+U_I}(u_i-\bar{u}_{U_I})^2=\frac{1}{N_I-1}\sum_{i\in
+U_I}u_i^2=\frac{1}{N^2(N_I-1)}\sum_{i\in U_I}(t_i-N_i\bar{y}_U)^2 =
+\frac{1}{N^2(N_I-1)}\sum_{i\in
+U_I}N_i(\bar{y}_{U_i}-\bar{y}_U)^2\]</span></p>
+<p>car <span class="math inline">\(\bar{u}_{U_I}=\sum_{i\in
+U_I}u_I/N_I=0.\)</span></p>
+<p>Pour estimer la variance, on estime d’abord les variables linéarisées
+<span class="math inline">\(u_i\)</span> par</p>
+<p><span class="math display">\[\hat{u}_i=\frac{1}{\hat
+N}(t_i-N_i\hat{\bar{y}}), \quad i\in s_I\]</span></p>
+<p>où <span class="math inline">\(\hat N=\sum_{i\in
+s_I}N_i/\pi_{Ii}=N_I\sum_{i\in s_I}N_i/n_I.\)</span></p>
+<p>L’estimateur de la variance est donné par</p>
+<p><span
+class="math display">\[\widehat{\text{Var}}(\hat{\bar{y}})=\sum_{i \in
+s_I} \sum_{j \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}}
+\frac{\hat{u}_i}{\pi_{Ii}} \frac{\hat{u}_j}{\pi_{Ij}}\]</span></p>
+<p>et dans le cas d’un plan SI:</p>
+<p><span
+class="math display">\[\widehat{\text{Var}}_{\rm{SIC}}(\hat{\bar{y}})=N_I^2\frac{1-f_I}{n_I}S^2_{\hat{u}s_I}\]</span></p>
+<p>où</p>
+<p><span
+class="math display">\[S^2_{\hat{u}s_I}=\frac{1}{n_I-1}\sum_{i\in
+s_I}(\hat{u}_i-\bar{\hat{u}}_{s_I})^2=\frac{1}{n_I-1}\sum_{i\in
+s_I}\hat{u}^2_i=\frac{1}{\hat{N}^2(n_I-1)}\sum_{i\in
+s_I}(t_i-N_i\hat{\bar{y}})^2 = \frac{\sum_{i\in
+s_I}N^2_i(\bar{y}_{U_i}-\hat{\bar{y}})^2}{N_I^2(\sum_{i\in
+s_I}N_i/n_I)^2(n_I-1)}\]</span></p>
+<p>car <span class="math inline">\(\bar{\hat{u}}_{s_I}=\sum_{i\in
+s_I}\hat{u}_i/n_I=0.\)</span> Donc, la variance devient</p>
+<p><span
+class="math display">\[\widehat{\text{Var}}_{\rm{SIC}}(\hat{\bar{y}})=\frac{1}{(\sum_{i\in
+s_I}N_i/n_I)^2}\frac{1-f_I}{n_I(n_I-1)}\sum_{i\in
+s_I}N^2_i(\bar{y}_{U_i}-\hat{\bar{y}})^2\]</span></p>
+</div>
+<div id="solution-exercice-5.3" class="section level2">
+<h2>Solution exercice 5.3</h2>
+<p>Le coefficient d’homogénéité <span
+class="math inline">\(\delta\)</span> est donné par</p>
+<p><span
+class="math display">\[\delta=1-\frac{N-1}{N-N_I}\frac{\text{SSW}}{\text{SST}}\]</span></p>
+<p>où SSW est la variabilité intra-grappes et SST est la variabilité
+totale au sein de la population <span class="math inline">\(U.\)</span>
+La décomposition de la variabilité totale de <span
+class="math inline">\(y\)</span> donne:</p>
+<p><span
+class="math display">\[\text{SST}=\text{SSW}+\text{SSB}\]</span></p>
+<p>où SSB est la variabilité inter-grappes. On a</p>
+<p><span class="math display">\[0\leq \text{SSW}\leq
+\text{SST}\]</span></p>
+<p>Donc, si SSW=0, alors <span
+class="math inline">\(\delta_{min}=1\)</span> et si SSW=SST, alors</p>
+<p><span
+class="math display">\[\delta_{max}=1-\frac{N-1}{N-N_I}=-\frac{N_I-1}{N-N_I}\]</span></p>
+</div>
+<div id="solution-exercice-5.4" class="section level2">
+<h2>Solution exercice 5.4</h2>
+<p>On note <span class="math inline">\(A=\sum_{i \in U_I} \sum_{k \in
+U_i} \sum_{l \neq k \in U_i} \left(y_k - \bar{y}_U\right) \left( y_l -
+\bar{y}_U\right)\)</span> et comme indiqué dans l’exercice, on montre
+d’abord que <span
+class="math inline">\(\bar{N}\text{SSB}=A+\text{SST}.\)</span></p>
+<p>On a</p>
+<p><span class="math display">\[\sum_{i \in U_I} \left[\sum_{k \in
+U_i}\left(y_k - \bar{y}_U\right)\right]^2 = \sum_{i \in U_I} \sum_{k \in
+U_i} \sum_{l\in U_i} \left(y_k - \bar{y}_U\right) \left( y_l -
+\bar{y}_U\right) = A+\sum_{i \in U_I} \sum_{k \in U_i}\left(y_k -
+\bar{y}_U\right)^2=A+\text{SST}\]</span></p>
+<p>On a par ailleurs,</p>
+<p><span class="math display">\[\sum_{i \in U_I} \left[\sum_{k \in
+U_i}\left(y_k - \bar{y}_U\right)\right]^2=\bar{N}\text{SSB}\]</span></p>
+<p>et on obtient donc, <span
+class="math inline">\(\text{SSW}=\text{SST}-\text{SSB}=\text{SST}-A/\bar{N}-\text{SST}/\bar{N},\)</span>
+qu’on remplace ensuite dans l’expression de <span
+class="math inline">\(\rho=1-(\bar{N}/(\bar{N}-1))(\text{SSW}/\text{SST}).\)</span></p>
+</div>
+<div id="solution-exercice-6.1" class="section level2">
+<h2>Solution exercice 6.1</h2>
+<p>On rappelle que</p>
+<p><span
+class="math display">\[\widehat{\text{Var}}\left(\hat{t}_{y\text{HT}}\right)
+= \sum_{i \in s_I} \sum_{j \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}}
+\frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}}
+\frac{\hat{t}_{j\text{HT}}}{\pi_{Ij}} +  \sum_{i \in s_I}
+\frac{\widehat{\text{Var}}_i}{\pi_{Ii}}\]</span></p>
+<p><span class="math display">\[= \sum_{i \in s_I} \sum_{j\neq i \in
+s_I} \frac{\Delta_{Iij}}{\pi_{Iij}}
+\frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}}
+\frac{\hat{t}_{j\text{HT}}}{\pi_{Ij}} +\sum_{i \in
+s_I}\frac{\Delta_{Iii}}{\pi_{Ii}}
+\left(\frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}}\right)^2  + \sum_{i \in s_I}
+\frac{\widehat{\text{Var}}_i}{\pi_{Ii}}\]</span></p>
+<p>et en utilisant <span
+class="math inline">\(\mathbb{E}(\widehat{\text{Var}}\left(\hat{t}_{y\text{HT}}\right))=\mathbb{E}_I\mathbb{E}_{II}(\widehat{\text{Var}}(\hat{t}_{y\text{HT}}|s_I)
+),\)</span> on obtient:</p>
+<p><span
+class="math display">\[\mathbb{E}(\widehat{\text{Var}}\left(\hat{t}_{y\text{HT}}\right))
+= \mathbb{E}_I\left[\mathbb{E}_{II}\left(\sum_{i \in s_I} \sum_{j\neq i
+\in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}}
+\frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}}
+\frac{\hat{t}_{j\text{HT}}}{\pi_{Ij}} +\sum_{i \in s_I}(1-\pi_{Ii})
+\left(\frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}}\right)^2  + \sum_{i \in s_I}
+\frac{\widehat{\text{Var}}_i}{\pi_{Ii}}|s_I\right)\right]\]</span></p>
+<p><span class="math display">\[= \mathbb{E}_I\left(\sum_{i \in s_I}
+\sum_{j\neq i \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}}
+\frac{t_i}{\pi_{Ii}}
+\frac{t_j}{\pi_{Ij}}\right)+\mathbb{E}_I\left(\sum_{i \in
+s_I}(1-\pi_{Ii}) \frac{t_i^2+V_i}{\pi_{Ii}^2} +\sum_{i \in s_I}
+\frac{\text{Var}_i}{\pi_{Ii}}\right)\]</span></p>
+<p><span class="math display">\[= \sum_{i \in U_I} \sum_{j\neq i \in
+U_I} \Delta_{Iij} \frac{t_i}{\pi_{Ii}}
+\frac{t_j}{\pi_{Ij}}+\mathbb{E}_I\left(\sum_{i \in s_I}
+\frac{(1-\pi_{Ii})t_i^2+V_i}{\pi_{Ii}^2}\right)\]</span></p>
+<p><span class="math display">\[= \sum_{i \in U_I} \sum_{j\neq i \in
+U_I} \Delta_{Iij} \frac{t_i}{\pi_{Ii}} \frac{t_j}{\pi_{Ij}}+ \sum_{i\in
+U_I}\frac{1-\pi_{Ii}}{\pi_{Ii}}t_i^2 +\sum_{i\in
+U_I}\frac{V_i}{\pi_{Ii}}\]</span></p>
+<p><span class="math display">\[= \sum_{i \in U_I} \sum_{j \in U_I}
+\Delta_{Iij} \frac{t_i}{\pi_{Ii}} \frac{t_j}{\pi_{Ij}}+\sum_{i\in
+U_I}\frac{V_i}{\pi_{Ii}}=\text{Var}(\hat{t}_{y\text{HT}})\]</span></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
