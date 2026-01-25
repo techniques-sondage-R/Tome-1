@@ -1,9 +1,5 @@
 ---
 title: "Solutions exercices chapitre 4"
-author: "Camelia Goga"
-date: "2026-01-15"
-output:
-  html_document: default
 header-includes:
 - \usepackage{amsmath,amssymb}
 - \newcommand{\E}{\mathbb{E}}

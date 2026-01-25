@@ -1,7 +1,5 @@
 ---
 title: "Solutions chapitres 5 et 6"
-author: "Camelia Goga"
-date: "2026-01-14"
 ---
 
 ```{r setup, include=FALSE}
