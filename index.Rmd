@@ -1,12 +1,13 @@
 ---
 title: "I. Présentation"
+header-includes: \usepackage{amsmath,amssymb}
 ---
 
 <!-- ÉCRIVEZ VOTRE CODE R MARKDOWN ICI -->
 <!-- Cette page est la page d'accueil / Présentation du site -->
-## Autrices
+## Les auteures
 
- - Camelia Goga (https://goga.perso.math.cnrs.fr) est professeur de mathématiques appliqués, spécialité statistique au sein du Laboratoire de Mathématiques de Besançon, Université Marie et Louis Pasteur. Ses thématiques de recherche sont la théorie des sondages, statistique nonparamétrique, apprentissage statistique. 
+ - \textbf{Camelia Goga} (https://goga.perso.math.cnrs.fr) est professeur de mathématiques appliqués, spécialité statistique au sein du Laboratoire de Mathématiques de Besançon, Université Marie et Louis Pasteur. Ses thématiques de recherche sont la théorie des sondages, la statistique nonparamétrique, l'apprentissage statistique. 
  
  - Hélène Juillard
  

@@ -1,7 +1,5 @@
 ---
 title: "Solutions exercices chapitre 1"
-output:
-  html_document: default
 header-includes:
 - \usepackage{amsmath,amssymb}
 - \newcommand{\E}{\mathbb{E}}
