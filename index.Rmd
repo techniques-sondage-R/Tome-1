@@ -38,4 +38,3 @@ Alliant rigueur théorique et mise en oeuvre pratique avec R, l'ouvrage  s'adres
 
 
 
-[Télécharger le rapport (PDF)](docs/table-matieres_livre.pdf)
