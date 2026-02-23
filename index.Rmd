@@ -7,7 +7,7 @@ header-includes: \usepackage{amsmath,amssymb}
 <!-- Cette page est la page d'accueil / Présentation du site -->
 ## Les auteures
 
- - [Camelia Goga](https://goga.perso.math.cnrs.fr) est professeur de mathématiques appliqués, spécialité statistique au sein du Laboratoire de Mathématiques de Besançon, Université Marie et Louis Pasteur. Ses thématiques de recherche sont la théorie des sondages, la statistique nonparamétrique, l'apprentissage statistique. 
+ - [Camelia Goga](https://goga.perso.math.cnrs.fr) est professeure de mathématiques appliqués, spécialité statistique au sein du Laboratoire de Mathématiques de Besançon, Université Marie et Louis Pasteur. Ses thématiques de recherche sont la théorie des sondages, la statistique nonparamétrique, l'apprentissage statistique. 
  
  - **Hélène Juillard** possède un doctorat en mathématiques appliquées, statistique à l'Université Toulouse 1 Capitole réalisé en collaboration avec l'Ined. Elle enseigne actuellement les techniques de sondages dans le cadre de l'enseignement à distance. 
  
