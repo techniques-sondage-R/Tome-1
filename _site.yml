@@ -5,6 +5,7 @@ navbar:
   left:
     - text: "I. Présentation"
       href: index.html
+      
     - text: "II. Code R"
       menu:
         - text: "a) Chapitre 1"
@@ -29,3 +30,4 @@ output:
     highlight: tango
     toc: true
     toc_float: true
+    css: styles.css
