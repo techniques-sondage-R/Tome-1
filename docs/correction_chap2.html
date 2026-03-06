@@ -379,7 +379,8 @@ class="math display">\[
 s}p(s)=\frac{\binom{N-1}{n-1}}{\binom{N}{n}}=\frac{n}{N}, \quad k\in U,
 \]</span> car <span class="math inline">\(p(s)=1/\binom{N}{n}\)</span>
 pour tout échantillon <span class="math inline">\(s\)</span> de taille
-<span class="math inline">\(n\)</span> et zéro sinon et il y a <span
+<span class="math inline">\(n\)</span> (<span
+class="math inline">\(|s|=n\)</span>) et zéro sinon et il y a <span
 class="math inline">\(\binom{N-1}{n-1}\)</span> parties de <span
 class="math inline">\(n\)</span> individus choisis sans remise parmi les
 <span class="math inline">\(N\)</span> individus de la population, qui
@@ -389,10 +390,13 @@ même façon: <span class="math display">\[
 \pi_{kl}=\sum_{s\in \mathcal S, k, l\in s}p(s)=\sum_{|s|=n, k,l\in
 s}p(s)=\frac{\binom{N-2}{n-2}}{\binom{N}{n}}=\frac{n(n-1)}{N(N-1)},
 \quad k\neq l\in U.
-\]</span></p>
-</div>
-<div id="solution-exercice-2.3" class="section level2">
-<h2>Solution exercice 2.3</h2>
+\]</span> Les termes de covariances sont égaux à: <span
+class="math display">\[
+\Delta_{kl}=\pi_{kl}-\pi_k\pi_l=\frac{n(n-1)}{N(N-1)}-\left(\frac{n}{N}\right)^2=\frac{n}{N}\left(\frac{n-1}{N-1}-\frac{n}{N}\right)=-\frac{n(N-n)}{N^2(N-1)},
+\quad k\neq l\in U,
+\]</span> <span class="math display">\[
+\Delta_{kl}=\pi_{k}-\pi^2_k=\frac{n(N-n)}{N^2}, \quad k=l\in U.
+\]</span> ## Solution exercice 2.3</p>
 <p>Considérons le schéma de tirage sans remise de <span
 class="math inline">\(n\)</span> billes à partir d’une urne de <span
 class="math inline">\(N\)</span> billes: la probabilité de sélectionner
@@ -456,9 +460,10 @@ s}y_k^2-n\bar{y}^2_s\right)^2\\
 <p>Le plan SI est un plan de taille fixe <span
 class="math inline">\(n,\)</span> donc la variance de l’estimateur de
 Horvitz-Thompson s’écrit sous la forme de la variance de
-Yates-Grundy-Sen. On peut vérifier directement que les deux formules
-coïncident, comme détaillé ci-dessous en partant de la formule de
-Yates-Grundy-Sen: <span class="math display">\[\begin{eqnarray*}
+Yates-Grundy-Sen (voir la proposition 1.7). On peut vérifier directement
+que les deux formules coïncident, comme détaillé ci-dessous en partant
+de la formule de Yates-Grundy-Sen: <span
+class="math display">\[\begin{eqnarray*}
     \mathop{\mathrm{V}}_{\rm{YGS}}(\hat{t}_{y\rm{HT}})&amp;=&amp;-\frac{1}{2}\sum_{k\in
 U}\sum_{l\in
 U}\Delta_{kl}\left(\frac{y_k}{\pi_k}-\frac{y_l}{\pi_l}\right)^2=-\frac{1}{2}\sum_{k\in
@@ -584,7 +589,7 @@ variable <span class="math inline">\(y\)</span> dichotomique), la
 variance de <span class="math inline">\(\hat P\)</span> est donc: <span
 class="math display">\[
 \mathop{\mathrm{V}}_{\rm{SI}}(\hat{P})=\frac{1-f}{n}S^2_{yU}=\frac{1-f}{n}\frac{NP(1-P)}{N-1}=\frac{1-f}{f(N-1)}P(1-P),
-\]</span> en utilisant aussi l’exercice 2.7.\</p></li>
+\]</span> en utilisant aussi l’exercice 2.7.</p></li>
 <li><p>L’estimateur de la variance est égal à: <span
 class="math display">\[
 \hat{\mathop{\mathrm{V}}}_{\rm{SI}}(\hat{P})=\frac{1-f}{n}S^2_{ys}=\frac{1-f}{n}\frac{n}{n-1}\hat{P}(1-\hat{P})=\frac{1-f}{n-1}\hat{P}(1-\hat{P}),
@@ -608,9 +613,9 @@ paramètres <span class="math inline">\(N, N_d\)</span> et <span
 class="math inline">\(n:\)</span> <span class="math display">\[
 \mathbb{P}(n_d=n_0)=\frac{\binom{N_d}{n_0}\binom{N-N_d}{n-n_0}}{\binom{N}{n}},
 \]</span> où <span class="math inline">\(n_0\in \{0,\ldots, \min(n,
-N_0)\}.\)</span></p></li>
+N_d)\}.\)</span></p></li>
 <li><p>Soit <span class="math inline">\(n_0\in \{0,\ldots, \min(n,
-N_0)\},\)</span> alors <span class="math display">\[
+N_d)\},\)</span> alors <span class="math display">\[
 p(s|n_d=n_0)=\frac{\mathbb{P}(s\quad \&amp;\quad
 n_d=n_0)}{\mathbb{P}(n_d=n_0)}=\frac{\frac{\binom{N-N_d}{n-n_0}}{\binom{N}{n}}}{\frac{\binom{N_d}{n_0}\binom{N-N_d}{n-n_0}}{\binom{N}{n}}}=\frac{1}{\binom{N_d}{n_0}},
 \]</span> ce qui correspond à plan aléatoire simple sans remise de
@@ -631,8 +636,8 @@ class="math inline">\(\pi_k=n/N\)</span> pour tout <span
 class="math inline">\(k\in U,\)</span> donc <span
 class="math display">\[
 \hat{t}_{y_{d}}=\sum_{k\in s}\frac{y_k\mathbf{1}_{\{k\in
-U_d\}}}{\pi_k}=\frac{N}{n}\sum_{k\in U}y_k\mathbf{1}_{\{k\in
-U_d\}}=\frac{N}{n}\sum_{k\in U_d}y_k.
+U_d\}}}{\pi_k}=\frac{N}{n}\sum_{k\in s}y_k\mathbf{1}_{\{k\in
+s_d\}}=\frac{N}{n}\sum_{k\in s_d}y_k.
 \]</span></p></li>
 <li><p>La variance de <span class="math inline">\(\hat
 t_{y_{d}}\)</span> est égale à <span
@@ -655,7 +660,7 @@ U_d\}}/N=\sum_{k\in U_d}y_{k}/N.
 <li><p>Un estimateur sans biais de <span
 class="math inline">\(\mathop{\mathrm{V}}_{\rm{SI}}(\hat{t}_{y_d})\)</span>
 est donné par: <span class="math display">\[\begin{eqnarray*}
-\hat{\mathop{\mathrm{V}}}_{\rm{SI}}(\hat{t}_{y_d})=N^2\frac{1-f}{n}S^2_{y_d},   
+\hat{\mathop{\mathrm{V}}}_{\rm{SI}}(\hat{t}_{y_d})=N^2\frac{1-f}{n}S^2_{y_ds},   
 \end{eqnarray*}\]</span> où <span
 class="math inline">\(S^2_{y_ds}\)</span> est la variance (corrigée) de
 la variable <span class="math inline">\(y_d\)</span> calculée au sein de
@@ -725,7 +730,7 @@ vérifie: <span class="math display">\[\begin{eqnarray*}
 e^2\Longleftrightarrow n\geq
 \frac{z^2_{1-\alpha/2}\frac{NP(1-P)}{N-1}}{e^2+z^2_{1-\alpha/2}\frac{P(1-P)}{N-1}}=\frac{n_0}{1+n_0/N},
 \end{eqnarray*}\]</span> pour <span
-class="math inline">\(n_0=NP(1-P)/[(N-1)e^2].\)</span></p></li>
+class="math inline">\(n_0=z^2_{1-\alpha/2}NP(1-P)/[(N-1)e^2].\)</span></p></li>
 </ol>
 </div>
 <div id="solution-exercice-2.12" class="section level2">
@@ -767,9 +772,10 @@ class="math inline">\(\pi_k=\pi=n/N\)</span> pour tout <span
 class="math inline">\(k\in U\)</span> et <span class="math display">\[
 \hat P=\frac{1}{N}\sum_{k\in s}\frac{y_k}{\pi}=\frac{1}{n}\sum_{k\in
 s}y_k=\frac{n_s}{n}p_s,
-\]</span> où <span class="math inline">\(p_s\)</span> est la proportion
-d’individus ayant la propriété <span class="math inline">\(A\)</span>
-dans l’échantillon de Bernoulli.</p></li>
+\]</span> où <span class="math inline">\(p_s=\sum_{k\in
+s}y_k/n_s\)</span> est la proportion d’individus ayant la propriété
+<span class="math inline">\(A\)</span> dans l’échantillon de
+Bernoulli.</p></li>
 <li><p>La variance de <span class="math inline">\(\hat P\)</span> sous
 le plan BE(n/N) est égale à <span class="math display">\[
 \mathop{\mathrm{V}}_{\rm{BE}}(\hat
@@ -824,17 +830,18 @@ a\sum_{r=1}^a(n\bar{y}_{s_r}-n\bar{y}_U)^2=\frac{N^2}{a}
 <p>On rappelle la décomposition de la variance totale de <span
 class="math inline">\(y\)</span> (c’est-à-dire au sein de la population
 <span class="math inline">\(U\)</span>) par rapport aux échantillons
-systématiques <span class="math inline">\(s_r, r=1, \ldots, a:\)</span>
-<span class="math display">\[
+systématiques <span class="math inline">\(s_r, r=1, \ldots, a,\)</span>
+dans le cas <span class="math inline">\(N=n\times a:\)</span> <span
+class="math display">\[
 \underbrace{\sum_{k\in
 U}(y_k-\bar{y}_U)^2}_{\mbox{SST}}=\underbrace{\sum_{r=1}^a\sum_{k\in
 s_r}(y_k-\bar{y}_{s_r})^2}_{\mbox{SSW}}+\underbrace{\sum_{r=1}^an(\bar{y}_{s_r}-\bar{y}_U)^2}_{\mbox{SSB}}.
 \]</span> La variance de l’estimateur de Horvitz-Thompson avec un plan
 SI est égale à <span class="math display">\[
 \mathop{\mathrm{V}}_{\rm{SI}}(\hat
-t_{y\rm{HT}})=N^2\frac{1-f}{n}S^2_{yU}=N^2\frac{1-f}{n}\mbox{SST}
+t_{y\rm{HT}})=N^2\frac{1-f}{n}S^2_{yU}=N^2\frac{1-f}{n}\frac{\mbox{SST}}{N-1}
 \]</span> et sous un plan systématique avec <span
-class="math inline">\(N=n\times a\)</span>: <span
+class="math inline">\(N=n\times a\)</span> (voir l’exercice 2.14): <span
 class="math display">\[
 \mathop{\mathrm{V}}_{\rm{SY}}(\hat t_{y\rm{HT}})=N\times \mbox{SSB}.
 \]</span> L’effet plan est donné alors par <span

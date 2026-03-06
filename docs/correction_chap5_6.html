@@ -400,7 +400,8 @@ s_I}(N_i-(\sum_{i\in s_I}N_i/n_I))^2/(n_I-1).\)</span></p>
 </div>
 <div id="solution-exercice-5.2" class="section level2">
 <h2>Solution exercice 5.2</h2>
-<p>La variance approchée de <span
+<p>Cet exercice utilise des outils développés dans le tome 2, chapitre
+Paramètres complexes. La variance approchée de <span
 class="math inline">\(\hat{\bar{y}}\)</span> est donnée par</p>
 <p><span class="math display">\[\text{AVar}(\hat{\bar{y}})
 =\text{Var}\left(\sum_{i\in s_I}\frac{u_i}{\pi_{Ii}}\right)=\sum_{i \in
@@ -408,8 +409,11 @@ U_I} \sum_{j \in U_I} \Delta_{Iij} \frac{u_i}{\pi_{Ii}}
 \frac{u_j}{\pi_{Ij}},\]</span></p>
 <p>où</p>
 <p><span class="math display">\[u_i=\frac{1}{N}(t_i-N_i \bar{y}_U),
-\quad i\in U_I.\]</span></p>
-<p>Dans le cas d’un plan SIC, cette variance approchée devient:</p>
+\quad i\in U_I,\]</span> où <span class="math inline">\(u_i\)</span> est
+la variable linéarisée de <span
+class="math inline">\(\hat{\bar{y}}\)</span> poru <span
+class="math inline">\(i\in U_I.\)</span> Dans le cas d’un plan SIC,
+cette variance approchée devient:</p>
 <p><span
 class="math display">\[\text{AVar}_{\rm{SIC}}(\hat{\bar{y}})=N_I^2\frac{1-f_I}{n_I}S^2_{uU_I},\]</span></p>
 <p>où <span class="math inline">\(f_I=n_I/N_I\)</span> et</p>
@@ -417,7 +421,7 @@ class="math display">\[\text{AVar}_{\rm{SIC}}(\hat{\bar{y}})=N_I^2\frac{1-f_I}{n
 U_I}(u_i-\bar{u}_{U_I})^2=\frac{1}{N_I-1}\sum_{i\in
 U_I}u_i^2=\frac{1}{N^2(N_I-1)}\sum_{i\in U_I}(t_i-N_i\bar{y}_U)^2 =
 \frac{1}{N^2(N_I-1)}\sum_{i\in
-U_I}N_i(\bar{y}_{U_i}-\bar{y}_U)^2\]</span></p>
+U_I}N^2_i(\bar{y}_{U_i}-\bar{y}_U)^2\]</span></p>
 <p>car <span class="math inline">\(\bar{u}_{U_I}=\sum_{i\in
 U_I}u_I/N_I=0.\)</span></p>
 <p>Pour estimer la variance, on estime d’abord les variables linéarisées
@@ -433,7 +437,7 @@ s_I} \sum_{j \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}}
 \frac{\hat{u}_i}{\pi_{Ii}} \frac{\hat{u}_j}{\pi_{Ij}}\]</span></p>
 <p>et dans le cas d’un plan SI:</p>
 <p><span
-class="math display">\[\widehat{\text{Var}}_{\rm{SIC}}(\hat{\bar{y}})=N_I^2\frac{1-f_I}{n_I}S^2_{\hat{u}s_I}\]</span></p>
+class="math display">\[\widehat{\text{Var}}_{\rm{SIC}}(\hat{\bar{y}})=N_I^2\frac{1-f_I}{n_I}S^2_{\hat{u}s_I},\]</span></p>
 <p>où</p>
 <p><span
 class="math display">\[S^2_{\hat{u}s_I}=\frac{1}{n_I-1}\sum_{i\in
@@ -447,41 +451,42 @@ s_I}\hat{u}_i/n_I=0.\)</span> Donc, la variance devient</p>
 <p><span
 class="math display">\[\widehat{\text{Var}}_{\rm{SIC}}(\hat{\bar{y}})=\frac{1}{(\sum_{i\in
 s_I}N_i/n_I)^2}\frac{1-f_I}{n_I(n_I-1)}\sum_{i\in
-s_I}N^2_i(\bar{y}_{U_i}-\hat{\bar{y}})^2\]</span></p>
+s_I}N^2_i(\bar{y}_{U_i}-\hat{\bar{y}})^2.\]</span></p>
 </div>
 <div id="solution-exercice-5.3" class="section level2">
 <h2>Solution exercice 5.3</h2>
 <p>Le coefficient d’homogénéité <span
 class="math inline">\(\delta\)</span> est donné par</p>
 <p><span
-class="math display">\[\delta=1-\frac{N-1}{N-N_I}\frac{\text{SSW}}{\text{SST}}\]</span></p>
+class="math display">\[\delta=1-\frac{N-1}{N-N_I}\frac{\text{SSW}}{\text{SST}},\]</span></p>
 <p>où SSW est la variabilité intra-grappes et SST est la variabilité
 totale au sein de la population <span class="math inline">\(U.\)</span>
 La décomposition de la variabilité totale de <span
 class="math inline">\(y\)</span> donne:</p>
 <p><span
-class="math display">\[\text{SST}=\text{SSW}+\text{SSB}\]</span></p>
+class="math display">\[\text{SST}=\text{SSW}+\text{SSB},\]</span></p>
 <p>où SSB est la variabilité inter-grappes. On a</p>
 <p><span class="math display">\[0\leq \text{SSW}\leq
-\text{SST}\]</span></p>
+\text{SST}.\]</span></p>
 <p>Donc, si SSW=0, alors <span
 class="math inline">\(\delta_{min}=1\)</span> et si SSW=SST, alors</p>
 <p><span
-class="math display">\[\delta_{max}=1-\frac{N-1}{N-N_I}=-\frac{N_I-1}{N-N_I}\]</span></p>
+class="math display">\[\delta_{max}=1-\frac{N-1}{N-N_I}=-\frac{N_I-1}{N-N_I}\cdot
+\]</span></p>
 </div>
 <div id="solution-exercice-5.4" class="section level2">
 <h2>Solution exercice 5.4</h2>
 <p>On note <span class="math inline">\(A=\sum_{i \in U_I} \sum_{k \in
-U_i} \sum_{l \neq k \in U_i} \left(y_k - \bar{y}_U\right) \left( y_l -
-\bar{y}_U\right)\)</span> et comme indiqué dans l’exercice, on montre
+U_i} \sum_{l \neq k \in U_i} \left(y_{k} - \bar{y}_U\right) \left( y_{l}
+- \bar{y}_U\right)\)</span> et comme indiqué dans l’exercice, on montre
 d’abord que <span
 class="math inline">\(\bar{N}\text{SSB}=A+\text{SST}.\)</span></p>
 <p>On a</p>
 <p><span class="math display">\[\sum_{i \in U_I} \left[\sum_{k \in
-U_i}\left(y_k - \bar{y}_U\right)\right]^2 = \sum_{i \in U_I} \sum_{k \in
-U_i} \sum_{l\in U_i} \left(y_k - \bar{y}_U\right) \left( y_l -
-\bar{y}_U\right) = A+\sum_{i \in U_I} \sum_{k \in U_i}\left(y_k -
-\bar{y}_U\right)^2=A+\text{SST}\]</span></p>
+U_i}\left(y_{k} - \bar{y}_U\right)\right]^2 = \sum_{i \in U_I} \sum_{k
+\in U_i} \sum_{l\in U_i} \left(y_{k} - \bar{y}_U\right) \left( y_{l} -
+\bar{y}_U\right) = A+\sum_{i \in U_I} \sum_{k \in U_i}\left(y_{k} -
+\bar{y}_U\right)^2=A+\text{SST}.\]</span></p>
 <p>On a par ailleurs,</p>
 <p><span class="math display">\[\sum_{i \in U_I} \left[\sum_{k \in
 U_i}\left(y_k - \bar{y}_U\right)\right]^2=\bar{N}\text{SSB}\]</span></p>

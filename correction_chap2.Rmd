@@ -17,11 +17,17 @@ La probabilité d'inclusion $\pi_k$ se calcule selon la définition donnée dans
 $$
 \pi_k=\sum_{s\in \mathcal S, k\in s}p(s)=\sum_{|s|=n, k\in s}p(s)=\frac{\binom{N-1}{n-1}}{\binom{N}{n}}=\frac{n}{N}, \quad k\in U,
 $$
-car $p(s)=1/\binom{N}{n}$ pour tout échantillon $s$ de taille $n$ et zéro sinon et il y a $\binom{N-1}{n-1}$ parties de $n$ individus choisis sans remise parmi les $N$ individus de la population, qui contiennent l'individu $k.$ Pour calculer $\pi_{kl}$ on procède de la même façon:
+car $p(s)=1/\binom{N}{n}$ pour tout échantillon $s$ de taille $n$ ($|s|=n$) et zéro sinon et il y a $\binom{N-1}{n-1}$ parties de $n$ individus choisis sans remise parmi les $N$ individus de la population, qui contiennent l'individu $k.$ Pour calculer $\pi_{kl}$ on procède de la même façon:
 $$
 \pi_{kl}=\sum_{s\in \mathcal S, k, l\in s}p(s)=\sum_{|s|=n, k,l\in s}p(s)=\frac{\binom{N-2}{n-2}}{\binom{N}{n}}=\frac{n(n-1)}{N(N-1)}, \quad k\neq l\in U.
 $$
-
+Les termes de covariances sont égaux à:
+$$
+\Delta_{kl}=\pi_{kl}-\pi_k\pi_l=\frac{n(n-1)}{N(N-1)}-\left(\frac{n}{N}\right)^2=\frac{n}{N}\left(\frac{n-1}{N-1}-\frac{n}{N}\right)=-\frac{n(N-n)}{N^2(N-1)}, \quad k\neq l\in U,
+$$
+$$
+\Delta_{kl}=\pi_{k}-\pi^2_k=\frac{n(N-n)}{N^2}, \quad k=l\in U.
+$$
 ## Solution exercice 2.3
 
 Considérons le schéma de tirage sans remise de $n$ billes à partir d'une urne de $N$ billes: la probabilité de sélectionner la première bille est $1/N,$ la deuxième bille $1/(N-1)$ et la $n$-ème bille $1/(N-n+1),$ donc la probabilité de sélectionner une configuration  ordonnée (selon l'ordre de tirage) de $n$ billes est de 
@@ -54,7 +60,7 @@ L'estimateur de la variance est donné par:
 
 ## Solution exercice 2.5
 
-Le plan SI est un plan de taille fixe $n,$ donc la variance de l'estimateur de Horvitz-Thompson s'écrit sous la forme de la variance de Yates-Grundy-Sen. On peut vérifier directement que les deux formules coïncident, comme détaillé ci-dessous en partant de la formule de Yates-Grundy-Sen: 
+Le plan SI est un plan de taille fixe $n,$ donc la variance de l'estimateur de Horvitz-Thompson s'écrit sous la forme de la variance de Yates-Grundy-Sen (voir la proposition 1.7). On peut vérifier directement que les deux formules coïncident, comme détaillé ci-dessous en partant de la formule de Yates-Grundy-Sen: 
 \begin{eqnarray*}
     \V_{\rm{YGS}}(\hat{t}_{y\rm{HT}})&=&-\frac{1}{2}\sum_{k\in U}\sum_{l\in U}\Delta_{kl}\left(\frac{y_k}{\pi_k}-\frac{y_l}{\pi_l}\right)^2=-\frac{1}{2}\sum_{k\in U}\sum_{l\neq k\in U}\Delta_{kl}\left(\frac{y_k}{\pi_k}-\frac{y_l}{\pi_l}\right)^2\\
     &=&\frac{1}{2}\frac{n(N-n)}{N^2(N-1)}\frac{N^2}{n^2}\sum_{k\in U}\sum_{l\neq k\in U}(y_k-y_l)^2\\
@@ -95,6 +101,7 @@ $$
 $$
 car $S^2_{1U}=\sum_{k\in U}(1-1)^2/N=0.$ On pouvait déduire directement que $\V_{\rm{SI}}(\hat N)=0$ car l'estimateur $\hat N=N,$  est fixe, non aléatoire par rapport au plan de sondage.
 
+
 (b). Avec un plan BE($\pi$) et $\pi=n/N:$
 $$
 \hat N=\sum_{k\in s}\frac{N}{n}=N\frac{n_s}{n},
@@ -133,7 +140,8 @@ car $\pi_k=n/N$ pour tout $k\in U$ dans le cas d'un plan SI.
 $$
 \V_{\rm{SI}}(\hat{P})=\frac{1-f}{n}S^2_{yU}=\frac{1-f}{n}\frac{NP(1-P)}{N-1}=\frac{1-f}{f(N-1)}P(1-P),
 $$
-en utilisant aussi l'exercice 2.7.\\
+en utilisant aussi l'exercice 2.7.
+
 3. L'estimateur de la variance est égal à:
 $$
 \hat{\V}_{\rm{SI}}(\hat{P})=\frac{1-f}{n}S^2_{ys}=\frac{1-f}{n}\frac{n}{n-1}\hat{P}(1-\hat{P})=\frac{1-f}{n-1}\hat{P}(1-\hat{P}),
@@ -150,9 +158,9 @@ S^2_{ys}=\frac{1}{n-1}\sum_{k\in s}(y_k-\bar{y}_s)^2=\frac{1}{n-1}\left(\sum_{k\
 $$
 \mathbb{P}(n_d=n_0)=\frac{\binom{N_d}{n_0}\binom{N-N_d}{n-n_0}}{\binom{N}{n}},
 $$
-où $n_0\in \{0,\ldots, \min(n, N_0)\}.$
+où $n_0\in \{0,\ldots, \min(n, N_d)\}.$
 
-2. Soit  $n_0\in \{0,\ldots, \min(n, N_0)\},$ alors 
+2. Soit  $n_0\in \{0,\ldots, \min(n, N_d)\},$ alors 
 $$
 p(s|n_d=n_0)=\frac{\mathbb{P}(s\quad \&\quad n_d=n_0)}{\mathbb{P}(n_d=n_0)}=\frac{\frac{\binom{N-N_d}{n-n_0}}{\binom{N}{n}}}{\frac{\binom{N_d}{n_0}\binom{N-N_d}{n-n_0}}{\binom{N}{n}}}=\frac{1}{\binom{N_d}{n_0}},
 $$
@@ -166,7 +174,7 @@ Cet exercice est basé sur l'exercice 1.9 du chapitre 1 qui traite l'estimation 
 
 2. Les probabilités d'inclusion sont égales à $\pi_k=n/N$ pour tout $k\in U,$ donc
 $$
-\hat{t}_{y_{d}}=\sum_{k\in s}\frac{y_k\mathbf{1}_{\{k\in U_d\}}}{\pi_k}=\frac{N}{n}\sum_{k\in U}y_k\mathbf{1}_{\{k\in U_d\}}=\frac{N}{n}\sum_{k\in U_d}y_k.
+\hat{t}_{y_{d}}=\sum_{k\in s}\frac{y_k\mathbf{1}_{\{k\in U_d\}}}{\pi_k}=\frac{N}{n}\sum_{k\in s}y_k\mathbf{1}_{\{k\in s_d\}}=\frac{N}{n}\sum_{k\in s_d}y_k.
 $$
 2. La variance de $\hat t_{y_{d}}$ est égale à 
 \begin{eqnarray*}
@@ -183,7 +191,7 @@ $$
 $$
 3. Un estimateur sans biais de $\V_{\rm{SI}}(\hat{t}_{y_d})$ est donné par:
 \begin{eqnarray*}
- \hat{\V}_{\rm{SI}}(\hat{t}_{y_d})=N^2\frac{1-f}{n}S^2_{y_d},   
+ \hat{\V}_{\rm{SI}}(\hat{t}_{y_d})=N^2\frac{1-f}{n}S^2_{y_ds},   
 \end{eqnarray*}
 où $S^2_{y_ds}$ est la variance (corrigée) de la variable $y_d$ calculée au sein de l'échantillon $s:$ 
 \begin{eqnarray*}
@@ -232,7 +240,7 @@ On doit trouver $n$ qui vérifie:
 \begin{eqnarray*}
   z^2_{1-\alpha/2}\left(\frac{1}{n}-\frac{1}{N}\right)\frac{NP(1-P)}{N-1}\leq e^2\Longleftrightarrow n\geq \frac{z^2_{1-\alpha/2}\frac{NP(1-P)}{N-1}}{e^2+z^2_{1-\alpha/2}\frac{P(1-P)}{N-1}}=\frac{n_0}{1+n_0/N},
  \end{eqnarray*}
- pour $n_0=NP(1-P)/[(N-1)e^2].$
+ pour $n_0=z^2_{1-\alpha/2}NP(1-P)/[(N-1)e^2].$
  
 
 ## Solution exercice 2.12
@@ -260,7 +268,7 @@ où $y_k=1$ si l'individu $k$ a la propriété $A$ et zéro sinon.
 $$
 \hat P=\frac{1}{N}\sum_{k\in s}\frac{y_k}{\pi}=\frac{1}{n}\sum_{k\in s}y_k=\frac{n_s}{n}p_s,
 $$
-où $p_s$ est la proportion d'individus ayant la propriété  $A$ dans l'échantillon de Bernoulli. 
+où $p_s=\sum_{k\in s}y_k/n_s$ est la proportion d'individus ayant la propriété  $A$ dans l'échantillon de Bernoulli. 
 
 3. La variance de $\hat P$ sous le plan BE(n/N) est égale à 
 $$
@@ -293,15 +301,15 @@ Dans le cas $N=n\times a,$ on a  $t_{s_r}=\sum_{k\in s_r}y_k=n\bar{y}_{s_r}$ pou
 
 ## Solution exercice 2.15
 
-On rappelle la décomposition de la variance totale de $y$ (c'est-à-dire au sein de la population $U$) par rapport aux échantillons systématiques $s_r, r=1, \ldots, a:$
+On rappelle la décomposition de la variance totale de $y$ (c'est-à-dire au sein de la population $U$) par rapport aux échantillons systématiques $s_r, r=1, \ldots, a,$ dans le cas $N=n\times a:$
 $$
 \underbrace{\sum_{k\in U}(y_k-\bar{y}_U)^2}_{\mbox{SST}}=\underbrace{\sum_{r=1}^a\sum_{k\in s_r}(y_k-\bar{y}_{s_r})^2}_{\mbox{SSW}}+\underbrace{\sum_{r=1}^an(\bar{y}_{s_r}-\bar{y}_U)^2}_{\mbox{SSB}}.
 $$
 La variance de l'estimateur de Horvitz-Thompson avec un plan SI est égale à
 $$
-\V_{\rm{SI}}(\hat t_{y\rm{HT}})=N^2\frac{1-f}{n}S^2_{yU}=N^2\frac{1-f}{n}\mbox{SST}
+\V_{\rm{SI}}(\hat t_{y\rm{HT}})=N^2\frac{1-f}{n}S^2_{yU}=N^2\frac{1-f}{n}\frac{\mbox{SST}}{N-1}
 $$
-et sous un plan systématique avec $N=n\times a$:
+et sous un plan systématique avec $N=n\times a$ (voir l'exercice 2.14):
 $$
 \V_{\rm{SY}}(\hat t_{y\rm{HT}})=N\times \mbox{SSB}. 
 $$
