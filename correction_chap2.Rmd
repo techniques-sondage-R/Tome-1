@@ -28,6 +28,7 @@ $$
 $$
 \Delta_{kl}=\pi_{k}-\pi^2_k=\frac{n(N-n)}{N^2}, \quad k=l\in U.
 $$
+
 ## Solution exercice 2.3
 
 Considérons le schéma de tirage sans remise de $n$ billes à partir d'une urne de $N$ billes: la probabilité de sélectionner la première bille est $1/N,$ la deuxième bille $1/(N-1)$ et la $n$-ème bille $1/(N-n+1),$ donc la probabilité de sélectionner une configuration  ordonnée (selon l'ordre de tirage) de $n$ billes est de 

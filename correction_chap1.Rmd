@@ -43,14 +43,14 @@ Pour les probabilités d'inclusion d'ordre deux, $\pi_{kl},$ pour $k\neq l\in U,
 
 2. Les probabilités d'inclusion d'ordre un sont $\pi_k=1/2$ pour tous $k\in U,$ l'estimateur de Horvitz-Thompson de la moyenne $\bar{y}_U$ est donné par:
 $$
-\hat{\bar{y}}_{\rm{HT}}=\frac{1}{3}\sum_{k\in s}\frac{y_k}{\pi_k}=\frac{1}{2}\sum_{k\in s}y_k=\bar{y}_s. 
+\hat{\bar{y}}_{\rm{HT}}=\frac{1}{3}\sum_{k\in s}\frac{y_k}{\pi_k}=\frac{1}{2}\sum_{k\in s}y_k=\bar{y}_s, 
 $$
-Pour calculer le biais de cet estimateur, on procède comme dans la solution de l'exercice 1.4, 
+où $\bar{y}_s$ est la moyenne de de $y$ dans l'échantillon. Pour calculer le biais de cet estimateur, on procède comme dans la solution de l'exercice 1.4, 
 on obtient que $\hat{\bar{y}}_{\rm{HT}}$ est sans biais pour $\bar{y}_U.$ La variance de $\hat{\bar{y}}_{\rm{HT}}$ est calculée selon la définition:
 \begin{eqnarray*}
-\V(\hat{\bar{y}}_{\rm{HT}})=\sum_{s\in \mathcal S}p(s)(\hat{\bar{y}}_{\rm{HT}}(s)-\bar{y}_U)^2=\sum_{s\in \mathcal S}p(s)\bar{y}_s^2-2\bar{y}_U\underbrace{\sum_{s\in \mathcal S}p(s)\bar{y}_s}_{\bar{y}_U}+\bar{y}^2_U=\sum_{s\in \mathcal S}p(s)\bar{y}_s^2-\bar{y}^2_U
+\V(\hat{\bar{y}}_{\rm{HT}})=\sum_{s\in \mathcal S}p(s)(\hat{\bar{y}}_{\rm{HT}}(s)-\bar{y}_U)^2=\sum_{s\in \mathcal S}p(s)\bar{y}_s^2-2\bar{y}_U\underbrace{\sum_{s\in \mathcal S}p(s)\bar{y}_s}_{\bar{y}_U}+\bar{y}^2_U=\sum_{s\in \mathcal S}p(s)\bar{y}_s^2-\bar{y}^2_U,
 \end{eqnarray*}
-et comme $p(s)=1/6$ pour tous les échantillons $s$ de taille $n=2$ et zéro sinon, la variance devient:
+où $\hat{\bar{y}}_{\rm{HT}}(s)$ est l'estimateur de Horvitz-Thompson pour un certain échantillonn $s.$ On a  $p(s)=1/6$ pour tous les échantillons $s$ de taille $n=2,$ $|s|=2,$ et zéro sinon, la variance devient:
 \begin{eqnarray*}
 \V(\hat{\bar{y}}_{\rm{HT}})=\frac{1}{6}\sum_{s\in \mathcal S, |s|=2}\bar{y}_s^2-\bar{y}^2_U= 989.0625.
 \end{eqnarray*}
@@ -58,7 +58,7 @@ Dans le chapitre 2, on donnera une deuxième façon pour calculer la variance de
 
 ## Solution exercice 1.4
 
-Les probabilités d'inclusion d'ordre un sont  $\pi_k=2/3$ pour $k\in U,$ l'estimateur de Horvitz-Thompson de $\bar{y}_U$ est donc égal à:
+On procède de la même façon que dans la preuve de l'exercice 1.3 et on obtient que les probabilités d'inclusion d'ordre un sont égales à  $\pi_k=2/3$ pour tout $k\in U,$ l'estimateur de Horvitz-Thompson de $\bar{y}_U$ est donc égal à:
 $$
 \hat{\bar{y}}_{\rm{HT}}=\frac{1}{3}\sum_{k\in s}\frac{y_k}{\pi_k}=\frac{1}{2}\sum_{k\in s}y_k=\bar{y}_s. 
 $$
@@ -103,16 +103,18 @@ ce qui implique que  l'estimateur $\hat{t}$ est sans biais pour $\bar{y}_U$ sous
 
 3. La distribution de $\hat{t}$ sous $p(\cdot)$ est donnée par : 
 \begin{eqnarray*}
-    \hat{t}(s_1) &=& \frac{y_1 + y_2}{6p(s_1)} = \frac{48}{6 \times 0.32} = 25 ~\ \textrm{si} ~\ S= s_1 \\
-    \hat{t}(s_2) &=& \frac{y_1 + y_3}{6p(s_2)} = \frac{48}{6 \times 0.40} = 20 ~\ \textrm{si} ~\ S= s_2 \\
-    \hat{t}(s_3) &=& \frac{y_2 + y_3}{6p(s_3)} = \frac{40}{6 \times 0.28} \approx 23.80 ~\ \textrm{si} ~\ S= s_3 
+    \hat{t}(s_1) &=& \frac{y_1 + y_2}{6p(s_1)} = \frac{48}{6 \times 0.32} = 25 ~\ \textrm{si} ~\ S= s_1 \quad \mbox{avec}\quad p(s_1)=0.32\\
+    \hat{t}(s_2) &=& \frac{y_1 + y_3}{6p(s_2)} = \frac{48}{6 \times 0.40} = 20 ~\ \textrm{si} ~\ S= s_2 \quad \mbox{avec}\quad p(s_2)=0.40\\
+    \hat{t}(s_3) &=& \frac{y_2 + y_3}{6p(s_3)} = \frac{40}{6 \times 0.28} \approx 23.80 ~\ \textrm{si} ~\ S= s_3 \quad \mbox{avec}\quad p(s_3)=0.28.
 \end{eqnarray*}
 La distribution de $\hat{t}$ sous $p_1(\cdot)$ est : 
 \begin{eqnarray*}
-    \hat{t}(s_1) &=& \frac{y_1 + y_2}{6p_1(s_1)}=\frac{48}{6 \times \frac{1}{3}} = 24 ~\ \textrm{si} ~\ S= s_1 \\
-    \hat{t}(s_2) &=& \frac{y_1 + y_3}{6p_1(s_2)}=\frac{48}{6 \times \frac{1}{3}} = 24 ~\ \textrm{si} ~\ S= s_2 \\
-    \hat{t}(s_3) &=& \frac{y_2 + y_3}{6p_1(s_3)}= \frac{40}{6 \times \frac{1}{3}} = 20 ~\ \textrm{si} ~\ S= s_3 
+    \hat{t}(s_1) &=& \frac{y_1 + y_2}{6p_1(s_1)}=\frac{48}{6 \times \frac{1}{3}} = 24 ~\ \textrm{si} ~\ S= s_1 \quad \mbox{avec}\quad p(s_1)=1/3\\
+    \hat{t}(s_2) &=& \frac{y_1 + y_3}{6p_1(s_2)}=\frac{48}{6 \times \frac{1}{3}} = 24 ~\ \textrm{si} ~\ S= s_2 \quad \mbox{avec}\quad p(s_2)=1/3\\
+    \hat{t}(s_3) &=& \frac{y_2 + y_3}{6p_1(s_3)}= \frac{40}{6 \times \frac{1}{3}} = 20 ~\ \textrm{si} ~\ S= s_3 \quad \mbox{avec}\quad p(s_3)=1/3. 
 \end{eqnarray*}
+Les distributions de l'estimateur $\hat t$ sont différentes selon si on utilise le plan de sondage $p(\cdot)$ ou $p_1(\cdot). $ 
+
 
 ## Solution exercice 1.7
 
@@ -120,17 +122,17 @@ Le vrai paramètre qu'on cherche à estimer est $\bar{y}_U=68/3=22.667.$
 
 1. L'espérance de $\hat{\bar{y}}_U$ sous le plan de sondage $p(\cdot)$ est donnée par:
 \begin{eqnarray*}
-    \E (\hat{\bar{y}}_U)=\sum_{s\in \mathcal S}p(s)\hat{\bar{y}}_U(s)=\frac{0.32}{2} \left(y_1 + y_2 \right) +  \frac{0.4}{2} \left(y_1 + y_3 \right) +  \frac{0.28}{2} \left(y_2 + y_3 \right) = 22.88
+    \E (\hat{\bar{y}}_U)=\sum_{s\in \mathcal S}p(s)\hat{\bar{y}}_U(s)=0.32\frac{\left(y_1 + y_2 \right)}{2}  +  0.4\frac{\left(y_1 + y_3 \right) }{2} + 0.28 \frac{\left(y_2 + y_3 \right)}{2}  = 22.88
 \end{eqnarray*}
 qui est différente de $\bar{y}_U=22.667,$ donc l'estimateur $\hat{\bar{y}}_U$ est biaisé pour $\bar{y}_U$ sous ce plan de sondage $p(\cdot).$ 
 
 2. L'espérance de $\hat{\bar{y}}_U$ sous le plan de sondage $p_1(\cdot)$ est donnée par:
 \begin{eqnarray*}
-    \E (\hat{\bar{y}}_U)=\sum_{s\in \mathcal S}p_1(s)\hat{\bar{y}}_U(s)=\frac{1}{3\times 2}(y_1+y_2+y_1+y_3+y_2+y_3)=\bar{y}_U=22.667,
+    \E (\hat{\bar{y}}_U)=\sum_{s\in \mathcal S}p_1(s)\hat{\bar{y}}_U(s)=\frac{1}{3}\frac{(y_1+y_2+y_1+y_3+y_2+y_3)}{2}=\bar{y}_U=22.667,
 \end{eqnarray*}   
 l'estimateur $\hat{\bar{y}}_U$  est sans biais pour $\bar{y}_U$ sous le plan de sondage $p_1(\cdot).$
 
-3. L'estimateur $\hat{\bar{y}}_U$ est biaisé sous le plan de sondage $p(\cdot)$ et sans biais sous le plan de sondage $p_1(\cdot).$ La différence vient du fait que cet estimateur ne tient pas compte du plan de sondage utilisé, il considère la moyenne des valeurs de la variable $y$ pour les individus échantillonnés quel que soit le plan de sondage utilisé. Dans le cas du plan $p_1(\cdot),$ les probabilités d'inclusion sont les mêmes pour tous les individus et données par $\pi_k=2/3,$ pour tout $k\in U;$ l'estimateur $\hat{\bar{y}}_U$ est exactement  l'estimateur de Horvitz-Thompson de la moyenne $\bar{y}_U,$ qui est sans biais pour $\bar{y}_U.$ Dans le cas du plan $p(\cdot),$ les probabilités $\pi_k$ sont différentes d'un individu à l'autre (vous pouvez les calculer!), donc les poids $1/\pi_k$ dont différentes aussi, tandis que $\hat{\bar{y}}_U$ donne le même poids à tous les individus, ce qui explique le fait qu'il est biaisé. 
+3. L'estimateur $\hat{\bar{y}}_U$ est biaisé sous le plan de sondage $p(\cdot)$ et sans biais sous le plan de sondage $p_1(\cdot).$ La différence vient du fait que l' estimateur $\hat{\bar{y}}_U$ ne tient pas compte du plan de sondage utilisé, il considère la moyenne des valeurs de la variable $y$ pour les individus échantillonnés quel que soit le plan de sondage utilisé. Dans le cas du plan $p_1(\cdot),$ les probabilités d'inclusion sont les mêmes pour tous les individus et données par $\pi_k=2/3,$ pour tout $k\in U;$ l'estimateur $\hat{\bar{y}}_U$ est exactement  l'estimateur de Horvitz-Thompson de la moyenne $\bar{y}_U,$ qui est sans biais pour $\bar{y}_U.$ Dans le cas du plan $p(\cdot),$ les probabilités $\pi_k$ sont différentes d'un individu à l'autre (vous pouvez les calculer!), donc les poids $1/\pi_k$ dont différentes aussi, tandis que $\hat{\bar{y}}_U$ donne le même poids à tous les individus, ce qui explique le fait qu'il est biaisé. 
 
 ## Solution exercice 1.8
 
@@ -205,17 +207,21 @@ et
 $$
 \E(\hat{V}(\hat t_{y\rm{HT}}))=\sum_{k\in U}\sum_{l\in U}\frac{\Delta_{kl}}{\pi_{kl}}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}\E(I_kI_l)=\sum_{k\in U}\sum_{l\in U}\Delta_{kl}\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}=\V(\hat t_{y\rm{HT}}).
 $$
+
 ## Solution exercice 1.11
 
 On a $\pi_k = \mathbb P(k \in S)$ et 
-$$
-1 - \pi_k = \mathbb P(k \notin S) = [\mathbb P(k ~\ \textrm{n'est pas sélectionné})]^m=(1-p_k)^m,
-$$ 
+\begin{eqnarray*}
+1 - \pi_k &=& \mathbb P(k \notin S) \\
+&=&\mathbb P( k \mbox{ n'est pas sélectionné au 1er tirage})\times  ... \times\mathbb P( k\mbox{n'est pas  sélectionné au m-ème tirage})\\
+&=&
+[\mathbb P(k ~\ \textrm{n'est pas sélectionné})]^m=(1-p_k)^m,
+\end{eqnarray*}
 car $k$ n'est sélectionné à aucun des $m$ tirages et la probabilité que $k$ ne soit pas sélectionné à un certain tirage est $1-p_k$. On a 
 $\pi_{kl} = \mathbb P(k \in S, l \in S)$ et 
 \begin{eqnarray*}
 1 - \pi_{kl} &=& \mathbb{P}( k \notin S ~\ \textrm{ou} ~\ l \notin S)\\
-   &=& \mathbb{P}(\{ k \notin S \}) + \mathbb P(\{ l \notin S\}) - \mathbb P(\{k \notin S, l \notin S \})\\ %P( k\notin S ~\ \textrm{ou} ~\ l\notin S)
+   &=& \mathbb{P}(\{ k \notin S \}) + \mathbb P(\{ l \notin S\}) - \mathbb P(\{k \notin S, l \notin S \})\\
    &=& (1-p_k)^m + (1-p_l)^m - (1-p_k - p_l)^m.   
 \end{eqnarray*}
 
@@ -232,7 +238,7 @@ L'estimateur de Hansen-Hurwitz s'écrit:
 $$
 \hat{t}_{y\mbox{\sc hh}}= \sum_{k\in U} \frac{y_k}{m \, p_k}  R_k,
 $$
-où $R_k$ est la variable aléatoire égale au nombre de fois que l'unité $k$ a été sélectionnée après $m$ tirages avec remise avec $\V(R_k)=mp_k(1-p_k)$ et $\C(R_k,R_l)=-mp_kp_l,$ $k\neq l\in U.$
+où $R_k$ est la variable aléatoire égale au nombre de fois que l'unité $k$ a été sélectionnée après $m$ tirages avec remise, $R_k$ suit une loi Binomiale des paramètres $m$ et $p_k,$ donc $\V(R_k)=mp_k(1-p_k).$ Le vecteur $(R_1, \ldots, R_N)^\top$ suit une loi multinomiale (voir proposition 1.3) et $\C(R_k,R_l)=-mp_kp_l,$ $k\neq l\in U.$
 Sa variance de l'estimateur de Hansen-Hurwitz est égale à:
 \begin{eqnarray*}
 \V(\hat{t}_{y\mbox{\sc hh}}) &=&\sum_{k\in U}\left(\frac{y_k}{m \, p_k}\right)^2\V(R_k)+\sum_{k\in U}\sum_{l\neq k\in U}\frac{y_k}{m \, p_k}\frac{y_l}{m \, p_l}\C(R_k, R_l).\\

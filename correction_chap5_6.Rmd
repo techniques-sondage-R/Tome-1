@@ -38,7 +38,7 @@ $$\text{AVar}(\hat{\bar{y}}) =\text{Var}\left(\sum_{i\in s_I}\frac{u_i}{\pi_{Ii}
 où
 
 $$u_i=\frac{1}{N}(t_i-N_i \bar{y}_U), \quad i\in U_I,$$
-où $u_i$ est la variable linéarisée de  $\hat{\bar{y}}$ poru $i\in U_I.$ 
+où $u_i$ est la variable linéarisée de  $\hat{\bar{y}}$ pour $i\in U_I.$ 
 Dans le cas d'un plan SIC, cette variance approchée devient:
 
 $$\text{AVar}_{\rm{SIC}}(\hat{\bar{y}})=N_I^2\frac{1-f_I}{n_I}S^2_{uU_I},$$
@@ -112,15 +112,15 @@ qu'on remplace ensuite dans l'expression de $\rho=1-(\bar{N}/(\bar{N}-1))(\text{
 
 On rappelle que 
 
-$$\widehat{\text{Var}}\left(\hat{t}_{y\text{HT}}\right) = \sum_{i \in s_I} \sum_{j \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}} \frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}} \frac{\hat{t}_{j\text{HT}}}{\pi_{Ij}} +  \sum_{i \in s_I} \frac{\widehat{\text{Var}}_i}{\pi_{Ii}}$$
+$$\widehat{\text{Var}}\left(\hat{t}_{y\text{HT}}\right) = \sum_{i \in s_I} \sum_{j \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}} \frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}} \frac{\hat{t}_{j\text{HT}}}{\pi_{Ij}} +  \sum_{i \in s_I} \frac{\widehat{\text{V}}_i}{\pi_{Ii}}$$
 
-$$= \sum_{i \in s_I} \sum_{j\neq i \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}} \frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}} \frac{\hat{t}_{j\text{HT}}}{\pi_{Ij}} +\sum_{i \in s_I}\frac{\Delta_{Iii}}{\pi_{Ii}} \left(\frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}}\right)^2  + \sum_{i \in s_I} \frac{\widehat{\text{Var}}_i}{\pi_{Ii}}$$
+$$= \sum_{i \in s_I} \sum_{j\neq i \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}} \frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}} \frac{\hat{t}_{j\text{HT}}}{\pi_{Ij}} +\sum_{i \in s_I}\frac{\Delta_{Iii}}{\pi_{Ii}} \left(\frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}}\right)^2  + \sum_{i \in s_I} \frac{\widehat{\text{V}}_i}{\pi_{Ii}}$$
 
 et en utilisant $\mathbb{E}(\widehat{\text{Var}}\left(\hat{t}_{y\text{HT}}\right))=\mathbb{E}_I\mathbb{E}_{II}(\widehat{\text{Var}}(\hat{t}_{y\text{HT}}|s_I) ),$ on obtient:
 
-$$\mathbb{E}(\widehat{\text{Var}}\left(\hat{t}_{y\text{HT}}\right)) = \mathbb{E}_I\left[\mathbb{E}_{II}\left(\sum_{i \in s_I} \sum_{j\neq i \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}} \frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}} \frac{\hat{t}_{j\text{HT}}}{\pi_{Ij}} +\sum_{i \in s_I}(1-\pi_{Ii}) \left(\frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}}\right)^2  + \sum_{i \in s_I} \frac{\widehat{\text{Var}}_i}{\pi_{Ii}}|s_I\right)\right]$$
+$$\mathbb{E}(\widehat{\text{Var}}\left(\hat{t}_{y\text{HT}}\right)) = \mathbb{E}_I\left[\mathbb{E}_{II}\left(\sum_{i \in s_I} \sum_{j\neq i \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}} \frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}} \frac{\hat{t}_{j\text{HT}}}{\pi_{Ij}} +\sum_{i \in s_I}(1-\pi_{Ii}) \left(\frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}}\right)^2  + \sum_{i \in s_I} \frac{\widehat{\text{V}}_i}{\pi_{Ii}}|s_I\right)\right]$$
 
-$$= \mathbb{E}_I\left(\sum_{i \in s_I} \sum_{j\neq i \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}} \frac{t_i}{\pi_{Ii}} \frac{t_j}{\pi_{Ij}}\right)+\mathbb{E}_I\left(\sum_{i \in s_I}(1-\pi_{Ii}) \frac{t_i^2+V_i}{\pi_{Ii}^2} +\sum_{i \in s_I} \frac{\text{Var}_i}{\pi_{Ii}}\right)$$
+$$= \mathbb{E}_I\left(\sum_{i \in s_I} \sum_{j\neq i \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}} \frac{t_i}{\pi_{Ii}} \frac{t_j}{\pi_{Ij}}\right)+\mathbb{E}_I\left(\sum_{i \in s_I}(1-\pi_{Ii}) \frac{t_i^2+V_i}{\pi_{Ii}^2} +\sum_{i \in s_I} \frac{\text{V}_i}{\pi_{Ii}}\right)$$
 
 $$= \sum_{i \in U_I} \sum_{j\neq i \in U_I} \Delta_{Iij} \frac{t_i}{\pi_{Ii}} \frac{t_j}{\pi_{Ij}}+\mathbb{E}_I\left(\sum_{i \in s_I} \frac{(1-\pi_{Ii})t_i^2+V_i}{\pi_{Ii}^2}\right)$$
 

@@ -411,7 +411,7 @@ U_I} \sum_{j \in U_I} \Delta_{Iij} \frac{u_i}{\pi_{Ii}}
 <p><span class="math display">\[u_i=\frac{1}{N}(t_i-N_i \bar{y}_U),
 \quad i\in U_I,\]</span> où <span class="math inline">\(u_i\)</span> est
 la variable linéarisée de <span
-class="math inline">\(\hat{\bar{y}}\)</span> poru <span
+class="math inline">\(\hat{\bar{y}}\)</span> pour <span
 class="math inline">\(i\in U_I.\)</span> Dans le cas d’un plan SIC,
 cette variance approchée devient:</p>
 <p><span
@@ -503,14 +503,14 @@ class="math display">\[\widehat{\text{Var}}\left(\hat{t}_{y\text{HT}}\right)
 = \sum_{i \in s_I} \sum_{j \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}}
 \frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}}
 \frac{\hat{t}_{j\text{HT}}}{\pi_{Ij}} +  \sum_{i \in s_I}
-\frac{\widehat{\text{Var}}_i}{\pi_{Ii}}\]</span></p>
+\frac{\widehat{\text{V}}_i}{\pi_{Ii}}\]</span></p>
 <p><span class="math display">\[= \sum_{i \in s_I} \sum_{j\neq i \in
 s_I} \frac{\Delta_{Iij}}{\pi_{Iij}}
 \frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}}
 \frac{\hat{t}_{j\text{HT}}}{\pi_{Ij}} +\sum_{i \in
 s_I}\frac{\Delta_{Iii}}{\pi_{Ii}}
 \left(\frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}}\right)^2  + \sum_{i \in s_I}
-\frac{\widehat{\text{Var}}_i}{\pi_{Ii}}\]</span></p>
+\frac{\widehat{\text{V}}_i}{\pi_{Ii}}\]</span></p>
 <p>et en utilisant <span
 class="math inline">\(\mathbb{E}(\widehat{\text{Var}}\left(\hat{t}_{y\text{HT}}\right))=\mathbb{E}_I\mathbb{E}_{II}(\widehat{\text{Var}}(\hat{t}_{y\text{HT}}|s_I)
 ),\)</span> on obtient:</p>
@@ -521,13 +521,13 @@ class="math display">\[\mathbb{E}(\widehat{\text{Var}}\left(\hat{t}_{y\text{HT}}
 \frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}}
 \frac{\hat{t}_{j\text{HT}}}{\pi_{Ij}} +\sum_{i \in s_I}(1-\pi_{Ii})
 \left(\frac{\hat{t}_{i\text{HT}}}{\pi_{Ii}}\right)^2  + \sum_{i \in s_I}
-\frac{\widehat{\text{Var}}_i}{\pi_{Ii}}|s_I\right)\right]\]</span></p>
+\frac{\widehat{\text{V}}_i}{\pi_{Ii}}|s_I\right)\right]\]</span></p>
 <p><span class="math display">\[= \mathbb{E}_I\left(\sum_{i \in s_I}
 \sum_{j\neq i \in s_I} \frac{\Delta_{Iij}}{\pi_{Iij}}
 \frac{t_i}{\pi_{Ii}}
 \frac{t_j}{\pi_{Ij}}\right)+\mathbb{E}_I\left(\sum_{i \in
 s_I}(1-\pi_{Ii}) \frac{t_i^2+V_i}{\pi_{Ii}^2} +\sum_{i \in s_I}
-\frac{\text{Var}_i}{\pi_{Ii}}\right)\]</span></p>
+\frac{\text{V}_i}{\pi_{Ii}}\right)\]</span></p>
 <p><span class="math display">\[= \sum_{i \in U_I} \sum_{j\neq i \in
 U_I} \Delta_{Iij} \frac{t_i}{\pi_{Ii}}
 \frac{t_j}{\pi_{Ij}}+\mathbb{E}_I\left(\sum_{i \in s_I}
