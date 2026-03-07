@@ -62,14 +62,14 @@ On procède de la même façon que dans la preuve de l'exercice 1.3 et on obtien
 $$
 \hat{\bar{y}}_{\rm{HT}}=\frac{1}{3}\sum_{k\in s}\frac{y_k}{\pi_k}=\frac{1}{2}\sum_{k\in s}y_k=\bar{y}_s. 
 $$
-Calcul du biais de $\hat{\bar{y}}_{\rm{HT}}$ \textit{avec les indicatrices d'appartenance}:
+Calcul du biais de $\hat{\bar{y}}_{\rm{HT}}$ *avec les indicatrices d'appartenance*:
 $$
 B(\hat{\bar{y}}_{\rm{HT}})=\E(\hat{\bar{y}}_{\rm{HT}})-\bar{y}_U=\frac{1}{3}\sum_{k\in U}\frac{y_k}{\pi_k}\E(I_k)- \bar{y}_U=0,
 $$
 car $\E(I_k)=\pi_k, k\in U.$ 
 
 
-Calcul du biais de $\hat{\bar{y}}_{\rm{HT}}$ \textit{sans les indicatrices d'appartenance}: 
+Calcul du biais de $\hat{\bar{y}}_{\rm{HT}}$ *sans les indicatrices d'appartenance*: 
 $$
 B(\hat{\bar{y}}_{\rm{HT}})=\sum_{s\in \mathcal S}p(s)\bar{y}_s-\bar{y}_U=\frac{1}{3}\sum_{s\in \mathcal S, |s|=2}\bar{y}_s-\bar{y}_U=\frac{1}{3\times 2}(y_1+y_2+y_1+y_3+y_2+y_3)-\bar{y}_U=0,
 $$
@@ -157,10 +157,7 @@ donc $\hat{t}$ est sans biais pour $\bar{y}_U.$ La variance est calculée égale
 \end{eqnarray*}
 3. On obtient
     \begin{eqnarray*}
-        \V \left( \hat{\bar{y}}_U \right) - \V \left(\hat{t}\right) %&=& \frac{y_1^2 + y_2^2 + y_3^2}{6} - \frac{y_1^2}{6} - \frac{y_2^2}{6} - \frac{5y_3^2}{27} + \frac{y_1y_2 + y_1y_3 + y_2y_3}{6} - \frac{y_1y_2}{6} - \frac{2y_1y_3}{9} - \frac{y_2y_3}{9} \\
-        %&=& \frac{y_3}{3} \left( \frac{y_3}{2} - \frac{5y_3}{9} + \frac{y_1}{2} - \frac{2y_1}{3} - \frac{y_2}{3} + \frac{y_2}{2} \right) \\
-         %\frac{y_3}{3} \left( - \frac{y_3}{18} - \frac{y_1}{6} + \frac{y_2}{6} \right) 
-        = \frac{y_3 (3y_2 - 3y_1 - y_3)}{54}\cdot
+        \V \left( \hat{\bar{y}}_U \right) - \V \left(\hat{t}\right) = \frac{y_3 (3y_2 - 3y_1 - y_3)}{54}\cdot
     \end{eqnarray*}
     
 ## Solution exercice 1.9
@@ -236,28 +233,28 @@ $p(s_o) = \mathbb P(k_1 \mbox{ sélectionné au 1er tirage}, k_2 \mbox{  au 2èm
 
 L'estimateur de Hansen-Hurwitz s'écrit:
 $$
-\hat{t}_{y\mbox{\sc hh}}= \sum_{k\in U} \frac{y_k}{m \, p_k}  R_k,
+\hat{t}_{y\rm{HH}}= \sum_{k\in U} \frac{y_k}{m \, p_k}  R_k,
 $$
 où $R_k$ est la variable aléatoire égale au nombre de fois que l'unité $k$ a été sélectionnée après $m$ tirages avec remise, $R_k$ suit une loi Binomiale des paramètres $m$ et $p_k,$ donc $\V(R_k)=mp_k(1-p_k).$ Le vecteur $(R_1, \ldots, R_N)^\top$ suit une loi multinomiale (voir proposition 1.3) et $\C(R_k,R_l)=-mp_kp_l,$ $k\neq l\in U.$
 Sa variance de l'estimateur de Hansen-Hurwitz est égale à:
 \begin{eqnarray*}
-\V(\hat{t}_{y\mbox{\sc hh}}) &=&\sum_{k\in U}\left(\frac{y_k}{m \, p_k}\right)^2\V(R_k)+\sum_{k\in U}\sum_{l\neq k\in U}\frac{y_k}{m \, p_k}\frac{y_l}{m \, p_l}\C(R_k, R_l).\\
+\V(\hat{t}_{y\rm{HH}}) &=&\sum_{k\in U}\left(\frac{y_k}{m \, p_k}\right)^2\V(R_k)+\sum_{k\in U}\sum_{l\neq k\in U}\frac{y_k}{m \, p_k}\frac{y_l}{m \, p_l}\C(R_k, R_l).\\
 &=&\sum_{k\in U}\left(\frac{y_k}{m \, p_k}\right)^2 mp_k(1-p_k)-\sum_{k\in U}\sum_{l\neq k\in U}\frac{y_k}{m \, p_k}\frac{y_l}{m \, p_l}mp_kp_l\\
 &=& \frac{1}{m}\sum_{k\in U}p_k\left(\frac{y_k}{p_k}\right)^2-\frac{1}{m}\left(\sum_{k\in U}y^2_k+\sum_{k\in U}\sum_{l\neq k\in U}y_ky_l\right)\\
 &= & \frac{1}{m}\left(\sum_{k\in U}p_k\left(\frac{y_k}{p_k}\right)^2-t^2_{yU}\right)
-= \V(\hat{t}_{y\mbox{\sc hh}}). 
+= \V(\hat{t}_{y\rm{HH}}). 
 \end{eqnarray*}
 L'estimateur de la variance s'écrit:
 \begin{eqnarray*}
-\hat{\V}(\hat{t}_{y\mbox{\sc hh}}) = \frac{1}{m(m-1)}\left(\sum_{k\in U}\left(\frac{y_k}{p_k}\right)^2R_k-m\,\hat{t}^2_{y\mbox{\sc hh}}\right)
+\hat{\V}(\hat{t}_{y\rm{HH}}) = \frac{1}{m(m-1)}\left(\sum_{k\in U}\left(\frac{y_k}{p_k}\right)^2R_k-m\,\hat{t}^2_{y\rm{HH}}\right)
 \end{eqnarray*}
 et donc, 
 \begin{eqnarray*}
-\E(\hat{\V}(\hat{t}_{y\mbox{\sc hh}})) &=& \frac{1}{m(m-1)}\left(\sum_{k\in U}\left(\frac{y_k}{p_k}\right)^2\E(R_k)-m\,\E(\hat{t}^2_{y\mbox{\sc hh}})\right)\\
-&=& \frac{1}{m-1}\left(\sum_{k\in U}\left(\frac{y_k}{p_k}\right)^2p_k-t^2_{yU}\right)-\frac{\V(\hat{t}_{y\mbox{\sc hh}})}{m-1}\\
-&=& \frac{m\V(\hat{t}_{y\mbox{\sc hh}})}{m-1}-\frac{\V(\hat{t}_{y\mbox{\sc hh}})}{m-1}=\V(\hat{t}_{y\mbox{\sc hh}}),
+\E(\hat{\V}(\hat{t}_{y\rm{HH}})) &=& \frac{1}{m(m-1)}\left(\sum_{k\in U}\left(\frac{y_k}{p_k}\right)^2\E(R_k)-m\,\E(\hat{t}^2_{y\rm{HH}})\right)\\
+&=& \frac{1}{m-1}\left(\sum_{k\in U}\left(\frac{y_k}{p_k}\right)^2p_k-t^2_{yU}\right)-\frac{\V(\hat{t}_{y\rm{HH}})}{m-1}\\
+&=& \frac{m\V(\hat{t}_{y\rm{HH}})}{m-1}-\frac{\V(\hat{t}_{y\rm{HH}})}{m-1}=\V(\hat{t}_{y\rm{HH}}),
 \end{eqnarray*}
-car $\E(R_k)=mp_k$ et $\E(\hat{t}^2_{y\mbox{\sc hh}})=\V(\hat{t}_{y\mbox{\sc hh}})+t^2_{yU}.$
+car $\E(R_k)=mp_k$ et $\E(\hat{t}^2_{y\rm{HH}})=\V(\hat{t}_{y\rm{HH}})+t^2_{yU}.$
 
 ## Solution exercice 1.14
 

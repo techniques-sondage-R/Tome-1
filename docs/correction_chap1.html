@@ -477,15 +477,15 @@ class="math display">\[
 \hat{\bar{y}}_{\rm{HT}}=\frac{1}{3}\sum_{k\in
 s}\frac{y_k}{\pi_k}=\frac{1}{2}\sum_{k\in s}y_k=\bar{y}_s.
 \]</span> Calcul du biais de <span
-class="math inline">\(\hat{\bar{y}}_{\rm{HT}}\)</span> : <span
-class="math display">\[
+class="math inline">\(\hat{\bar{y}}_{\rm{HT}}\)</span> <em>avec les
+indicatrices d’appartenance</em>: <span class="math display">\[
 B(\hat{\bar{y}}_{\rm{HT}})=\mathbb{E}(\hat{\bar{y}}_{\rm{HT}})-\bar{y}_U=\frac{1}{3}\sum_{k\in
 U}\frac{y_k}{\pi_k}\mathbb{E}(I_k)- \bar{y}_U=0,
 \]</span> car <span class="math inline">\(\mathbb{E}(I_k)=\pi_k, k\in
 U.\)</span></p>
 <p>Calcul du biais de <span
-class="math inline">\(\hat{\bar{y}}_{\rm{HT}}\)</span> : <span
-class="math display">\[
+class="math inline">\(\hat{\bar{y}}_{\rm{HT}}\)</span> <em>sans les
+indicatrices d’appartenance</em>: <span class="math display">\[
 B(\hat{\bar{y}}_{\rm{HT}})=\sum_{s\in \mathcal
 S}p(s)\bar{y}_s-\bar{y}_U=\frac{1}{3}\sum_{s\in \mathcal S,
 |s|=2}\bar{y}_s-\bar{y}_U=\frac{1}{3\times
@@ -656,16 +656,8 @@ y_2y_3  \right] - \bar{y}^2_U.
 \end{eqnarray*}\]</span></li>
 <li>On obtient <span class="math display">\[\begin{eqnarray*}
      \mathop{\mathrm{V}}\left( \hat{\bar{y}}_U \right) -
-\mathop{\mathrm{V}}\left(\hat{t}\right) %&amp;=&amp; \frac{y_1^2 + y_2^2
-+ y_3^2}{6} - \frac{y_1^2}{6} - \frac{y_2^2}{6} - \frac{5y_3^2}{27} +
-\frac{y_1y_2 + y_1y_3 + y_2y_3}{6} - \frac{y_1y_2}{6} -
-\frac{2y_1y_3}{9} - \frac{y_2y_3}{9} \\
-     %&amp;=&amp; \frac{y_3}{3} \left( \frac{y_3}{2} - \frac{5y_3}{9} +
-\frac{y_1}{2} - \frac{2y_1}{3} - \frac{y_2}{3} + \frac{y_2}{2} \right)
-\\
-      %\frac{y_3}{3} \left( - \frac{y_3}{18} - \frac{y_1}{6} +
-\frac{y_2}{6} \right)
-     = \frac{y_3 (3y_2 - 3y_1 - y_3)}{54}\cdot
+\mathop{\mathrm{V}}\left(\hat{t}\right) = \frac{y_3 (3y_2 - 3y_1 -
+y_3)}{54}\cdot
 \end{eqnarray*}\]</span></li>
 </ol>
 </div>
@@ -783,7 +775,7 @@ indépendante.</p>
 <div id="solution-exercice-1.13" class="section level2">
 <h2>Solution exercice 1.13</h2>
 <p>L’estimateur de Hansen-Hurwitz s’écrit: <span class="math display">\[
-\hat{t}_{y\mbox{\sc hh}}= \sum_{k\in U} \frac{y_k}{m \, p_k}  R_k,
+\hat{t}_{y\rm{HH}}= \sum_{k\in U} \frac{y_k}{m \, p_k}  R_k,
 \]</span> où <span class="math inline">\(R_k\)</span> est la variable
 aléatoire égale au nombre de fois que l’unité <span
 class="math inline">\(k\)</span> a été sélectionnée après <span
@@ -792,13 +784,13 @@ class="math inline">\(R_k\)</span> suit une loi Binomiale des paramètres
 <span class="math inline">\(m\)</span> et <span
 class="math inline">\(p_k,\)</span> donc <span
 class="math inline">\(\mathop{\mathrm{V}}(R_k)=mp_k(1-p_k).\)</span> Le
-vecteur <span class="math inline">\((R_1, \ldots, R_N)\)</span> suit une
-loi multinomiale (vori proposition 1.3) et <span
+vecteur <span class="math inline">\((R_1, \ldots, R_N)^\top\)</span>
+suit une loi multinomiale (voir proposition 1.3) et <span
 class="math inline">\(\mathop{\mathrm{Cov}}(R_k,R_l)=-mp_kp_l,\)</span>
 <span class="math inline">\(k\neq l\in U.\)</span> Sa variance de
 l’estimateur de Hansen-Hurwitz est égale à: <span
 class="math display">\[\begin{eqnarray*}
-\mathop{\mathrm{V}}(\hat{t}_{y\mbox{\sc hh}}) &amp;=&amp;\sum_{k\in
+\mathop{\mathrm{V}}(\hat{t}_{y\rm{HH}}) &amp;=&amp;\sum_{k\in
 U}\left(\frac{y_k}{m \, p_k}\right)^2\mathop{\mathrm{V}}(R_k)+\sum_{k\in
 U}\sum_{l\neq k\in U}\frac{y_k}{m \, p_k}\frac{y_l}{m \,
 p_l}\mathop{\mathrm{Cov}}(R_k, R_l).\\
@@ -810,29 +802,24 @@ U}p_k\left(\frac{y_k}{p_k}\right)^2-\frac{1}{m}\left(\sum_{k\in
 U}y^2_k+\sum_{k\in U}\sum_{l\neq k\in U}y_ky_l\right)\\
 &amp;= &amp; \frac{1}{m}\left(\sum_{k\in
 U}p_k\left(\frac{y_k}{p_k}\right)^2-t^2_{yU}\right)
-= \mathop{\mathrm{V}}(\hat{t}_{y\mbox{\sc hh}}).
+= \mathop{\mathrm{V}}(\hat{t}_{y\rm{HH}}).
 \end{eqnarray*}\]</span> L’estimateur de la variance s’écrit: <span
 class="math display">\[\begin{eqnarray*}
-\hat{\mathop{\mathrm{V}}}(\hat{t}_{y\mbox{\sc hh}}) =
+\hat{\mathop{\mathrm{V}}}(\hat{t}_{y\rm{HH}}) =
 \frac{1}{m(m-1)}\left(\sum_{k\in
-U}\left(\frac{y_k}{p_k}\right)^2R_k-m\,\hat{t}^2_{y\mbox{\sc hh}}\right)
+U}\left(\frac{y_k}{p_k}\right)^2R_k-m\,\hat{t}^2_{y\rm{HH}}\right)
 \end{eqnarray*}\]</span> et donc, <span
 class="math display">\[\begin{eqnarray*}
-\mathbb{E}(\hat{\mathop{\mathrm{V}}}(\hat{t}_{y\mbox{\sc hh}}))
-&amp;=&amp; \frac{1}{m(m-1)}\left(\sum_{k\in
-U}\left(\frac{y_k}{p_k}\right)^2\mathbb{E}(R_k)-m\,\mathbb{E}(\hat{t}^2_{y\mbox{\sc
-hh}})\right)\\
+\mathbb{E}(\hat{\mathop{\mathrm{V}}}(\hat{t}_{y\rm{HH}})) &amp;=&amp;
+\frac{1}{m(m-1)}\left(\sum_{k\in
+U}\left(\frac{y_k}{p_k}\right)^2\mathbb{E}(R_k)-m\,\mathbb{E}(\hat{t}^2_{y\rm{HH}})\right)\\
 &amp;=&amp; \frac{1}{m-1}\left(\sum_{k\in
-U}\left(\frac{y_k}{p_k}\right)^2p_k-t^2_{yU}\right)-\frac{\mathop{\mathrm{V}}(\hat{t}_{y\mbox{\sc
-hh}})}{m-1}\\
-&amp;=&amp; \frac{m\mathop{\mathrm{V}}(\hat{t}_{y\mbox{\sc
-hh}})}{m-1}-\frac{\mathop{\mathrm{V}}(\hat{t}_{y\mbox{\sc
-hh}})}{m-1}=\mathop{\mathrm{V}}(\hat{t}_{y\mbox{\sc hh}}),
+U}\left(\frac{y_k}{p_k}\right)^2p_k-t^2_{yU}\right)-\frac{\mathop{\mathrm{V}}(\hat{t}_{y\rm{HH}})}{m-1}\\
+&amp;=&amp;
+\frac{m\mathop{\mathrm{V}}(\hat{t}_{y\rm{HH}})}{m-1}-\frac{\mathop{\mathrm{V}}(\hat{t}_{y\rm{HH}})}{m-1}=\mathop{\mathrm{V}}(\hat{t}_{y\rm{HH}}),
 \end{eqnarray*}\]</span> car <span
 class="math inline">\(\mathbb{E}(R_k)=mp_k\)</span> et <span
-class="math inline">\(\mathbb{E}(\hat{t}^2_{y\mbox{\sc
-hh}})=\mathop{\mathrm{V}}(\hat{t}_{y\mbox{\sc
-hh}})+t^2_{yU}.\)</span></p>
+class="math inline">\(\mathbb{E}(\hat{t}^2_{y\rm{HH}})=\mathop{\mathrm{V}}(\hat{t}_{y\rm{HH}})+t^2_{yU}.\)</span></p>
 </div>
 <div id="solution-exercice-1.14" class="section level2">
 <h2>Solution exercice 1.14</h2>
