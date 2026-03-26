@@ -389,15 +389,15 @@ p(s)
 $$
 
 Pour tout $s\in \mathcal{S}_n$, on a donc 
-\begin{equation}\label{chap3:planmaxentropy}
+\begin{equation}
 p(s)
 =
 \frac{\prod_{k\in s} w_k}
 {\sum_{s'\in \mathcal{S}_n} \prod_{k\in s'} w_k}.
 \end{equation}
 
-Soit $\tilde{p}(\cdot)$ le plan de Poisson avec les probabilités d'inclusion d'ordre un $P(k\in s)=w_k/(1+w_k), k\in U.$ La loi donnée par l'expression (\ref{chap3:planmaxentropy}) est celle du
-\emph{plan de Poisson conditionnel à la taille} (ou \emph{plan rejectif}) :
+Soit $\tilde{p}(\cdot)$ le plan de Poisson avec les probabilités d'inclusion d'ordre un $P(k\in s)=w_k/(1+w_k), k\in U.$ La loi donnée par l'expression du plan de sondage obtenue ci-dessous est celle du
+plan de Poisson conditionnel à la taille (ou le plan rejectif) :
 $$
 p(s)
 =
