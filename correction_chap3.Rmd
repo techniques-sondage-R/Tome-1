@@ -17,32 +17,32 @@ knitr::opts_chunk$set(echo = TRUE)
 Le vrai paramètre à estimer est $t_{yU}=295.$
 1. Dans l'exemple 3.1, on a calculé les probabilités de sélection  $p_k=x_k/\sum_{k\in U}x_k,~k=1, \ldots, 4,$ on les rappelle ci-dessous:
 $$   
-p_1=0.094, \quad p_2=0.350, \quad p_3=0.514, \quad p_4=0.042.
+p_1=0.072, \quad p_2=0.359, \quad p_3=0.526, \quad p_4=0.043.
 $$
 Les supermarchés 3 et 4 ont été sélectionnés après $m=2$ tirages avec remise et proportionnels à $p_k, k\in U$ et on a donné dans l'exemple 3.1 l'estimation de Hansen-Hurwitz du total de $y.$ La variance de l'estimateur de Hansen-Hurwitz est donnée par 
 $$
-\V(\hat{t}_{y\rm{HH}})=\frac{1}{2}\sum_{k\in U}p_k\left(\frac{y_k}{p_k}-t_{yU}\right)^2=\frac{1}{2}\left(\sum_{k\in U}\frac{y^2_k}{p_k}-t^2_{yU}\right)=126.1793. 
+\V(\hat{t}_{y\rm{HH}})=\frac{1}{2}\sum_{k\in U}p_k\left(\frac{y_k}{p_k}-t_{yU}\right)^2=\frac{1}{2}\left(\sum_{k\in U}\frac{y^2_k}{p_k}-t^2_{yU}\right)\simeq 669.1884. 
 $$
 2. Pour obtenir une estimation de type Horvitz-Thompson, on calcule d'abord les probabilités d'inclusion $\pi_k$ par rapport à $p_k,~k\in U$ (voir chapitre 1):
 \begin{eqnarray*}
-  \pi_1=1-(1-p_1)^2= 0.179 , \quad \pi_2=1-(1-p_2)^2=0.577, \\\pi_3=1-(1-p_3)^2=0.764, \quad \pi_4=1-(1-p_4)^2= 0.082.  
+  \pi_1=1-(1-p_1)^2\simeq 0.139 , \quad \pi_2=1-(1-p_2)^2\simeq 0.589, \\\pi_3=1-(1-p_3)^2\simeq 0.775, \quad \pi_4=1-(1-p_4)^2\simeq 0.084.  
 \end{eqnarray*}
 Les supermarchés 3 et 4 ont été sélectionnés, l'estimation de type Horvitz-Thompson du total de la variable $y$ est égale à 
 $$
-\hat{t}_{y\rm{HT}}=\frac{y_3}{\pi_3}+\frac{y_4}{\pi_4}=\frac{150}{0.764}+\frac{15}{0.082}=379.2619. 
+\hat{t}_{y\rm{HT}}=\frac{y_3}{\pi_3}+\frac{y_4}{\pi_4}=\frac{150}{0.775}+\frac{15}{0.084}\simeq 372.12. 
 $$
 
 Pour calculer la variance de l'estimateur de Horvitz-Thompson, on a besoin des probabilités d'inclusion d'ordre deux, $\pi_{kl}$ pour tous les $k\neq l\in U.$ On a (voir aussi le chapitre 1):
 $$
 \pi_{kl}=1-(1-p_k)^2-(1-p_l)^2+(1-p_k-p_l)^2, \quad k\neq l\in U
 $$
-et on obtient 
+et $\pi_{kl}=\pi_{lk}.$ On obtient 
 \begin{eqnarray*}
-\pi_{12}= 0.065, \quad \pi_{13}=0.096, \quad \pi_{14}=0.007, \\\quad\pi_{23}=0.360, \quad\pi_{24}=0.029, \quad \pi_{34}=0.043. 
+\pi_{12}\simeq 0.052, \quad \pi_{13}\simeq 0.076, \quad \pi_{14}\simeq 0.006, \\\quad\pi_{23}\simeq 0.378, \quad\pi_{24}\simeq 0.031, \quad \pi_{34}\simeq 0.045. 
 \end{eqnarray*}
 La variance de l'estimateur de Horvitz-Thompson est alors égale à:
 $$
-\V(\hat{t}_{y\rm{HT}})=\sum_{k\in U}\sum_{l\in U}(\pi_{kl}-\pi_k\pi_l)\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}=7395.819.
+\V(\hat{t}_{y\rm{HT}})=\sum_{k\in U}\sum_{l\in U}(\pi_{kl}-\pi_k\pi_l)\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}\simeq 8594.28.
 $$
 3. Les deux estimateurs, de Hansen-Hurwitz et de Horvitz-Thompson, peuvent être utilisés pour estimer le total de $y:$ ils sont tous les deux sans biais et ils utilisent des poids inégaux. Néanmoins, l'estimateur de  Hansen-Hurwitz et surtout sa variance sont beaucoup plus simples à obtenir.   
 
@@ -98,7 +98,7 @@ où $I_k$ est la variable (aléatoire) indicatrice d'appartenance à un échanti
   & & +\underbrace{\frac{N}{n}\sum_{k\in U}\bar{y}_U\frac{n}{N}}_{=t_{yU}}-t_{yU}\\
   &=& \frac{N}{n}\sum_{k\in U} (y_k-\bar{y}_U)\left(\pi_k-\frac{n}{N}\right)= \frac{N^2}{n}\mbox{Cov}(\mathbf{y}, \boldsymbol{\pi}),
 \end{eqnarray*}
-où $\mathbf{y}= (y_k)_{k\in U},$ $\boldsymbol{\pi}=(\pi_k)_{k\in U}$ et $\sum_{k\in U}\pi_k=n/N.$
+où $\mathbf{y}= (y_k)_{k\in U},$ $\boldsymbol{\pi}=(\pi_k)_{k\in U}$ et $\sum_{k\in U}\pi_k/N=n/N.$
 
 ## Solution exercice 3.4
 
@@ -157,7 +157,7 @@ H(p)
 p(s)\log p(s).
 $$
 On cherche à maximiser $H(p)$ sous la contrainte:
-\begin{equation}\label{eq:normalisation1}  
+\begin{equation}  
 \sum_{s\in\mathcal{S}} p(s) = 1.   
 \end{equation}
 La fonction lagrangien s'écrit
@@ -180,7 +180,7 @@ $$
 $$
 On obtient donc 
 $p(s)=\exp{(\alpha-1)},$ pour tout $s\in \mathcal{S}.$
-A partir de la contrainte (\ref{eq:normalisation1}), on déduit:
+A partir de la contrainte, on déduit:
 $$
 \sum_{s\in\mathcal{S}} p(s) = \sum_{s\in\mathcal{S}} \exp{(\alpha-1)}=2^N \exp{(\alpha-1)}=1,$$
 d'où $\exp{(\alpha-1)}=1/2^N$ et  $p(s)=1/2^N.$
@@ -190,8 +190,8 @@ p_{\rm{BE}}(s)=\prod_{k\in s}\pi\prod_{k\notin s} (1-\pi)=\prod_{k\in U} 1/2=1/2
 $$ 
 pour tout $s\in \mathcal{S},$ d'où le résultat. 
 
-2. On montre que le plan simple sans remise est le plan à entropie maximale dans la classe des plans de taille fixe, à probabilités égales et sans remise.
-
+2. 
+On montre que le plan simple sans remise est le plan à entropie maximale dans la classe des plans de taille fixe, à probabilités égales et sans remise.
 
 On suppose que la taille de l'échantillon est $n$ et donc les probabilités d'inclusion sont $\pi_k=n/N, k\in U.$ Soit $\mathcal{S}_n$ l'ensemble de tous les échantillons $s\subseteq U$ de taille fixe $n.$ Le cardinal de $\mathcal{S}_n$ est $\begin{pmatrix} 
 N\\
@@ -205,7 +205,7 @@ p(s)\log p(s)
 $$
 sous la contrainte:
 \begin{equation}
-\sum_{s\in\mathcal{S}_n} p(s) = 1. \label{eq:normalisation2}
+\sum_{s\in\mathcal{S}_n} p(s) = 1. 
 \end{equation}
 En procédant comme au point précédent, on obtient:
 $p(s)=\exp{(\alpha-1)},$ pour tout $s\in \mathcal{S}_n$ et 
@@ -234,21 +234,15 @@ pour tout $s\in \mathcal{S}_n,$ d'où le résultat.
 3. On montre que le plan de Poisson est le plan à entropie maximale dans la classe des plans sans remise à probabilités d'inclusion inégales $\pi_k, k\in U,$ et fixées a priori. On cherche à maximiser $H(p)$ sous les contraintes suivantes:
 \begin{eqnarray}
 \sum_{s\in\mathcal{S}} p(s) &=& 1, \label{eqnormalisation}\\
-\sum_{s\in\mathcal{S}, k\in s} p(s)& =&\sum_{s\in\mathcal{S}} I_k\,p(s) = \pi_k,
+\sum_{s\in\mathcal{S}, k\in s} p(s)& =&\sum_{s\in\mathcal{S}} I_k p(s) = \pi_k,
 \qquad k\in U, \label{eqinclusion}
 \end{eqnarray}
 où $I_k$ est la variable indicatrice associée à l'unité $k\in U.$ La fonction lagrangien est donnée par
-\begin{eqnarray}
-L(p; \alpha, b_1,\dots,b_N)&=&-\sum_{s\in \mathcal{S}} p(s)\log p(s)
-+
-\alpha\left(\sum_{s\in\mathcal{S}} p(s)-1\right)
-+
-\sum_{k=1}^N b_k
-\left(\sum_{s\in\mathcal{S}} I_k p(s)-\pi_k\right),
-\end{eqnarray}
-où $\alpha$ est le multiplicateur de Lagrange associé à la contrainte
-(\ref{eqnormalisation}) et $b_1,\dots,b_N$ 
-aux contraintes (\ref{eqinclusion}). Pour tout $s\in \mathcal{S}$, on dérive $\mathcal{L}$ par rapport à
+\begin{eqnarray*}
+\mathcal{L}(p;\alpha, \beta_1, \ldots, \beta_N)=-\sum_{s\in \mathcal S}p(s)\log p(s)+\alpha(\sum_{s\in \mathcal S}p(s)-1)+\sum_{k\in U}\beta_k\left(\sum_{s\in\mathcal{S}} I_kp(s)-\pi_k\right)
+\end{eqnarray*}
+où $\alpha$ et $b_1,\dots,b_N$ sont les multiplicateurs de Lagrange associés
+aux $N+1$ contraintes. Pour tout $s\in \mathcal{S}$, on dérive $\mathcal{L}$ par rapport à
 $p(s)$ :
 
 $$

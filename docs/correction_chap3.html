@@ -373,7 +373,7 @@ class="math inline">\(t_{yU}=295.\)</span> 1. Dans l’exemple 3.1, on a
 calculé les probabilités de sélection <span
 class="math inline">\(p_k=x_k/\sum_{k\in U}x_k,~k=1, \ldots, 4,\)</span>
 on les rappelle ci-dessous: <span class="math display">\[   
-p_1=0.094, \quad p_2=0.350, \quad p_3=0.514, \quad p_4=0.042.
+p_1=0.072, \quad p_2=0.359, \quad p_3=0.526, \quad p_4=0.043.
 \]</span> Les supermarchés 3 et 4 ont été sélectionnés après <span
 class="math inline">\(m=2\)</span> tirages avec remise et proportionnels
 à <span class="math inline">\(p_k, k\in U\)</span> et on a donné dans
@@ -382,19 +382,20 @@ class="math inline">\(y.\)</span> La variance de l’estimateur de
 Hansen-Hurwitz est donnée par <span class="math display">\[
 \mathop{\mathrm{V}}(\hat{t}_{y\rm{HH}})=\frac{1}{2}\sum_{k\in
 U}p_k\left(\frac{y_k}{p_k}-t_{yU}\right)^2=\frac{1}{2}\left(\sum_{k\in
-U}\frac{y^2_k}{p_k}-t^2_{yU}\right)=126.1793.
+U}\frac{y^2_k}{p_k}-t^2_{yU}\right)\simeq 669.1884.
 \]</span> 2. Pour obtenir une estimation de type Horvitz-Thompson, on
 calcule d’abord les probabilités d’inclusion <span
 class="math inline">\(\pi_k\)</span> par rapport à <span
 class="math inline">\(p_k,~k\in U\)</span> (voir chapitre 1): <span
 class="math display">\[\begin{eqnarray*}
-  \pi_1=1-(1-p_1)^2= 0.179 , \quad \pi_2=1-(1-p_2)^2=0.577,
-\\\pi_3=1-(1-p_3)^2=0.764, \quad \pi_4=1-(1-p_4)^2= 0.082.  
+  \pi_1=1-(1-p_1)^2\simeq 0.139 , \quad \pi_2=1-(1-p_2)^2\simeq 0.589,
+\\\pi_3=1-(1-p_3)^2\simeq 0.775, \quad \pi_4=1-(1-p_4)^2\simeq 0.084.  
 \end{eqnarray*}\]</span> Les supermarchés 3 et 4 ont été sélectionnés,
 l’estimation de type Horvitz-Thompson du total de la variable <span
 class="math inline">\(y\)</span> est égale à <span
 class="math display">\[
-\hat{t}_{y\rm{HT}}=\frac{y_3}{\pi_3}+\frac{y_4}{\pi_4}=\frac{150}{0.764}+\frac{15}{0.082}=379.2619.
+\hat{t}_{y\rm{HT}}=\frac{y_3}{\pi_3}+\frac{y_4}{\pi_4}=\frac{150}{0.775}+\frac{15}{0.084}\simeq
+372.12.
 \]</span></p>
 <p>Pour calculer la variance de l’estimateur de Horvitz-Thompson, on a
 besoin des probabilités d’inclusion d’ordre deux, <span
@@ -402,13 +403,15 @@ class="math inline">\(\pi_{kl}\)</span> pour tous les <span
 class="math inline">\(k\neq l\in U.\)</span> On a (voir aussi le
 chapitre 1): <span class="math display">\[
 \pi_{kl}=1-(1-p_k)^2-(1-p_l)^2+(1-p_k-p_l)^2, \quad k\neq l\in U
-\]</span> et on obtient <span class="math display">\[\begin{eqnarray*}
-\pi_{12}= 0.065, \quad \pi_{13}=0.096, \quad \pi_{14}=0.007,
-\\\quad\pi_{23}=0.360, \quad\pi_{24}=0.029, \quad \pi_{34}=0.043.
+\]</span> et <span class="math inline">\(\pi_{kl}=\pi_{lk}.\)</span> On
+obtient <span class="math display">\[\begin{eqnarray*}
+\pi_{12}\simeq 0.052, \quad \pi_{13}\simeq 0.076, \quad \pi_{14}\simeq
+0.006, \\\quad\pi_{23}\simeq 0.378, \quad\pi_{24}\simeq 0.031, \quad
+\pi_{34}\simeq 0.045.
 \end{eqnarray*}\]</span> La variance de l’estimateur de Horvitz-Thompson
 est alors égale à: <span class="math display">\[
 \mathop{\mathrm{V}}(\hat{t}_{y\rm{HT}})=\sum_{k\in U}\sum_{l\in
-U}(\pi_{kl}-\pi_k\pi_l)\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}=7395.819.
+U}(\pi_{kl}-\pi_k\pi_l)\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}\simeq 8594.28.
 \]</span> 3. Les deux estimateurs, de Hansen-Hurwitz et de
 Horvitz-Thompson, peuvent être utilisés pour estimer le total de <span
 class="math inline">\(y:\)</span> ils sont tous les deux sans biais et
@@ -503,7 +506,7 @@ U}\bar{y}_U\frac{n}{N}}_{=t_{yU}}-t_{yU}\\
 \end{eqnarray*}\]</span> où <span class="math inline">\(\mathbf{y}=
 (y_k)_{k\in U},\)</span> <span
 class="math inline">\(\boldsymbol{\pi}=(\pi_k)_{k\in U}\)</span> et
-<span class="math inline">\(\sum_{k\in U}\pi_k=n/N.\)</span></p>
+<span class="math inline">\(\sum_{k\in U}\pi_k/N=n/N.\)</span></p>
 </div>
 <div id="solution-exercice-3.4" class="section level2">
 <h2>Solution exercice 3.4</h2>
@@ -612,7 +615,7 @@ H(p)
 p(s)\log p(s).
 \]</span> On cherche à maximiser <span
 class="math inline">\(H(p)\)</span> sous la contrainte: <span
-class="math display">\[\begin{equation}\label{eq:normalisation1}  
+class="math display">\[\begin{equation}  
 \sum_{s\in\mathcal{S}} p(s) = 1.   
 \end{equation}\]</span> La fonction lagrangien s’écrit <span
 class="math display">\[
@@ -634,9 +637,7 @@ class="math display">\[
 \]</span> On obtient donc <span
 class="math inline">\(p(s)=\exp{(\alpha-1)},\)</span> pour tout <span
 class="math inline">\(s\in \mathcal{S}.\)</span> A partir de la
-contrainte (<span
-class="math inline">\(\ref{eq:normalisation1}\)</span>), on déduit:
-<span class="math display">\[
+contrainte, on déduit: <span class="math display">\[
 \sum_{s\in\mathcal{S}} p(s) = \sum_{s\in\mathcal{S}}
 \exp{(\alpha-1)}=2^N \exp{(\alpha-1)}=1,\]</span> d’où <span
 class="math inline">\(\exp{(\alpha-1)}=1/2^N\)</span> et <span
@@ -673,7 +674,7 @@ H_n(p)
 p(s)\log p(s)
 \]</span> sous la contrainte: <span
 class="math display">\[\begin{equation}
-\sum_{s\in\mathcal{S}_n} p(s) = 1. \label{eq:normalisation2}
+\sum_{s\in\mathcal{S}_n} p(s) = 1.
 \end{equation}\]</span> En procédant comme au point précédent, on
 obtient: <span class="math inline">\(p(s)=\exp{(\alpha-1)},\)</span>
 pour tout <span class="math inline">\(s\in \mathcal{S}_n\)</span> et</p>
@@ -708,25 +709,23 @@ On cherche à maximiser <span class="math inline">\(H(p)\)</span> sous
 les contraintes suivantes: <span class="math display">\[\begin{eqnarray}
 \sum_{s\in\mathcal{S}} p(s) &amp;=&amp; 1, \label{eqnormalisation}\\
 \sum_{s\in\mathcal{S}, k\in s} p(s)&amp; =&amp;\sum_{s\in\mathcal{S}}
-I_k\,p(s) = \pi_k,
+I_k p(s) = \pi_k,
 \qquad k\in U, \label{eqinclusion}
 \end{eqnarray}\]</span> où <span class="math inline">\(I_k\)</span> est
 la variable indicatrice associée à l’unité <span
 class="math inline">\(k\in U.\)</span> La fonction lagrangien est donnée
-par \begin{eqnarray} L(p; , b_1,,b_N)&amp;=&amp;-_{s} p(s)p(s)</li>
-</ol>
-<ul>
-<li>(_{s} p(s)-1)</li>
-<li><em>{k=1}^N b_k (</em>{s} I_k p(s)-_k), \end{eqnarray} où <span
-class="math inline">\(\alpha\)</span> est le multiplicateur de Lagrange
-associé à la contrainte (<span
-class="math inline">\(\ref{eqnormalisation}\)</span>) et <span
-class="math inline">\(b_1,\dots,b_N\)</span> aux contraintes (<span
-class="math inline">\(\ref{eqinclusion}\)</span>). Pour tout <span
+par <span class="math display">\[\begin{eqnarray*}
+\mathcal{L}(p;\alpha, \beta_1, \ldots, \beta_N)=-\sum_{s\in \mathcal
+S}p(s)\log p(s)+\alpha(\sum_{s\in \mathcal S}p(s)-1)+\sum_{k\in
+U}\beta_k\left(\sum_{s\in\mathcal{S}} I_kp(s)-\pi_k\right)
+\end{eqnarray*}\]</span> où <span class="math inline">\(\alpha\)</span>
+et <span class="math inline">\(b_1,\dots,b_N\)</span> sont les
+multiplicateurs de Lagrange associés aux <span
+class="math inline">\(N+1\)</span> contraintes. Pour tout <span
 class="math inline">\(s\in \mathcal{S}\)</span>, on dérive <span
 class="math inline">\(\mathcal{L}\)</span> par rapport à <span
 class="math inline">\(p(s)\)</span> :</li>
-</ul>
+</ol>
 <p><span class="math display">\[
 \frac{\partial\mathcal{L}}{\partial p(s)}
 =
