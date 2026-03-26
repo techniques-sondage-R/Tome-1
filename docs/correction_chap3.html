@@ -429,11 +429,13 @@ U}(\pi_{kl}-\pi_k\pi_l)\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}.
 <li>L’estimateur de Hansen-Hurwitz du total <span
 class="math inline">\(y_{yU}\)</span> pour <span
 class="math inline">\(n\)</span> tirages avec remise et avec des
-probabilités de sélection <span class="math inline">\(\pi_k,~k\in
+probabilités de sélection <span class="math inline">\(p_k,~k\in
 U\)</span> telles que <span class="math inline">\(\pi_k=np_k, k\in
 U\)</span> est égal à <span class="math display">\[
-\hat{t}_{y\rm{HH}}=\frac{1}{n}\sum_{l=1}^n\frac{y_{k_l}}{\pi_{k_l}},
-\]</span> de variance donnée par <span class="math display">\[
+\hat{t}_{y\rm{HH}}=\frac{1}{n}\sum_{l=1}^n\frac{y_{k_l}}{p_{k_l}}=\sum_{l=1}^n\frac{y_{k_l}}{\pi_{k_l}}.
+\]</span> On remarque que l’estimateur de Hansen-Hurvitz a la même
+expression que l’estimateur de Horvitz-Thompson, sa variance en revanche
+est différente et donnée par <span class="math display">\[
 \mathop{\mathrm{V}}(\hat{t}_{y\rm{HH}})=\frac{1}{n}\sum_{k\in
 U}p_k\left(\frac{y_k}{p_k}-t_{yU}\right)^2=\frac{1}{n}\left(\sum_{k\in
 U}\frac{y_k^2}{p_k}-t^2_{yU}\right).
@@ -499,8 +501,9 @@ U}\bar{y}_U\frac{n}{N}}_{=t_{yU}}-t_{yU}\\
 (y_k-\bar{y}_U)\left(\pi_k-\frac{n}{N}\right)=
 \frac{N^2}{n}\mbox{Cov}(\mathbf{y}, \boldsymbol{\pi}),
 \end{eqnarray*}\]</span> où <span class="math inline">\(\mathbf{y}=
-(y_k)_{k\in U}\)</span> et <span
-class="math inline">\(\boldsymbol{\pi}=(\pi_k)_{k\in U}.\)</span></p>
+(y_k)_{k\in U},\)</span> <span
+class="math inline">\(\boldsymbol{\pi}=(\pi_k)_{k\in U}\)</span> et
+<span class="math inline">\(\sum_{k\in U}\pi_k=n/N.\)</span></p>
 </div>
 <div id="solution-exercice-3.4" class="section level2">
 <h2>Solution exercice 3.4</h2>
@@ -543,10 +546,10 @@ class="math inline">\(k\in U.\)</span> On calcule d’abord les quantités
 <span class="math inline">\(a_k,~k\in U:\)</span> <span
 class="math display">\[
 a_k=\frac{1-\pi_k}{\sum_{l\in
-U}(1-\pi_l)}=\frac{1-f}{n(1-f)}=\frac{1}{n}, \quad k\in U
+s}(1-\pi_l)}=\frac{1-f}{n(1-f)}=\frac{1}{n}, \quad k\in U
 \]</span> et l’estimateur de la variance devient <span
 class="math display">\[\begin{eqnarray*}
-    \hat{V}_{Deville} (\hat{t}_{y\rm{HT}})
+    \hat{V}_{Dev} (\hat{t}_{y\rm{HT}})
 &amp;=&amp;\frac{1}{1-\frac{n}{n^2}}\sum_{k\in
 s}(1-f)\left(\frac{y_k}{f}-\frac{\frac{1-f}{f}\sum_{l\in
 s}y_l}{n(1-f)}\right)^2\\
@@ -558,32 +561,325 @@ l’estimateur de Horvitz-Thompson dans le cas d’un plan SI.</p>
 <div id="solution-exercice-3.6" class="section level2">
 <h2>Solution exercice 3.6</h2>
 <p>L’approximation de H'ajek consiste à approcher les termes de
-covariance <span class="math inline">\(\Delta_{kl}\)</span> par une
-quantité qui dépend uniquement des probabilités d’inclusion d’ordre un:
-<span class="math display">\[
-\tilde{\pi}_{kl}-\tilde{\pi}_k\tilde{\pi}_l \simeq
--\tilde{\pi}_k\tilde{\pi}_l\frac{(1-\tilde{\pi}_k)(1-\tilde{\pi}_l)}{d(\tilde{\pi})},
-\quad k\neq l\in U
-\]</span> et la variance de type Yates-Grundy-Sen devient: <span
-class="math display">\[\begin{eqnarray*}
+covariance <span class="math inline">\(\Delta_{kl}=\pi_{kl}-\pi_k\pi_l,
+k\neq l\)</span> par une quantité qui dépend uniquement des probabilités
+d’inclusion d’ordre un: <span class="math display">\[
+\pi_{kl}-\pi_k\pi_l \simeq -\pi_k\pi_l\frac{(1-\pi_k)(1-\pi_l)}{d(\pi)},
+\quad k\neq l\in U,
+\]</span> où <span class="math inline">\(d(\pi)=\sum_{k\in
+U}\pi_k(1-\pi_k)\)</span>. La variance de type Yates-Grundy-Sen devient:
+<span class="math display">\[\begin{eqnarray*}
 \mathop{\mathrm{V}}(\hat{t}_{y\rm{HT}})&amp;=&amp;-\frac{1}{2}\sum_{k\in
 U}\sum_{l\in
-U}(\tilde{\pi}_{kl}-\tilde{\pi}_k\tilde{\pi}_l)\left(\frac{y_k}{\tilde{\pi}_k}-\frac{y_l}{\tilde{\pi}_l}\right)^2\\
-&amp;\simeq&amp; \frac{1}{2d(\tilde{\pi})}\sum_{k\in U}\sum_{l\neq k\in
-U}\tilde{\pi}_k\tilde{\pi_l}(1-\tilde{\pi}_k)(1-\tilde{\pi}_l)\left(\frac{y_k}{\tilde{\pi}_k}-\frac{y_l}{\tilde{\pi}_l}\right)^2\\
-&amp;=&amp; \frac{1}{2d(\tilde{\pi})}\sum_{k\in U}\sum_{l\in
-U}\tilde{\pi}_k\tilde{\pi}_l(1-\tilde{\pi}_k)(1-\tilde{\pi}_l)\left(\frac{y^2_k}{\tilde{\pi}_k^2}-2\frac{y_k}{\tilde{\pi}_k}\frac{y_l}{\tilde{\pi}_l}+\frac{y^2_l}{\tilde{\pi}_l^2}\right)\\
-&amp;=&amp; \frac{1}{d(\tilde{\pi})}\left(\sum_{k\in
-U}\tilde{\pi}_k(1-\tilde{\pi}_k)\frac{y^2_k}{\tilde{\pi}_k^2}\right)\underbrace{\sum_{l\in
-U}\tilde{\pi_l}(1-\tilde{\pi}_l)}_{d(\tilde{\pi})}-\frac{1}{d(\tilde{\pi})}\left(\sum_{k\in
-U}y_k(1-\tilde{\pi}_k)\right)^2\\
+U}(\pi_{kl}-\pi_k\pi_l)\left(\frac{y_k}{\pi_k}-\frac{y_l}{\pi_l}\right)^2\\
+&amp;\simeq&amp; \frac{1}{2d(\pi)}\sum_{k\in U}\sum_{l\neq k\in
+U}\pi_k\pi_l(1-\pi_k)(1-\pi_l)\left(\frac{y_k}{\pi_k}-\frac{y_l}{\pi_l}\right)^2\\
+&amp;=&amp; \frac{1}{2d(\pi)}\sum_{k\in U}\sum_{l\in
+U}\pi_k\pi_l(1-\pi_k)(1-\pi_l)\left(\frac{y^2_k}{\pi_k^2}-2\frac{y_k}{\pi_k}\frac{y_l}{\pi_l}+\frac{y^2_l}{\pi_l^2}\right)\\
+&amp;=&amp; \frac{1}{d(\pi)}\left(\sum_{k\in
+U}\pi_k(1-\pi_k)\frac{y^2_k}{\pi_k^2}\right)\underbrace{\sum_{l\in
+U}\pi_l(1-\pi_l)}_{d(\pi)}-\frac{1}{d(\pi)}\left(\sum_{k\in
+U}y_k(1-\pi_k)\right)^2\\
 &amp;=&amp; \left(\sum_{k\in
-U}\tilde{\pi}_k(1-\tilde{\pi}_k)\frac{y^2_k}{\tilde{\pi_k}^2}\right)-\frac{1}{d(\tilde{\pi})}\left(\sum_{k\in
-U}y_k(1-\tilde{\pi}_k)\right)^2\\
+U}\pi_k(1-\pi_k)\frac{y^2_k}{\pi_k^2}\right)-\frac{1}{d(\pi)}\left(\sum_{k\in
+U}y_k(1-\pi_k)\right)^2\\
 &amp;=&amp; \sum_{k\in
-U}\tilde{\pi}_k(1-\tilde{\pi}_k)\left(\frac{y_k}{\tilde{\pi}_k}-A\right)^2,
+U}\pi_k(1-\pi_k)\left(\frac{y_k}{\pi_k}-A\right)^2,
 \end{eqnarray*}\]</span> où <span class="math inline">\(A=\sum_{l\in
-U}y_l(1-\tilde{\pi}_l)/d(\tilde{\pi}).\)</span></p>
+U}y_l(1-\pi_l)/d(\pi).\)</span></p>
+</div>
+<div id="solution-exercice-3.7" class="section level2">
+<h2>Solution exercice 3.7</h2>
+<ol style="list-style-type: decimal">
+<li>On montre que le plan de sondage de Bernoulli de paramètre <span
+class="math inline">\(\pi=1/2\)</span> est le plan à entropie maximale
+parmi tous les plans de sondage <span
+class="math inline">\(p(\cdot),\)</span> définis <span
+class="math inline">\(U.\)</span> Plus précisément, <span
+class="math inline">\(p(s)\)</span> est la probabilité de sélection un
+échantillon <span class="math inline">\(s,\)</span> <span
+class="math inline">\(s\in \mathcal S\)</span> et <span
+class="math inline">\(\mathcal S\)</span> est m’ensemble des parties de
+<span class="math inline">\(U.\)</span></li>
+</ol>
+<p>L’entropie de Shannon d’un plan <span
+class="math inline">\(p\)</span> sur <span
+class="math inline">\(\mathcal{S}\)</span> est définie par <span
+class="math display">\[
+H(p)
+=
+-\sum_{s\in\mathcal{S}}
+p(s)\log p(s).
+\]</span> On cherche à maximiser <span
+class="math inline">\(H(p)\)</span> sous la contrainte: <span
+class="math display">\[\begin{equation}\label{eq:normalisation1}  
+\sum_{s\in\mathcal{S}} p(s) = 1.   
+\end{equation}\]</span> La fonction lagrangien s’écrit <span
+class="math display">\[
+\mathcal{L}(p; \alpha)
+=
+-\sum_{s\in \mathcal{S}} p(s)\log p(s)
++
+\alpha\Big(\sum_{s\in\mathcal{S}} p(s)-1\Big),
+\]</span> où <span class="math inline">\(\alpha\in \mathbf{R}\)</span>
+est le multiplicateur de Lagrange. Pour tout <span
+class="math inline">\(s\in \mathcal{S}\)</span>, on dérive par rapport à
+<span class="math inline">\(p(s)\)</span> et on égalise à 0: <span
+class="math display">\[
+\frac{\partial\mathcal{L}}{\partial p(s)}
+=
+-(\log p(s)+1)
++
+\alpha=0.
+\]</span> On obtient donc <span
+class="math inline">\(p(s)=\exp{(\alpha-1)},\)</span> pour tout <span
+class="math inline">\(s\in \mathcal{S}.\)</span> A partir de la
+contrainte (<span
+class="math inline">\(\ref{eq:normalisation1}\)</span>), on déduit:
+<span class="math display">\[
+\sum_{s\in\mathcal{S}} p(s) = \sum_{s\in\mathcal{S}}
+\exp{(\alpha-1)}=2^N \exp{(\alpha-1)}=1,\]</span> d’où <span
+class="math inline">\(\exp{(\alpha-1)}=1/2^N\)</span> et <span
+class="math inline">\(p(s)=1/2^N.\)</span> D’autre part, le plan de
+sondage de Bernoulli de paramètre <span
+class="math inline">\(\pi=1/2\)</span> s’écrit: <span
+class="math display">\[
+p_{\rm{BE}}(s)=\prod_{k\in s}\pi\prod_{k\notin s} (1-\pi)=\prod_{k\in U}
+1/2=1/2^N,
+\]</span> pour tout <span class="math inline">\(s\in
+\mathcal{S},\)</span> d’où le résultat.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>On montre que le plan simple sans remise est le plan à entropie
+maximale dans la classe des plans de taille fixe, à probabilités égales
+et sans remise.</li>
+</ol>
+<p>On suppose que la taille de l’échantillon est <span
+class="math inline">\(n\)</span> et donc les probabilités d’inclusion
+sont <span class="math inline">\(\pi_k=n/N, k\in U.\)</span> Soit <span
+class="math inline">\(\mathcal{S}_n\)</span> l’ensemble de tous les
+échantillons <span class="math inline">\(s\subseteq U\)</span> de taille
+fixe <span class="math inline">\(n.\)</span> Le cardinal de <span
+class="math inline">\(\mathcal{S}_n\)</span> est <span
+class="math inline">\(\begin{pmatrix}
+N\\
+n\\
+\end{pmatrix},\)</span> le nombre de parties à <span
+class="math inline">\(n\)</span> éléments parmi <span
+class="math inline">\(N.\)</span> On cherche à maximiser <span
+class="math display">\[
+H_n(p)
+=
+-\sum_{s\in\mathcal{S}_n}
+p(s)\log p(s)
+\]</span> sous la contrainte: <span
+class="math display">\[\begin{equation}
+\sum_{s\in\mathcal{S}_n} p(s) = 1. \label{eq:normalisation2}
+\end{equation}\]</span> En procédant comme au point précédent, on
+obtient: <span class="math inline">\(p(s)=\exp{(\alpha-1)},\)</span>
+pour tout <span class="math inline">\(s\in \mathcal{S}_n\)</span> et</p>
+<p><span class="math display">\[
+\sum_{s\in\mathcal{S}_n} p(s) = \sum_{s\in\mathcal{S}_n}
+\exp{(\alpha-1)}=\begin{pmatrix}
+N\\
+n\\
+\end{pmatrix}
+\exp{(\alpha-1)}=1,\]</span> d’où <span
+class="math inline">\(\exp{(\alpha-1)}=1/\begin{pmatrix}
+N\\
+n\\
+\end{pmatrix}\)</span> et <span
+class="math inline">\(p(s)=1/\begin{pmatrix}
+N\\
+n\\
+\end{pmatrix}.\)</span> D’autre part, le plan simple sans remise SI de
+taille <span class="math inline">\(n\)</span> s’écrit: <span
+class="math display">\[
+p_{\rm{SI}}(s)=1/\begin{pmatrix}
+N\\
+n\\
+\end{pmatrix},
+\]</span> pour tout <span class="math inline">\(s\in
+\mathcal{S}_n,\)</span> d’où le résultat.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>On montre que le plan de Poisson est le plan à entropie maximale
+dans la classe des plans sans remise à probabilités d’inclusion inégales
+<span class="math inline">\(\pi_k, k\in U,\)</span> et fixées a priori.
+On cherche à maximiser <span class="math inline">\(H(p)\)</span> sous
+les contraintes suivantes: <span class="math display">\[\begin{eqnarray}
+\sum_{s\in\mathcal{S}} p(s) &amp;=&amp; 1, \label{eqnormalisation}\\
+\sum_{s\in\mathcal{S}, k\in s} p(s)&amp; =&amp;\sum_{s\in\mathcal{S}}
+I_k\,p(s) = \pi_k,
+\qquad k\in U, \label{eqinclusion}
+\end{eqnarray}\]</span> où <span class="math inline">\(I_k\)</span> est
+la variable indicatrice associée à l’unité <span
+class="math inline">\(k\in U.\)</span> La fonction lagrangien est donnée
+par \begin{eqnarray} L(p; , b_1,,b_N)&amp;=&amp;-_{s} p(s)p(s)</li>
+</ol>
+<ul>
+<li>(_{s} p(s)-1)</li>
+<li><em>{k=1}^N b_k (</em>{s} I_k p(s)-_k), \end{eqnarray} où <span
+class="math inline">\(\alpha\)</span> est le multiplicateur de Lagrange
+associé à la contrainte (<span
+class="math inline">\(\ref{eqnormalisation}\)</span>) et <span
+class="math inline">\(b_1,\dots,b_N\)</span> aux contraintes (<span
+class="math inline">\(\ref{eqinclusion}\)</span>). Pour tout <span
+class="math inline">\(s\in \mathcal{S}\)</span>, on dérive <span
+class="math inline">\(\mathcal{L}\)</span> par rapport à <span
+class="math inline">\(p(s)\)</span> :</li>
+</ul>
+<p><span class="math display">\[
+\frac{\partial\mathcal{L}}{\partial p(s)}
+=
+-(\log p(s)+1)
++
+\alpha
++
+\sum_{k=1}^N \beta_k I_k
+=0.
+\]</span> On obtient donc <span class="math display">\[
+\log p(s)
+=
+\alpha-1+\sum_{k=1}^N \beta_k I_k,
+\]</span> et <span class="math display">\[
+p(s)
+=
+C\exp\!\Big(\sum_{k=1}^N \beta_k I_k\Big),
+\qquad
+C=e^{\alpha-1}.
+\]</span> La constante <span class="math inline">\(C\)</span> est
+déterminée en utilisant la contrainte: <span class="math display">\[
+1
+=
+\sum_{s\in\mathcal{S}} p(s)
+=
+C
+\sum_{s\in\mathcal{S}}
+\exp\!\Big(\sum_{k=1}^N \beta_k I_k\Big).
+\]</span> Or on peut montrer (par exemple, par induction) que <span
+class="math display">\[
+\sum_{s\in\mathcal{S}}
+\exp\!\Big(\sum_{k=1}^N \beta_k I_k\Big)
+=
+\prod_{k=1}^N (1+e^{\beta_k}),
+\]</span> ce qui nous permet de déduire l’expression de la constante
+<span class="math inline">\(C:\)</span> <span class="math display">\[
+C=\prod_{k=1}^N \frac{1}{1+e^{\beta_k}}.
+\]</span> L’expression du plan de sondage <span
+class="math inline">\(p(\cdot)\)</span> vérifiant le problème
+d’optimisation peut-être ensuite obtenue: <span class="math display">\[
+p(s)
+=
+\prod_{k=1}^N
+\frac{e^{\beta_k I_k}}{1+e^{\beta_k}}.
+\]</span> D’autre part, par définition, <span class="math display">\[
+\pi_k=P(I_k=1)=
+\sum_{s\in\mathcal{S}, I_k=1} p(s).
+\]</span> En utilisant l’expression précédente de <span
+class="math inline">\(p(s)\)</span>, on obtient <span
+class="math display">\[
+\pi_k
+=
+\frac{e^{\beta_k}}{1+e^{\beta_k}}
+\sum_{I_j=0, \atop j\in U, j\neq k}^1
+\prod_{l\in U \atop l\neq k}
+\frac{e^{\beta_l I_l}}{1+e^{\beta_l}}=\frac{e^{\beta_k}}{1+e^{\beta_k}}
+\]</span> car <span class="math display">\[
+\sum_{I_j=0,\atop j\in U, j\neq k}^1
+\prod_{l\in U \atop l\neq k}
+\frac{e^{\beta_j I_l}}{1+e^{\beta_l}}
+=
+\prod_{l\in U \atop l\neq k}
+\left(
+\sum_{I_j=0}^1
+\frac{e^{\beta_j I_j}}{1+e^{\beta_j}}
+\right)
+=1.
+\]</span></p>
+<p>On peut donc écrire <span class="math display">\[
+p(s)
+=
+\prod_{k=1}^N
+\pi_k^{\,I_k}
+(1-\pi_k)^{1-I_k}=\prod_{k\in s}
+\pi_k
+\prod_{k\notin s}(1-\pi_k).
+\]</span> Ceci correspond au plan de Poisson avec les probabilités <span
+class="math inline">\(\pi_k, k\in U.\)</span></p>
+<ol start="4" style="list-style-type: decimal">
+<li>On montre que le plan de Poisson conditionnel est le plan à entropie
+maximale dans la classe des plans sans remise, de taille fixe, à
+probabilités inégales et fixées a priori.</li>
+</ol>
+<p>On suppose que les probabilités d’inclusion <span
+class="math inline">\(\pi_k\)</span> sont fixées et <span
+class="math inline">\(\sum_{k\in U} \pi_k=n.\)</span> On cherche à
+maximiser <span class="math inline">\(H_n(p)\)</span> sous les
+contraintes : <span class="math display">\[\begin{align}
+\sum_{s\in\mathcal{S}_n} p(s) &amp;= 1, \label{eq:norm_n}\\
+\sum_{s\in\mathcal{S}_n, k\in s} p(s) &amp;= \pi_k,
+\qquad k=1,\dots,N. \label{eq:incl_n}
+\end{align}\]</span> On procède comme précédemment et on obtient <span
+class="math display">\[
+\log p(s)
+=
+\alpha-1+\sum_{k=1}^N \beta_k I_k,
+\]</span> ou, de façon équivalente: <span class="math display">\[
+p(s)
+=
+C\exp\!\Big(\sum_{k=1}^N \beta_k I_k\Big),
+\qquad
+C=e^{\alpha-1}.
+\]</span></p>
+<p>Comme <span class="math inline">\(p(s)=0\)</span> pour <span
+class="math inline">\(s\notin\mathcal{S}_n\)</span>, la loi obtenue est
+une loi conditionnée à <span class="math inline">\(\sum_{k\in U}
+I_k=n\)</span>. On peut écrire, pour tout <span
+class="math inline">\(s\in\mathcal{S}_n\)</span>, <span
+class="math display">\[
+p(s)
+=
+\frac{\prod_{k=1}^N e^{\beta_k I_k}}
+{\sum_{s&#39;\in\mathcal{S}_n}
+\prod_{k=1}^N e^{\beta_k I_k}}.\]</span></p>
+<p>En utilisant <span class="math display">\[
+w_k = e^{\beta_k} &gt; 0\,, k\in U,
+\]</span> on obtient <span class="math display">\[
+p(s)
+=
+\frac{\prod_{k=1}^N w_k^{\,I_k}}
+{\sum_{s&#39;\in\mathcal{S}_n}
+\prod_{k=1}^N w_k^{\,I_k}}=
+\frac{\prod_{k\in s} w_k}
+{\sum_{s&#39;\in\mathcal{S}_n} \prod_{k\in s&#39;} w_k},
+\qquad s\in\mathcal{S}_n.
+\]</span></p>
+<p>Pour tout <span class="math inline">\(s\in \mathcal{S}_n\)</span>, on
+a donc <span
+class="math display">\[\begin{equation}\label{chap3:planmaxentropy}
+p(s)
+=
+\frac{\prod_{k\in s} w_k}
+{\sum_{s&#39;\in \mathcal{S}_n} \prod_{k\in s&#39;} w_k}.
+\end{equation}\]</span></p>
+<p>Soit <span class="math inline">\(\tilde{p}(\cdot)\)</span> le plan de
+Poisson avec les probabilités d’inclusion d’ordre un <span
+class="math inline">\(P(k\in s)=w_k/(1+w_k), k\in U.\)</span> La loi
+donnée par l’expression (<span
+class="math inline">\(\ref{chap3:planmaxentropy}\)</span>) est celle du
+(ou ) : <span class="math display">\[
+p(s)
+=
+\tilde{p}(s \mid s\in \mathcal{S}_n).
+\]</span></p>
+<p>L’entropie est une fonction strictement concave sur le simplexe des
+lois définies sur <span class="math inline">\(\mathcal{S}_n\)</span> et
+les contraintes sont linéaires.</p>
+<p>Il résulte que le plan rejectif est l’unique maximum global. Donc, le
+plan de Poisson conditionnel à la taille est le plan de maximum
+d’entropie parmi tous les plans de sondage de taille fixe <span
+class="math inline">\(n\)</span> ayant les mêmes probabilités
+d’inclusion d’ordre un <span class="math inline">\(\pi_k, k\in
+U.\)</span></p>
 </div>
 
 
