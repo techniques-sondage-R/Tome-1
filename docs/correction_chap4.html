@@ -416,7 +416,7 @@ n_h=n\frac{N_hS_{yU_h}}{\sum_{h&#39;=1}^HN_{h&#39;}S_{yU_{h&#39;}}},
 \]</span> et la variance de l’estimateur de Horvitz-Thompson devient:
 <span class="math display">\[\begin{eqnarray*}
 \mathop{\mathrm{V}}_{\rm{STSI},o}(\hat{t}_{y\rm{HT}}) &amp;=&amp;
-\sum_{h=1}^HN_h^2\frac{1-f_h}{n_h}S^2_{yU_h}=  \sum_{h=1}^H\frac{N_h}{n_h}
+\sum_{h=1}^HN_h^2\frac{1-f_h}{n_h}S^2_{yU_h}=  \sum_{h=1}^H\frac{N^2_h}{n_h}
 S^2_{yU_h}-\sum_{h=1}^HN_hS^2_{yU_h}\\
 &amp;=&amp;
 \frac{\sum_{h&#39;=1}^HN_{h&#39;}S_{yU_{h&#39;}}}{n}\sum_{h=1}^HN_hS_{yU_h}
@@ -452,8 +452,11 @@ s_h}\frac{1}{\pi_{k,h}}=\sum_{h=1}^H\sum_{k\in s_h}\frac{N_h}{n_h}=N,
 \]</span> car <span class="math inline">\(\pi_{k,h}=n_h/N_h, h=1,
 \ldots, H.\)</span> Sa variance est égalé à <span
 class="math display">\[
-\mathop{\mathrm{V}}_{\rm{STSI}}(\hat{N})=\sum_{h=1}^HN^2_h\frac{1-f_h}{n_h}S^2_{yU_h}=0.
-\]</span></p></li>
+\mathop{\mathrm{V}}_{\rm{STSI}}(\hat{N})=\sum_{h=1}^HN^2_h\frac{1-f_h}{n_h}S^2_{yU_h}=0
+\]</span> car <span class="math inline">\(S^2_{yU_h}=0\)</span> est la
+variance corrigée de <span class="math inline">\(y=1\)</span> au sein de
+la population <span class="math inline">\(U_h\)</span> pour tout <span
+class="math inline">\(h.\)</span></p></li>
 <li><p>On a <span class="math inline">\(\pi_{k,h}=n_h/N_h=n/N\)</span>
 pour tout <span class="math inline">\(h=1, \ldots, H\)</span> et <span
 class="math display">\[
@@ -472,7 +475,7 @@ class="math inline">\(\hat N\)</span> est nulle. Le même résultat avait
 </div>
 <div id="solution-exercice-4.5" class="section level2">
 <h2>Solution exercice 4.5</h2>
-<p>:</p>
+<p><strong>Première partie</strong>:</p>
 <ol style="list-style-type: decimal">
 <li><p>L’estimateur de Horvitz-Thompson de <span
 class="math inline">\(\bar{y}_U=\sum_{h=1}^2\sum_{k\in
@@ -511,7 +514,7 @@ U_h}y_k^2}}{\sum_{h&#39;=1}^2\sqrt{N_{h&#39;}\sum_{k\in
 U_{h&#39;}}y_k^2}}, \quad h=1, 2.
 \]</span></p></li>
 </ol>
-<p>:</p>
+<p><strong>Deuxième partie</strong>:</p>
 <ol style="list-style-type: decimal">
 <li>L’estimateur de Horvitz-Thompson de <span
 class="math inline">\(\Delta_y=\sum_{k\in U_1}y_k/N_1-\sum_{k\in
@@ -547,7 +550,7 @@ U_h}y_k^2}}{\sum_{h&#39;=1}^2\sqrt{N^{-1}_{h&#39;}\sum_{k\in
 U_{h&#39;}}y_k^2}}, \quad h=1, 2.
 \]</span></li>
 </ol>
-<p>:</p>
+<p><strong>Troisième partie</strong>:</p>
 <ol style="list-style-type: decimal">
 <li><p>On remplace dans les formules trouvées au point 1 et on obtient
 <span class="math inline">\(n_{1, opt}=153\)</span> et <span
@@ -616,12 +619,13 @@ n_1=n\frac{N_1S_{xU_1}}{N_1S_{xU_1}+N_2S_{xU_2}}=50\frac{2594\times\sqrt{3940}}{
 n_2=n\frac{N_2S_{xU_2}}{N_1S_{xU_1}+N_2S_{xU_2}}=50\frac{3600\times
 \sqrt{6725}}{2594\times\sqrt{3940}+3600\times \sqrt{6725}}\simeq 32.22
 \]</span> donc <span class="math inline">\(n_1=18\)</span> et <span
-class="math inline">\(n_2=32.\)</span> Il n’y a pas beaucoup de
-différence entre les tailles <span class="math inline">\(n_h, h=1,
-2\)</span> calculées selon les deux allocations. On pouvait s’attendre à
-ce résultat car les écart-types de la variable <span
-class="math inline">\(x\)</span> au sein des deux strates <span
-class="math inline">\(U_1\)</span> et <span
+class="math inline">\(n_2=32.\)</span></p>
+<ol start="3" style="list-style-type: lower-roman">
+<li>Il n’y a pas beaucoup de différence entre les tailles <span
+class="math inline">\(n_h, h=1, 2\)</span> calculées selon les deux
+allocations. On pouvait s’attendre à ce résultat car les écart-types de
+la variable <span class="math inline">\(x\)</span> au sein des deux
+strates <span class="math inline">\(U_1\)</span> et <span
 class="math inline">\(U_2\)</span> ne sont pas trop différents: <span
 class="math inline">\(\sqrt{3940}\simeq 62.77\)</span> et <span
 class="math inline">\(\sqrt{6725}\simeq 82\)</span>. Comme la variance
@@ -634,7 +638,33 @@ calculée pour l’allocation <span
 class="math inline">\(x\)</span>-optimale sera proche de la variance
 optimale (calculée pour l’allocation de Neyman) et plus faible que la
 variance calculée pour l’allocation proportionnelle à la taille;
-néanmoins, le gain ne sera pas important.</p>
+néanmoins, le gain ne sera pas important.</li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li>a),b) On note <span class="math inline">\(y=\texttt{api99}.\)</span>
+Dans le cas d’un plan SI(n), l’estimateur de Horvitz-Thompson de la
+moyenne de <span class="math inline">\(y\)</span> est donné par <span
+class="math display">\[
+\hat{\bar{y}}_{\rm{HT}}=\frac{1}{N}\sum_{k\in
+s}\frac{y_k}{\pi_k}=\frac{1}{n}\sum_{k\in s}y_k
+\]</span> car <span class="math inline">\(\pi_k=n/N\)</span> pour tout
+<span class="math inline">\(k\in U.\)</span> La variance de cet
+estimateur est égale à <span class="math display">\[
+\hat{\mathop{\mathrm{V}}}_{\rm{SI}}=\frac{1-f}{n}S^2_{yU}=\left(\frac{1}{50}-\frac{1}{6194}\right)17639\simeq
+349.93.
+\]</span></li>
+</ol>
+<p>Dans le cas d’un plan STSI avec allocation proportionnelle à la
+taille, l’estimateur de Horvitz-Thompson devient: <span
+class="math display">\[
+\hat{\bar{y}}_{\rm{HT}}=\frac{1}{N}\sum_{h=1}^H\sum_{k\in
+s_h}\frac{y_k}{\pi_{k,h}}=\frac{1}{n}\sum_{k\in s}y_k
+\]</span> car <span class="math inline">\(\pi_{k,h}=n_h/N_h=n/N\)</span>
+pour tout <span class="math inline">\(h=1, \ldots, H.\)</span> La
+variance est <span class="math display">\[
+\hat{\mathop{\mathrm{V}}}_{\rm{STSI}}=\frac{1-f}{n}\sum_{h=1}^H\frac{N_h}{N}S^2_{yU_h}=\left(\frac{1}{50}-\frac{1}{6194}\right)\left(\frac{2594}{6194}3940+\frac{3600}{6194}6725\right)\simeq
+110.27.
+\]</span></p>
 </div>
 <div id="solution-exercice-4.7" class="section level2">
 <h2>Solution exercice 4.7</h2>
@@ -739,8 +769,8 @@ class="math inline">\(\bar{y}_U\)</span> est donné par <span
 class="math display">\[
 \hat{\bar{y}}_{\rm{HT}}=\frac{1}{2}\sum_{k\in s}y_k=\bar{y}_s
 \]</span> et sa variance est égale à: <span class="math display">\[
-\mathop{\mathrm{V}}_{\rm{SI}}(\hat{\bar{y}}_{\rm{HT}})=\frac{1-f}{n}S^2_{yU}=4^2\left(\frac{1}{2}-\frac{1}{4}\right)\frac{1}{3}\sum_{k\in
-U}y_k^2=0.1667,
+\mathop{\mathrm{V}}_{\rm{SI}}(\hat{\bar{y}}_{\rm{HT}})=\frac{1-f}{n}S^2_{yU}=\left(\frac{1}{2}-\frac{1}{4}\right)\frac{1}{3}\sum_{k\in
+U}y_k^2=\frac{1}{3},
 \]</span> car <span class="math inline">\(\bar{y}_U=\sum_{k\in
 U}y_k/4=0\)</span>.</p>
 <p>2.(a) On a un plan STSI de taille <span
@@ -793,9 +823,9 @@ class="math display">\[
 \]</span> et sous le plan STSI avec l’allocation proportionnelle à la
 taille: <span class="math display">\[\begin{eqnarray*}
 \mathop{\mathrm{V}}_{\rm{STSI,p}}(\hat{\bar{y}}_{\rm{HT}})=\frac{1-f}{n}\sum_{h=1}^2\frac{N_h}{N}S^2_{yU_h}&amp;
-=&amp;\frac{1-f}{n}\frac{2}{N}\sum_{h=1}^2\sum_{k\in
+=&amp;\frac{1-f}{n}\frac{2}{4}\sum_{h=1}^2\sum_{k\in
 U_h}(y_k-\bar{y}_{U_h})^2\\
-&amp;=&amp; \frac{1-f}{n}\frac{2\times \mbox{SSW}}{4} &lt;
+&amp;=&amp; \frac{1-f}{n}\frac{2\times \mbox{SSW}}{4} &gt;
 \frac{1-f}{n}\frac{\mbox{SSW}}{3}=\mathop{\mathrm{V}}_{\rm{SI}}(\hat{\bar{y}}_{\rm{HT}}).
 \end{eqnarray*}\]</span> En effet, les constantes qui se trouvent devant
 les termes de variance <span class="math inline">\(S^2_{yU}\)</span> et
@@ -827,6 +857,21 @@ U_h}y_k^2.
 loi de Bernoulli des paramètres <span class="math inline">\(N_h\)</span>
 et <span class="math inline">\(\pi_h,\)</span> pour <span
 class="math inline">\(h=1, \ldots, H.\)</span></p></li>
+<li><p>Soit maintenant <span
+class="math inline">\(\mathbf{n}_s=(n_{s_h})_{h=1}^H\)</span> le vecteur
+<span class="math inline">\(H\)</span>-dimensionnel contenant les
+tailles des <span class="math inline">\(n_{s_h}\)</span> des
+échantillons <span class="math inline">\(s_h\)</span> sélectionnés de
+façon indépendante selon des plans de Bernoulli de paramètre <span
+class="math inline">\(\pi_h,\)</span> pour <span
+class="math inline">\(h=1, \ldots, H.\)</span> Soit <span
+class="math inline">\(\mathbf{n}=(n_h)_{h=1}^H,\)</span> avec <span
+class="math inline">\(n_h\in \{0, \ldots, N_h\},\)</span> <span
+class="math inline">\(h=1, \ldots, H.\)</span> On a grâce à
+l’indépendance: <span class="math display">\[
+\mathbb{P}(\mathbf{n}_s=\mathbf{n})=\Pi_{h=1}^H\mathbb{P}(n_{s_h}=n_h)=\Pi_{h=1}^H\binom{N_h}{n_h}\pi^{n_{h}}_h(1-\pi_{h})^{N_h-n_{h}},
+\]</span> donc un produit des lois de Bernoulli de paramètres <span
+class="math inline">\(\pi_h, h=1, \ldots, H.\)</span></p></li>
 <li><p>On a <span class="math display">\[\begin{eqnarray*}
 p(s|\mathbf{n}_s=\mathbf{n})=\frac{\mathbb{P}(s\cap
 \mathbf{n}_s=\mathbf{n})}{\mathbb{P}(\mathbf{n}_s=\mathbf{n})}=\frac{\Pi_{h=1}^H\pi^{n_{h}}_h(1-\pi_{h})^{N_h-n_{h}}}{\Pi_{h=1}^H\binom{N_h}{n_h}\pi^{n_{h}}_h(1-\pi_{h})^{N_h-n_{h}}}=

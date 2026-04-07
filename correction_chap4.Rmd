@@ -37,7 +37,7 @@ n_h=n\frac{N_hS_{yU_h}}{\sum_{h'=1}^HN_{h'}S_{yU_{h'}}}, \quad h=1, \ldots, 4
 $$
 et la variance de l'estimateur de Horvitz-Thompson devient:
 \begin{eqnarray*}
- \V_{\rm{STSI},o}(\hat{t}_{y\rm{HT}}) &=& \sum_{h=1}^HN_h^2\frac{1-f_h}{n_h}S^2_{yU_h}=  \sum_{h=1}^H\frac{N_h}{n_h} S^2_{yU_h}-\sum_{h=1}^HN_hS^2_{yU_h}\\
+ \V_{\rm{STSI},o}(\hat{t}_{y\rm{HT}}) &=& \sum_{h=1}^HN_h^2\frac{1-f_h}{n_h}S^2_{yU_h}=  \sum_{h=1}^H\frac{N^2_h}{n_h} S^2_{yU_h}-\sum_{h=1}^HN_hS^2_{yU_h}\\
  &=& \frac{\sum_{h'=1}^HN_{h'}S_{yU_{h'}}}{n}\sum_{h=1}^HN_hS_{yU_h} -N\sum_{h=1}^H\frac{N_h}{N}S^2_{yU_h}\\
  &=& \frac{N^2}{n}\left(\sum_{h=1}^H\frac{N_h}{N}S_{yU_h}\right)^2-N\sum_{h=1}^H\frac{N_h}{N}S^2_{yU_h}.
 \end{eqnarray*}
@@ -60,8 +60,10 @@ $$
 $$
 car $\pi_{k,h}=n_h/N_h, h=1, \ldots, H.$ Sa variance est égalé à
 $$
-\V_{\rm{STSI}}(\hat{N})=\sum_{h=1}^HN^2_h\frac{1-f_h}{n_h}S^2_{yU_h}=0. 
+\V_{\rm{STSI}}(\hat{N})=\sum_{h=1}^HN^2_h\frac{1-f_h}{n_h}S^2_{yU_h}=0 
 $$
+car $S^2_{yU_h}=0$  est la variance corrigée de $y=1$ au sein de la population $U_h$ pour tout $h.$
+
 2. On a $\pi_{k,h}=n_h/N_h=n/N$ pour tout  $h=1, \ldots, H$ et 
 $$
 \hat{N}=\sum_{h=1}^H\sum_{k\in s_h}\frac{1}{\pi_{k,h}}=\frac{N}{n}\sum_{h=1}^H\sum_{k\in s_h}1= \frac{N}{n}\sum_{k\in s}1=N
@@ -72,7 +74,7 @@ et $\V_{\rm{STSI}}(\hat{N})=0.$
 
 ## Solution exercice 4.5
 
-\noindent\textit{Première partie}:
+**Première partie**:
 
 1. L'estimateur de Horvitz-Thompson de $\bar{y}_U=\sum_{h=1}^2\sum_{k\in U_h}y_k/N$ est donné par:
 $$
@@ -92,7 +94,7 @@ $$
 n_{h, opt}=\frac{n\sqrt{A_h}}{\sum_{h'=1}^2\sqrt{A_{h'}}}=\frac{n\sqrt{N_h\sum_{k\in U_h}y_k^2}}{\sum_{h'=1}^2\sqrt{N_{h'}\sum_{k\in U_{h'}}y_k^2}}, \quad h=1, 2.
 $$
 
-\noindent\textit{Deuxième partie}:
+**Deuxième partie**:
 
 1. L'estimateur de Horvitz-Thompson de $\Delta_y=\sum_{k\in U_1}y_k/N_1-\sum_{k\in U_2}y_k/N_2$ est la différence des estimateurs de Horvitz-Thompson des moyennes de $y$ au sein des strates $U_1, U_2$:
 $$
@@ -111,7 +113,7 @@ $$
 n_{h, opt}=\frac{n\sqrt{A_h}}{\sum_{h'=1}^2\sqrt{A_{h'}}}=\frac{n\sqrt{N^{-1}_h\sum_{k\in U_h}y_k^2}}{\sum_{h'=1}^2\sqrt{N^{-1}_{h'}\sum_{k\in U_{h'}}y_k^2}}, \quad h=1, 2.
 $$
 
-\noindent\textit{Troisième partie}:
+**Troisième partie**:
 
 1. On remplace dans les formules trouvées au point 1 et on obtient $n_{1, opt}=153$ et $n_{2, opt}=47.$ 
 
@@ -152,7 +154,27 @@ $$
 $$
 n_2=n\frac{N_2S_{xU_2}}{N_1S_{xU_1}+N_2S_{xU_2}}=50\frac{3600\times \sqrt{6725}}{2594\times\sqrt{3940}+3600\times \sqrt{6725}}\simeq 32.22
 $$
-donc $n_1=18$ et $n_2=32.$ Il n'y a pas beaucoup de différence entre les tailles $n_h, h=1, 2$ calculées selon les deux allocations. On pouvait s'attendre à ce résultat car les écart-types de la variable $x$ au sein des deux strates $U_1$ et $U_2$ ne sont pas trop différents: $\sqrt{3940}\simeq 62.77$ et $\sqrt{6725}\simeq 82$.  Comme la variance de $x$ est corrélée avec la variance de $y,$ l'allocation $x$-optimale sera très proche de l'allocation optimale de Neyman. La variance de l'estimateur de Horvitz-Thompson de la moyenne de $y$ calculée pour l'allocation $x$-optimale sera proche de la variance optimale (calculée pour l'allocation de Neyman) et  plus faible que la variance calculée pour l'allocation proportionnelle à la taille; néanmoins, le gain ne sera pas important.  
+donc $n_1=18$ et $n_2=32.$ 
+
+iii. Il n'y a pas beaucoup de différence entre les tailles $n_h, h=1, 2$ calculées selon les deux allocations. On pouvait s'attendre à ce résultat car les écart-types de la variable $x$ au sein des deux strates $U_1$ et $U_2$ ne sont pas trop différents: $\sqrt{3940}\simeq 62.77$ et $\sqrt{6725}\simeq 82$.  Comme la variance de $x$ est corrélée avec la variance de $y,$ l'allocation $x$-optimale sera très proche de l'allocation optimale de Neyman. La variance de l'estimateur de Horvitz-Thompson de la moyenne de $y$ calculée pour l'allocation $x$-optimale sera proche de la variance optimale (calculée pour l'allocation de Neyman) et  plus faible que la variance calculée pour l'allocation proportionnelle à la taille; néanmoins, le gain ne sera pas important.  
+
+2. a),b) On note $y=\texttt{api99}.$ Dans le cas d'un plan SI(n), l'estimateur de Horvitz-Thompson de la moyenne de  $y$ est donné par 
+$$
+\hat{\bar{y}}_{\rm{HT}}=\frac{1}{N}\sum_{k\in s}\frac{y_k}{\pi_k}=\frac{1}{n}\sum_{k\in s}y_k
+$$
+car $\pi_k=n/N$ pour tout $k\in U.$ La variance de cet estimateur est égale à
+$$
+\hat{\V}_{\rm{SI}}=\frac{1-f}{n}S^2_{yU}=\left(\frac{1}{50}-\frac{1}{6194}\right)17639\simeq 349.93.
+$$
+
+Dans le cas d'un plan STSI avec allocation proportionnelle à la taille, l'estimateur de Horvitz-Thompson devient:
+ $$
+\hat{\bar{y}}_{\rm{HT}}=\frac{1}{N}\sum_{h=1}^H\sum_{k\in s_h}\frac{y_k}{\pi_{k,h}}=\frac{1}{n}\sum_{k\in s}y_k
+$$
+car $\pi_{k,h}=n_h/N_h=n/N$ pour tout $h=1, \ldots, H.$ La variance est 
+$$
+\hat{\V}_{\rm{STSI}}=\frac{1-f}{n}\sum_{h=1}^H\frac{N_h}{N}S^2_{yU_h}=\left(\frac{1}{50}-\frac{1}{6194}\right)\left(\frac{2594}{6194}3940+\frac{3600}{6194}6725\right)\simeq 110.27.
+$$
 
 
 ## Solution exercice 4.7
@@ -216,7 +238,7 @@ $$
 $$
 et sa variance est égale à:
 $$
-\V_{\rm{SI}}(\hat{\bar{y}}_{\rm{HT}})=\frac{1-f}{n}S^2_{yU}=4^2\left(\frac{1}{2}-\frac{1}{4}\right)\frac{1}{3}\sum_{k\in U}y_k^2=0.1667,
+\V_{\rm{SI}}(\hat{\bar{y}}_{\rm{HT}})=\frac{1-f}{n}S^2_{yU}=\left(\frac{1}{2}-\frac{1}{4}\right)\frac{1}{3}\sum_{k\in U}y_k^2=\frac{1}{3},
 $$
 car $\bar{y}_U=\sum_{k\in U}y_k/4=0$.
 
@@ -249,8 +271,8 @@ $$
 $$
 et sous le plan STSI avec l'allocation proportionnelle à la taille:
 \begin{eqnarray*}
-\V_{\rm{STSI,p}}(\hat{\bar{y}}_{\rm{HT}})=\frac{1-f}{n}\sum_{h=1}^2\frac{N_h}{N}S^2_{yU_h}& =&\frac{1-f}{n}\frac{2}{N}\sum_{h=1}^2\sum_{k\in U_h}(y_k-\bar{y}_{U_h})^2\\
-&=& \frac{1-f}{n}\frac{2\times \mbox{SSW}}{4} < \frac{1-f}{n}\frac{\mbox{SSW}}{3}=\V_{\rm{SI}}(\hat{\bar{y}}_{\rm{HT}}).
+\V_{\rm{STSI,p}}(\hat{\bar{y}}_{\rm{HT}})=\frac{1-f}{n}\sum_{h=1}^2\frac{N_h}{N}S^2_{yU_h}& =&\frac{1-f}{n}\frac{2}{4}\sum_{h=1}^2\sum_{k\in U_h}(y_k-\bar{y}_{U_h})^2\\
+&=& \frac{1-f}{n}\frac{2\times \mbox{SSW}}{4} > \frac{1-f}{n}\frac{\mbox{SSW}}{3}=\V_{\rm{SI}}(\hat{\bar{y}}_{\rm{HT}}).
 \end{eqnarray*}
 En effet, les constantes qui se trouvent devant les termes de variance $S^2_{yU}$ et $S^2_{yU_h}, h=1,\ldots, 2,$ font que la variance de l'estimateur de Horvitz-Thompson avec le plan SI est plus faible qu'avec le plan STSI. 
 
@@ -272,7 +294,14 @@ $$
 $$
 2. La taille $n_{s_h}$ suit une loi de Bernoulli des paramètres $N_h$ et $\pi_h,$ pour $h=1, \ldots, H.$ 
 
-3. On a 
+3. Soit maintenant $\mathbf{n}_s=(n_{s_h})_{h=1}^H$ le vecteur $H$-dimensionnel  contenant les tailles des $n_{s_h}$ des échantillons $s_h$ sélectionnés de façon indépendante selon des plans de Bernoulli de paramètre $\pi_h,$ pour $h=1, \ldots, H.$ Soit $\mathbf{n}=(n_h)_{h=1}^H,$ avec $n_h\in \{0, \ldots, N_h\},$ $h=1, \ldots, H.$ On a grâce à l'indépendance: 
+$$
+\mathbb{P}(\mathbf{n}_s=\mathbf{n})=\Pi_{h=1}^H\mathbb{P}(n_{s_h}=n_h)=\Pi_{h=1}^H\binom{N_h}{n_h}\pi^{n_{h}}_h(1-\pi_{h})^{N_h-n_{h}},
+$$
+donc un produit des lois de Bernoulli de paramètres $\pi_h, h=1, \ldots, H.$
+
+
+4. On a 
 \begin{eqnarray*}
    p(s|\mathbf{n}_s=\mathbf{n})=\frac{\mathbb{P}(s\cap \mathbf{n}_s=\mathbf{n})}{\mathbb{P}(\mathbf{n}_s=\mathbf{n})}=\frac{\Pi_{h=1}^H\pi^{n_{h}}_h(1-\pi_{h})^{N_h-n_{h}}}{\Pi_{h=1}^H\binom{N_h}{n_h}\pi^{n_{h}}_h(1-\pi_{h})^{N_h-n_{h}}}= \Pi_{h=1}^H\frac{1}{\binom{N_h}{n_h}},
 \end{eqnarray*}
