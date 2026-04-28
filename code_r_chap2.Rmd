@@ -1,14 +1,140 @@
 ---
-title: "II. Code R - Chapitre 2"
+title: "Solutions exercices appliqués chapitre 2"
+header-includes:
+- \usepackage{amsmath,amssymb}
+- \newcommand{\E}{\mathbb{E}}
+- \DeclareMathOperator{\C}{Cov}
+- \DeclareMathOperator{\V}{V}
+- \DeclareMathOperator{\A}{AV}
 ---
-
-<!-- ÉCRIVEZ VOTRE CODE R MARKDOWN ICI -->
-<!-- Cette page contient le Code R du Chapitre 2 -->
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Chapitre 2
+```{r, message=FALSE, warning=FALSE}
+require(sampling)
+require(survey)
+data(rec99)
+data("swissmunicipalities")
+```
 
-Votre code R ici.
+
+
+## Solutions exercice  2.18
+```{r, eval=FALSE}
+N <- nrow(rec99); n <- 70
+##paramètres d'intérêt
+ty <- sum(rec99$LOGVAC)
+ty
+##[1] 10768
+varHT.SI <- N^2*(1/n-1/N)*var(rec99$LOGVAC)
+varHT.SI
+##[1] 4230802
+
+varHT.BE <- (N/n-1)*sum(rec99$LOGVAC^2)
+varHT.BE
+##[1] 5670295
+
+##plan SI
+n.sim <- 10000
+set.seed(123456)
+estvar.si <- numeric(n.sim)
+taux.si <- numeric(n.sim)
+for (i in 1:n.sim)
+{
+  si.rec <- srswor(n,N)
+  ech.si <- svydesign(id=~CODE_N, weights=rep(N/n,n),
+                      fpc=rep(n/N,n),data=rec99[si.rec==1,])
+  A <- svytotal(~LOGVAC,ech.si)
+  estvar.si[i] <- (SE(A))^2
+  taux.si[i] <-  ty>= A[[1]]-1.96*SE(A) && ty<= A[[1]]+1.96*SE(A)
+}
+
+##taux de couverture de ty
+taux.couverture <- mean(taux.si)
+taux.couverture
+##[1] 0.9014
+##coefficient de la variation  de l'estimateur de la variance
+cv.estvar.si<-sd(estvar.si)/mean(estvar.si)
+cv.estvar.si
+##[1] 0.6198478
+##biais relatif de l'estimateur de la variance
+br.estvar.si <- (mean(estvar.si)-varHT.SI)/varHT.SI
+br.estvar.si
+#[1] 0.00478774
+
+##plan BE de paramètre pi=n/N
+pik <- rep(n/N, N)
+n.sim <- 10000
+set.seed(123456)
+estvar.be <- numeric(n.sim)
+taux.be <- numeric(n.sim)
+for (i in 1:n.sim)
+{
+  s.be <- UPpoisson(pik)
+  rec.be <- rec99[s.be==1,]
+  est.be <- (N/n) * sum(rec.be$LOGVAC)
+  estvar.be[i] <- (N/n-1)*(N/n)*sum(rec.be$LOGVAC^2)
+  taux.be[i] <-  ty>= est.be-1.96*sqrt(estvar.si[i]) && ty<= est.be +1.96*sqrt(estvar.si[i])
+}
+##taux de couverture de ty
+taux.couverture <- mean(taux.be)
+taux.couverture
+#[1] 0.8599
+##coefficient de la variation  de l'estimateur de la variance
+cv.estvar.be<-sd(estvar.be)/mean(estvar.be)
+cv.estvar.be
+#[1] 0.5546522
+##biais relatif de l'estimateur de la variance
+br.estvar.be <- (mean(estvar.be)-varHT.BE)/varHT.BE
+br.estvar.be
+#[1] 0.004447049
+```
+
+
+## Solution exo 2.19
+```{r, eval=FALSE}
+attach(swissmunicipalities)
+##paramètre d'intérêt
+tbois <- sum(Surfacesbois)
+tbois
+#[1] 1270996
+
+n <- 100; N <- nrow(swissmunicipalities)
+
+##tri selon la variable Surfacescult
+ordercult <- order(swissmunicipalities$Surfacescult)
+##le data frame trié selon la variable Surfacescult
+swiss.tri <- swissmunicipalities[ordercult,]
+
+pik <- rep(n/N,N)
+
+n.sim <- 10000
+set.seed(123456)
+
+est.sy1 <- est.sy2 <- numeric(n.sim);
+for (i in 1:n.sim)
+{
+  sy.rec <- UPsystematic(pik)
+  ech.sy1 <- svydesign(id=~1, weights=rep(N/n,n),fpc=rep(n/N,n),
+                      data=swissmunicipalities[sy.rec==1,])
+  est.sy1[i] <- svytotal(~Surfacesbois, ech.sy1)[1]	
+  ech.sy2 <- svydesign(id=~1, weights=rep(N/n,n),fpc=rep(n/N,n),
+                       data=swiss.tri[sy.rec==1,])
+  est.sy2[i] <- svytotal(~Surfacesbois, ech.sy2)[1]	
+}
+br1 <- (mean(est.sy1)-tbois)/tbois
+br1
+#[1] 0.0005575598
+br2 <- (mean(est.sy2)-tbois)/tbois
+br2
+#[1] 0.001991242
+cv1 <- sd(est.sy1)/mean(est.sy1)
+cv1
+#[1] 0.1412229
+cv2 <- sd(est.sy2)/mean(est.sy2)
+cv2
+#[1] 0.1104339
+detach(swissmunicipalities)
+```
