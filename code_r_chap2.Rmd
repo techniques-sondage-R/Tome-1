@@ -34,7 +34,7 @@ pAGRI <- mean(emploi$AGRI)
 pAGRI
 #[1] 0.04208896
 ```
-1. Sélection d'un échantillon SI(100) et estimation de la proportion de personnes avec \texttt{AGRI}=1.
+1. Sélection d'un échantillon SI(100) et estimation de la proportion de personnes avec AGRI=1.
 ```{r, eval=FALSE}
 N <- nrow(emploi); n <- 100
 set.seed(123456)
@@ -168,7 +168,7 @@ mean(taux.sy)
 
 
 ## Solution exercice  2.18
-On commence par calculer les paramètres d'intérêt, le total de la variable $y$ = \texttt{LOGVAC} et la variance de l'estimateur de Horvitz-Thompson de ce total selon les plans de sondage SI de taille $n$=70 et BE d'une taille moyenne $\E(n_s)=70.$  
+On commence par calculer les paramètres d'intérêt, le total de la variable $y$ = LOGVAC et la variance de l'estimateur de Horvitz-Thompson de ce total selon les plans de sondage SI de taille $n$=70 et BE d'une taille moyenne $\E(n_s)=70.$  
 ```{r, eval=FALSE}
 N <- nrow(rec99); n <- 70
 
@@ -184,7 +184,7 @@ varHT.BE <- (N/n-1)*sum(rec99$LOGVAC^2)
 varHT.BE
 ##[1] 5670295
 ```
-1. et 2. On compare, via des simulations de Monte-Carlo,  les stratégies SI et BE pour estimer le total de $y$=\texttt{LOGVAC} d'un point de vue du taux de couverture sous les deux plans de sondage. On calcule, à partir de mêmes 10000 estimations des variances obtenues selon les deux plans de sondage, les biais relatifs ainsi que les coefficients de variations des estimateurs de la variance.   
+1. et 2. On compare, via des simulations de Monte-Carlo,  les stratégies SI et BE pour estimer le total de $y$=LOGVAC d'un point de vue du taux de couverture sous les deux plans de sondage. On calcule, à partir de mêmes 10000 estimations des variances obtenues selon les deux plans de sondage, les biais relatifs ainsi que les coefficients de variations des estimateurs de la variance.   
 ```{r, eval=FALSE}
 ##plan SI
 n.sim <- 10000
@@ -253,7 +253,7 @@ br.estvar.be
 
 
 ## Solution exercice 2.19
-On comance par calculer les paramètres d'intérêt. 
+On commence par calculer les paramètres d'intérêt. 
 ```{r, eval=FALSE}
 attach(swissmunicipalities)
 
@@ -263,7 +263,7 @@ tbois
 ##[1] 1270996
 
 ```
-1. On considère un plan SY de taille $n=100$ dans la population initiale et ensuite dans la population triée selon la variable $x$=\texttt{Surfacescult}. On crée la population triée selon $x$=\texttt{Surfacescult}.
+1. On considère un plan SY de taille $n=100$ dans la population initiale et ensuite dans la population triée selon la variable $x$=Surfacescult. On crée la population triée selon $x$=Surfacescult.
 ```{r, eval=FALSE}
 n <- 100; N <- nrow(swissmunicipalities)
 

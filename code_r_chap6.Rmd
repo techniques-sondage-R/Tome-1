@@ -15,10 +15,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Solution exercice 6.4
 
-On considère l'estimation de la variable \texttt{POPSDC99}=la population
-plan SI, SI à deux degrès, UP=les \texttt{BVQ_N} et US=les communes
+On considère l'estimation du total de la variable POPSDC99 (la population d'une commune) avec un 
+plan SI, SI à deux degrès, où UP=les BVQ_N et US=les communes,
 de taille nI=14 UP au premier degré, ni=5 au 2nd degré dans chaque 
-UP sélectionnée
+UP sélectionnée.
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
 require(sampling)
@@ -108,7 +108,7 @@ br_estvarSIMP
 
 ## Solution exercice 6.6
 
-On souhaite estimater le total de la variable $y$=\texttt{LOGVAC} avec un. plan à deux degrés et vérifier l'efficacité des estimateurs de la variance de l'estimateur de Horvitz-Thompson: 
+On souhaite estimater le total de la variable $y$=LOGVAC avec un plan à deux degrés et vérifier l'efficacité des estimateurs de la variance de l'estimateur de Horvitz-Thompson: 
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
 require(sampling)
@@ -158,7 +158,7 @@ N1 <- rep(NI, nI*ni)
 ```
 On désire évaluer (par des simulations de Monte-Carlo)  l'efficacité 
 de deux estimateurs de la variance et calculer 
-les taux de couverture de tLOGVAC.
+les taux de couverture du total de LOGVAC.
 ```{r,eval=FALSE}
 set.seed(123456)
 n.sim <- 10000

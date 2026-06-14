@@ -170,7 +170,7 @@ cv.varsimp <- sd(varsimp.pips)/mean(varsimp.pips)
 cv.varsimp
 #[1] 0.2487124
 ```
-On compare avec la variance empirique de Monte-Carlo des estimations car la vraie variance de l'estimateur de Horvitz-Thompsonest est difficile à calculer pour un plan proportionnel à la taille sans remise.  
+On compare avec la variance empirique de Monte-Carlo des estimations car la vraie variance de l'estimateur de Horvitz-Thompson  est difficile à calculer pour un plan proportionnel à la taille sans remise.  
 ```{r, eval=FALSE}
 (mean(varsimp.pips)-var(tHT))/var(tHT)
 #[1] 0.0005475045

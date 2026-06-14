@@ -529,9 +529,9 @@ celle du plan SIC.</p>
 <div id="solution-exercice-5.6" class="section level2">
 <h2>Solution exercice 5.6</h2>
 <p>On calcule le paramètre d’intérêt, le total de la variable <span
-class="math inline">\(y\)</span>=, et on l’estime avec un plan SIC de
-taille <span class="math inline">\(n_I=6\)</span>, les grappes étant
-données par les cantons, variable .</p>
+class="math inline">\(y\)</span>=Surfacesbois, et on l’estime avec un
+plan SIC de taille <span class="math inline">\(n_I=6\)</span>, les
+grappes étant données par les cantons, variable CT.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">require</span>(sampling)</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">require</span>(survey)</span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;swissmunicipalities&quot;</span>)</span>
@@ -696,8 +696,8 @@ Monte-Carlo.</p>
 <span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a>cv.grap_sytaille</span>
 <span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a><span class="co">#[1] 0.1678047</span></span></code></pre></div>
 <p>Cette stratigie est beaucoup plus efficace que celle basée sur un
-plan SI (vori l’exercice 5.6), cela n’est pas très étonnant car la
-variable donnée par le total de la surface de bois à l’intériuer de
+plan SI (voir l’exercice 5.6), cela n’est pas très étonnant car la
+variable donnée par le total de la surface de bois à l’intérieur de
 chaque canton et les probabilités d’inclusion sont très corrélées:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">cor</span>(<span class="fu">tapply</span>(swissmunicipalities<span class="sc">$</span>Surfacesbois,swissmunicipalities<span class="sc">$</span>CT, sum), A)</span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="do">##[1] 0.8049308</span></span></code></pre></div>
@@ -768,26 +768,27 @@ chaque canton et les probabilités d’inclusion sont très corrélées:</p>
 <span id="cb12-62"><a href="#cb12-62" tabindex="-1"></a>                           <span class="at">data=</span>stsi.data.swiss)</span>
 <span id="cb12-63"><a href="#cb12-63" tabindex="-1"></a>est.stsi.pop <span class="ot">&lt;-</span> <span class="fu">svytotal</span>(<span class="sc">~</span>POPTOT,ech.stsi.pop)[<span class="dv">1</span>]</span>
 <span id="cb12-64"><a href="#cb12-64" tabindex="-1"></a><span class="co">#POPTOT </span></span>
-<span id="cb12-65"><a href="#cb12-65" tabindex="-1"></a><span class="co">#5056846 </span></span>
-<span id="cb12-66"><a href="#cb12-66" tabindex="-1"></a></span>
-<span id="cb12-67"><a href="#cb12-67" tabindex="-1"></a><span class="do">##3. plan pips au nombre de menages de chaque canton, x=H00PTOT</span></span>
-<span id="cb12-68"><a href="#cb12-68" tabindex="-1"></a></span>
-<span id="cb12-69"><a href="#cb12-69" tabindex="-1"></a><span class="do">##calcul du nombre de menages de chaque canton</span></span>
-<span id="cb12-70"><a href="#cb12-70" tabindex="-1"></a>Apop <span class="ot">&lt;-</span> <span class="fu">tapply</span>(swissmunicipalities<span class="sc">$</span>H00PTOT,swissmunicipalities<span class="sc">$</span>CT,sum)</span>
-<span id="cb12-71"><a href="#cb12-71" tabindex="-1"></a></span>
-<span id="cb12-72"><a href="#cb12-72" tabindex="-1"></a><span class="do">##calcul des probabilités proportionnelles au nombre de menages de chaque canton</span></span>
-<span id="cb12-73"><a href="#cb12-73" tabindex="-1"></a>pik.swisspop <span class="ot">&lt;-</span> <span class="fu">inclusionprobabilities</span>(Apop,nI)</span>
-<span id="cb12-74"><a href="#cb12-74" tabindex="-1"></a></span>
-<span id="cb12-75"><a href="#cb12-75" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123456</span>)</span>
-<span id="cb12-76"><a href="#cb12-76" tabindex="-1"></a>ech.sy_grappop <span class="ot">&lt;-</span> sampling<span class="sc">::</span><span class="fu">cluster</span>(swissmunicipalities,<span class="at">clustername=</span><span class="fu">c</span>(<span class="st">&quot;CT&quot;</span>),</span>
-<span id="cb12-77"><a href="#cb12-77" tabindex="-1"></a>                                  <span class="at">size=</span>nI,<span class="at">method=</span><span class="st">&quot;systematic&quot;</span>,<span class="at">pik=</span>pik.swisspop) </span>
-<span id="cb12-78"><a href="#cb12-78" tabindex="-1"></a>grap.data_sypop <span class="ot">&lt;-</span> <span class="fu">getdata</span>(swissmunicipalities,ech.sy_grappop)</span>
-<span id="cb12-79"><a href="#cb12-79" tabindex="-1"></a></span>
-<span id="cb12-80"><a href="#cb12-80" tabindex="-1"></a>ech.grap_sypop <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids=</span><span class="sc">~</span><span class="dv">1</span>, <span class="at">probs =</span> <span class="sc">~</span>Prob, <span class="at">data=</span>grap.data_sypop) </span>
-<span id="cb12-81"><a href="#cb12-81" tabindex="-1"></a><span class="fu">svytotal</span>(<span class="sc">~</span>POPTOT,ech.grap_sypop) </span>
-<span id="cb12-82"><a href="#cb12-82" tabindex="-1"></a><span class="co">#        total      SE</span></span>
-<span id="cb12-83"><a href="#cb12-83" tabindex="-1"></a><span class="co"># POPTOT 6976291 1160600</span></span>
-<span id="cb12-84"><a href="#cb12-84" tabindex="-1"></a><span class="do">##avec simulations</span></span></code></pre></div>
+<span id="cb12-65"><a href="#cb12-65" tabindex="-1"></a><span class="co">#5056846 </span></span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Plan de sondage sans remise, proportionnel au nombre de menages de
+chaque canton, <span class="math inline">\(x\)</span>=H00PTOT.</li>
+</ol>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="do">##calcul du nombre de menages de chaque canton</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>Apop <span class="ot">&lt;-</span> <span class="fu">tapply</span>(swissmunicipalities<span class="sc">$</span>H00PTOT,swissmunicipalities<span class="sc">$</span>CT,sum)</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="do">##calcul des probabilités proportionnelles au nombre de menages de chaque canton</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>pik.swisspop <span class="ot">&lt;-</span> <span class="fu">inclusionprobabilities</span>(Apop,nI)</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123456</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>ech.sy_grappop <span class="ot">&lt;-</span> sampling<span class="sc">::</span><span class="fu">cluster</span>(swissmunicipalities,<span class="at">clustername=</span><span class="fu">c</span>(<span class="st">&quot;CT&quot;</span>),</span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>                                  <span class="at">size=</span>nI,<span class="at">method=</span><span class="st">&quot;systematic&quot;</span>,<span class="at">pik=</span>pik.swisspop) </span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a>grap.data_sypop <span class="ot">&lt;-</span> <span class="fu">getdata</span>(swissmunicipalities,ech.sy_grappop)</span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>ech.grap_sypop <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids=</span><span class="sc">~</span><span class="dv">1</span>, <span class="at">probs =</span> <span class="sc">~</span>Prob, <span class="at">data=</span>grap.data_sypop) </span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="fu">svytotal</span>(<span class="sc">~</span>POPTOT,ech.grap_sypop) </span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#        total      SE</span></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="co"># POPTOT 6976291 1160600</span></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="do">##avec simulations</span></span></code></pre></div>
 </div>
 
 

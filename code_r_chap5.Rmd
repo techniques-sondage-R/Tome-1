@@ -55,7 +55,7 @@ cv.grapsy
 La section 5.5 du tome 1 traite les stratégies basées sur les plans SIC et STSIC avec l'estimateur de Hovitz-Thompson et leur efficacité est donnée dans le tableau 5.4. On peut vérifier que l'efficacité de la stratégie basée sur le plan SIC proportionnel au nombre de communes de chaque grappes est semblable à celle du plan statifié et meilleure que celle du plan SIC. 
 
 ## Solution exercice 5.6
-On calcule le paramètre d'intérêt, le total de la variable $y$=\texttt{Surfacesbois}, et on l'estime avec un plan SIC de taille $n_I=6$, les grappes étant données par les cantons, variable \texttt{CT}.  
+On calcule le paramètre d'intérêt, le total de la variable $y$=Surfacesbois, et on l'estime avec un plan SIC de taille $n_I=6$, les grappes étant données par les cantons, variable CT.  
 ```{r, eval=FALSE, message=FALSE, warning=FALSE}
 require(sampling)
 require(survey)
@@ -224,7 +224,7 @@ cv.grap_sytaille <- sd(est.grap_sytaille)/mean(est.grap_sytaille)
 cv.grap_sytaille
 #[1] 0.1678047
 ```
-Cette stratigie est beaucoup plus efficace que celle basée sur un plan SI (vori l'exercice 5.6), cela n'est pas très étonnant car la variable donnée par le total de la surface de bois à l'intériuer de chaque canton et les probabilités d'inclusion sont très corrélées:   
+Cette stratigie est beaucoup plus efficace que celle basée sur un plan SI (voir l'exercice 5.6), cela n'est pas très étonnant car la variable donnée par le total de la surface de bois à l'intérieur de chaque canton et les probabilités d'inclusion sont très corrélées:   
 ```{r,eval=FALSE}
 cor(tapply(swissmunicipalities$Surfacesbois,swissmunicipalities$CT, sum), A)
 ##[1] 0.8049308
@@ -296,9 +296,11 @@ ech.stsi.pop <- svydesign(id=~1,strata=~strate_CT,
 est.stsi.pop <- svytotal(~POPTOT,ech.stsi.pop)[1]
 #POPTOT 
 #5056846 
+```
 
-##3. plan pips au nombre de menages de chaque canton, x=H00PTOT
 
+3. Plan de sondage sans remise, proportionnel  au nombre de menages de chaque canton, $x$=H00PTOT.
+```{r, eval=FALSE}
 ##calcul du nombre de menages de chaque canton
 Apop <- tapply(swissmunicipalities$H00PTOT,swissmunicipalities$CT,sum)
 

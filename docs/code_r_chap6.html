@@ -482,9 +482,10 @@ div.tocify {
 
 <div id="solution-exercice-6.4" class="section level2">
 <h2>Solution exercice 6.4</h2>
-<p>On considère l’estimation de la variable =la population plan SI, SI à
-deux degrès, UP=les et US=les communes de taille nI=14 UP au premier
-degré, ni=5 au 2nd degré dans chaque UP sélectionnée</p>
+<p>On considère l’estimation du total de la variable POPSDC99 (la
+population d’une commune) avec un plan SI, SI à deux degrès, où UP=les
+BVQ_N et US=les communes, de taille nI=14 UP au premier degré, ni=5 au
+2nd degré dans chaque UP sélectionnée.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">require</span>(sampling)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">require</span>(survey)</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">data</span>(rec99)</span>
@@ -567,7 +568,7 @@ totale:</p>
 <div id="solution-exercice-6.6" class="section level2">
 <h2>Solution exercice 6.6</h2>
 <p>On souhaite estimater le total de la variable <span
-class="math inline">\(y\)</span>= avec un. plan à deux degrés et
+class="math inline">\(y\)</span>=LOGVAC avec un plan à deux degrés et
 vérifier l’efficacité des estimateurs de la variance de l’estimateur de
 Horvitz-Thompson:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">require</span>(sampling)</span>
@@ -611,8 +612,8 @@ Horvitz-Thompson:</p>
 <span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a></span>
 <span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>N1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(NI, nI<span class="sc">*</span>ni)</span></code></pre></div>
 <p>On désire évaluer (par des simulations de Monte-Carlo) l’efficacité
-de deux estimateurs de la variance et calculer les taux de couverture de
-tLOGVAC.</p>
+de deux estimateurs de la variance et calculer les taux de couverture du
+total de LOGVAC.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123456</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>n.sim <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>var.SISI <span class="ot">&lt;-</span> var.SISI.V0 <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n.sim)</span>

@@ -486,8 +486,8 @@ div.tocify {
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;swissmunicipalities&quot;</span>)</span></code></pre></div>
 <div id="solution-exercice-4.11" class="section level2">
 <h2>Solution exercice 4.11</h2>
-<p>On considère les données et on calcule le paramètre d’intérêt, la
-proportion <span class="math inline">\(P_{AGRI}.\)</span></p>
+<p>On considère les données emploi et on calcule le paramètre d’intérêt,
+la proportion <span class="math inline">\(P_{AGRI}.\)</span></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co">#données emploi</span></span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>TUR <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">2070</span>),<span class="fu">rep</span>(<span class="dv">2</span>,<span class="dv">1193</span>),<span class="fu">rep</span>(<span class="dv">3</span>,<span class="dv">1359</span>),<span class="fu">rep</span>(<span class="dv">4</span>,<span class="dv">1342</span>),<span class="fu">rep</span>(<span class="dv">5</span>,<span class="dv">1140</span>))</span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>AGRI <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">1828</span>),<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">242</span>),<span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">1157</span>),<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">36</span>),<span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">1343</span>),<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">16</span>),<span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">1337</span>),<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">5</span>),<span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">1140</span>))</span>
@@ -498,7 +498,8 @@ proportion <span class="math inline">\(P_{AGRI}.\)</span></p>
 <span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>pAGRI <span class="ot">&lt;-</span> <span class="fu">mean</span>(emploi<span class="sc">$</span>AGRI)</span>
 <span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>pAGRI</span>
 <span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#[1] 0.04208896</span></span></code></pre></div>
-<p>1 et 2. On considère un plan STSI, stratifiée selon la variable :</p>
+<p>1 et 2. On considère un plan STSI, stratifiée selon la variable
+TUR:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># fonction arrondi pour calculer les tailles nh des échantillons sh</span></span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co"># dans le cas d&#39;un plan stratifié</span></span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
@@ -684,7 +685,7 @@ et 2.</p>
 <p>On considère la table emploi donnée dans la solution de l’exo 4.11,
 ainsi que la fonction arrondi. On calcule le paramètre d’intérêt, la
 proportion de personnes <span class="math inline">\(P_{ED}\)</span> avec
-=1.</p>
+EDSANTSOC=1.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># paramètre d&#39;intéret </span></span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>pED <span class="ot">&lt;-</span> <span class="fu">mean</span>(emploi<span class="sc">$</span>EDSANTSOC)</span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>pED</span>
@@ -760,7 +761,7 @@ couverture de <span class="math inline">\(P_{ED}.\)</span></p>
 <span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="co">#[1] 0.2058904</span></span>
 <span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="fu">mean</span>(taux.ED.STSIprop)</span>
 <span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="co">#[1] 0.9368</span></span></code></pre></div>
-<p>Question 3: on considère l’allocation optimale de Neyman</p>
+<p>Question 3: on considère l’allocation optimale de Neyman:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>n.opt.ED <span class="ot">&lt;-</span> <span class="fu">arrondi</span>(n<span class="sc">*</span>Nh<span class="sc">*</span>sdED<span class="sc">/</span><span class="fu">sum</span>(Nh<span class="sc">*</span>sdED))</span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>n.opt.ED</span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>

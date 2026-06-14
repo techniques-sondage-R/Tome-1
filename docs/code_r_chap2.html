@@ -502,7 +502,7 @@ sylviculture ou la pêche (la variable AGRI).</p>
 <span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#[1] 0.04208896</span></span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Sélection d’un échantillon SI(100) et estimation de la proportion de
-personnes avec =1.</li>
+personnes avec AGRI=1.</li>
 </ol>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(emploi); n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123456</span>)</span>
@@ -638,10 +638,10 @@ class="math inline">\(P_{AGRI}\)</span>.</li>
 <div id="solution-exercice-2.18" class="section level2">
 <h2>Solution exercice 2.18</h2>
 <p>On commence par calculer les paramètres d’intérêt, le total de la
-variable <span class="math inline">\(y\)</span> = et la variance de
-l’estimateur de Horvitz-Thompson de ce total selon les plans de sondage
-SI de taille <span class="math inline">\(n\)</span>=70 et BE d’une
-taille moyenne <span
+variable <span class="math inline">\(y\)</span> = LOGVAC et la variance
+de l’estimateur de Horvitz-Thompson de ce total selon les plans de
+sondage SI de taille <span class="math inline">\(n\)</span>=70 et BE
+d’une taille moyenne <span
 class="math inline">\(\mathbb{E}(n_s)=70.\)</span></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(rec99); n <span class="ot">&lt;-</span> <span class="dv">70</span></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
@@ -659,7 +659,7 @@ class="math inline">\(\mathbb{E}(n_s)=70.\)</span></p>
 <ol style="list-style-type: decimal">
 <li>et 2. On compare, via des simulations de Monte-Carlo, les stratégies
 SI et BE pour estimer le total de <span
-class="math inline">\(y\)</span>= d’un point de vue du taux de
+class="math inline">\(y\)</span>=LOGVAC d’un point de vue du taux de
 couverture sous les deux plans de sondage. On calcule, à partir de mêmes
 10000 estimations des variances obtenues selon les deux plans de
 sondage, les biais relatifs ainsi que les coefficients de variations des
@@ -729,7 +729,7 @@ estimateurs de la variance.</li>
 </div>
 <div id="solution-exercice-2.19" class="section level2">
 <h2>Solution exercice 2.19</h2>
-<p>On comance par calculer les paramètres d’intérêt.</p>
+<p>On commence par calculer les paramètres d’intérêt.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">attach</span>(swissmunicipalities)</span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="do">##paramètre d&#39;intérêt</span></span>
@@ -740,8 +740,8 @@ estimateurs de la variance.</li>
 <li>On considère un plan SY de taille <span
 class="math inline">\(n=100\)</span> dans la population initiale et
 ensuite dans la population triée selon la variable <span
-class="math inline">\(x\)</span>=. On crée la population triée selon
-<span class="math inline">\(x\)</span>=.</li>
+class="math inline">\(x\)</span>=Surfacescult. On crée la population
+triée selon <span class="math inline">\(x\)</span>=Surfacescult.</li>
 </ol>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span>; N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(swissmunicipalities)</span>
 <span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a></span>
