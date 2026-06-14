@@ -1,0 +1,352 @@
+---
+title: "Solutions exercices appliqués chapitre 4"
+header-includes:
+- \usepackage{amsmath,amssymb}
+- \newcommand{\E}{\mathbb{E}}
+- \DeclareMathOperator{\C}{Cov}
+- \DeclareMathOperator{\V}{V}
+- \DeclareMathOperator{\A}{AV}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r, message=FALSE, warning=FALSE}
+require(sampling)
+require(survey)
+data(rec99)
+data("swissmunicipalities")
+```
+## Solution exercice 4.11
+On considère les données \texttt{emploi} et on calcule le paramètre d'intérêt, la proportion $P_{AGRI}.$
+```{r, eval=FALSE}
+#données emploi
+TUR <- c(rep(1,2070),rep(2,1193),rep(3,1359),rep(4,1342),rep(5,1140))
+AGRI <-c(rep(0,1828),rep(1,242),rep(0,1157),rep(1,36),rep(0,1343),rep(1,16),rep(0,1337),rep(1,5),rep(0,1140))
+EDSANTSOC <- c(rep(0,1468),rep(1,360),rep(0,1198),rep(1,201),rep(0,1076),rep(1,303),rep(0,1051),rep(1,302),rep(0,987),rep(1,158))
+emploi <- data.frame(TUR,AGRI,EDSANTSOC)
+
+# paramètre d'intérêt
+pAGRI <- mean(emploi$AGRI)
+pAGRI
+#[1] 0.04208896
+```
+1 et 2. On considère un plan STSI, stratifiée selon la variable \texttt{TUR}:
+```{r, eval=FALSE}
+# fonction arrondi pour calculer les tailles nh des échantillons sh
+# dans le cas d'un plan stratifié
+
+arrondi <- function(a)
+{
+  o <- order(a-floor(a),decreasing=T) #ordonne selon
+  #parties décimales
+  n <- ceiling(sum(a)) #calcule taille totale de l’échantillon
+  #avec prise en compte des arrondis éventuels au niveau des nh
+  nbar = n-sum(floor(a)) #calcule le nombre de nh
+  #à arrondir à l’unité par excès
+  nouv <- floor(a) #arrondit tous les nh à l’unité par défaut
+  if (nbar!=0){nouv[o[1:nbar]] <- nouv[o[1:nbar]] + 1}
+  #arrondit certains nh par excès si nécessaire
+  #(les nh avec les plus faibles écarts à l’entier supérieur)
+  if (any(nouv == 0))
+  {print("Attention, une strate est à tirage nul")}
+  nouv
+}
+
+# données sur la population stratifiée selon la variable TUR
+Nh <- table(TUR)
+Nh
+#TUR
+#1    2    3    4    5 
+#2070 1193 1359 1342 1140
+
+
+sdagri <- tapply(AGRI,TUR,sd)
+sdagri
+#         1          2          3          4          5 
+# 0.32138852 0.17114317 0.10790421 0.06094808 0.00000000 
+
+
+# on cummule les deux strates 4,5:
+emploi.order <- emploi[order(TUR),]
+emploi.order$TURbis <- ifelse(emploi.order$TUR==5,4, emploi.order$TUR)
+Nhbis <- table(emploi.order$TURbis)
+Nhbis
+#1    2    3    4 
+#2070 1193 1359 2482 
+
+
+N <- sum(Nh); n <- 100
+
+# calcul tailles nh selon l'allocation proportionnelle à la taille
+n.prop <- arrondi(Nhbis*n/N)
+n.prop
+#1  2  3  4 
+#9 17 19 35 
+
+# estimation de la proportion de personnes avec AGRI
+# plan STSI, n=100, allocation proportionnelle à la taille
+# avec simulation
+
+set.seed(123456)
+n.sim <- 10000
+p.AGRI.STSIprop <- numeric(n.sim)
+taux.STSIprop <- numeric(n.sim)
+for (i in 1:n.sim)
+  {
+  stsi.prop <- sampling::strata(emploi.order,"TURbis",size=n.prop,
+                                method="srswor")
+  stsi.data.prop <- getdata(emploi.order,stsi.prop)
+  ech.stsi.prop <- svydesign(id=~1,strata=~TURbis,
+                                 weights=rep(Nhbis/n.prop,n.prop),
+                                 fpc=rep(n.prop/Nhbis,n.prop),
+                                 data=stsi.data.prop)
+  A.stsi.prop <- svymean(~AGRI,ech.stsi.prop)
+  p.AGRI.STSIprop[i]<-A.stsi.prop[[1]]
+  taux.STSIprop[i] <- pAGRI>= A.stsi.prop[[1]]-1.96*SE(A.stsi.prop) && pAGRI<= A.stsi.prop[[1]]+1.96*SE(A.stsi.prop)
+}
+# biais relatif
+mean(p.AGRI.STSIprop)
+#[1] 0.04208874
+br.pagri.stsiprop <- (mean(p.AGRI.STSIprop)-pAGRI)/pAGRI
+br.pagri.stsiprop
+#[1] -5.290469e-06
+
+# coefficient de variation
+cv.pagri.STSIprop <- sd(p.AGRI.STSIprop)/mean(p.AGRI.STSIprop)
+cv.pagri.STSIprop
+#[1] 0.4642155
+
+#taux de couverture
+mean(taux.STSIprop)
+#[1] 0.926
+# Question 2: on considère le plan SI de taille n=100
+
+n.sim <- 10000
+p.agri.si <- numeric(n.sim) 
+taux.si <- numeric(n.sim)
+
+set.seed(123456)
+for (i in 1:n.sim)
+{
+  s.emploi.SI <- srswor(n,N)
+  ech.emploi.si <- svydesign(id=~1, weights=rep(N/n,n),
+                             fpc=rep(n/N,n),data=emploi[s.emploi.SI==1,])
+  
+  A.SI <- svymean(~AGRI,ech.emploi.si)
+  p.agri.si[i] <- A.SI[[1]]
+  taux.si[i] <- pAGRI>= A.SI[[1]]-1.96*SE(A.SI) && pAGRI<= A.SI[[1]]+1.96*SE(A.SI)
+}
+#biais relatif
+br.pagri.SI <- (mean(p.agri.si)-pAGRI)/pAGRI
+br.pagri.SI
+#[1] -0.009740415
+
+# coefficient de variation 
+cv.pagri.SI <- sd(p.agri.si)/mean(p.agri.si)
+cv.pagri.SI
+#[1] 0.4789038
+
+##taux de couverture
+mean(taux.si)
+#[1] 0.9204
+```
+
+On remarque que la stratégie basée sur un plan stratifié n'améliore pas beaucoup
+en comparaison avec la stratégie basée sur le plan SI.
+
+Question 3: voir les codes donnés dans les réponses aux questions 1 et 2.
+
+
+
+## Solution exercice 4.12
+
+```{r, eval=FALSE}
+attach(rec99)
+stratbr(LOG, H=4, n=70)
+
+#$cvtot
+#[1] 3.17735
+
+#$nh
+#[1] 15 13 14 28
+
+#$Nh
+#[1] 326 128  64  36
+
+#$Sh2
+#[1]   1910.944   9768.213  42124.571 554127.799
+
+#$bk
+#[1]  181.6962  534.3068 1267.3132
+
+#$cputime
+#elapsed 
+# 560.22 
+
+
+
+
+
+strata.LH(LOG, n = 70, Ls=4, algo="Kozak", algo.control=list(trymany=FALSE))
+
+
+#Given arguments:
+#x = LOG
+#n = 70, Ls = 4, takenone = 0, takeall = 0
+#allocation: q1 = 0.5, q2 = 0, q3 = 0.5
+#model = none
+#algo = Kozak: minsol = 1000, idopti = nh, minNh = 2, maxiter = 10000, 
+#              maxstep = 34, maxstill = 340, rep = 5, trymany = FALSE
+#
+#Strata information:
+#          |      type rh  initbh |     bh    E(Y)    Var(Y)  Nh nh   fh
+#stratum 1 | take-some  1  161.27 |  181.5   82.55   1905.08 326 15 0.05
+#stratum 2 | take-some  1  534.43 |  533.5  313.41   9691.90 128 13 0.10
+#stratum 3 | take-some  1 1430.03 | 1302.5  825.50  41466.38  64 14 0.22
+#stratum 4 | take-some  1 4491.00 | 4491.0 2151.53 538735.36  36 28 0.78
+#Total                                                       554 70 0.13
+#
+#Total sample size: 70 
+#Anticipated population mean: 356.1625 
+#
+#Anticipated CV: 0.0315973 
+#Note: CV=RRMSE (Relative Root Mean Squared Error) because takenone=0.
+
+detach(rec99)
+```
+
+## Solution exercice 4.13
+
+
+## Solution exercice 4.14
+On considère la table emploi donnée dans la solution de l'exo 
+4.11, ainsi que la fonction arrondi. On calcule le paramètre d'intérêt, la proportion de personnes $P_{ED}$ avec \texttt{EDSANTSOC}=1.
+```{r, eval=FALSE}
+# paramètre d'intéret 
+pED <- mean(emploi$EDSANTSOC)
+pED
+#[1] 0.1863739
+
+# données sur la population stratifiée selon TUR
+
+sdED <- tapply(EDSANTSOC,TUR,sd)
+sdED
+#      1         2         3         4         5 
+# 0.3791263 0.3744514 0.4163836 0.4177625 0.3456766 
+```
+Les écarts-type de la variable EDSANTSOC ne varient  pas beaucoup entre les strates, on considère une allocation proportionnelle à la taille.
+```{r, eval=FALSE}
+Nh <- table(emploi$TUR)
+N <- sum(Nh); n <- 100
+n.prop <- arrondi(Nh*n/N)
+n.prop
+#TUR
+# 1  2  3  4  5 
+# 29 17 19 19 16 
+```
+Question 1. On calcule une estimation de type Horvitz-Thompson de $P_{ED}$ avec un plan STSI de taille $n=100$ ainsi qu'une estimation par intervalle de confiance. 
+```{r, eval=FALSE}
+emploi.order <- emploi[order(TUR),]
+
+stsi.prop <- sampling::strata(emploi.order,"TUR",size=n.prop,
+                              method="srswor")
+stsi.data.prop <- getdata(emploi.order,stsi.prop)
+ech.stsi.prop <- svydesign(id=~1,strata=~TUR,
+                           weights=rep(Nh/n.prop,n.prop),
+                           fpc=rep(n.prop/Nh,n.prop),
+                           data=stsi.data.prop)
+A.stsi.prop <- svymean(~EDSANTSOC,ech.stsi.prop)
+p.ED.STSIprop <- A.stsi.prop[[1]]
+p.ED.STSIprop
+#[1] 0.1400787
+IC_L.ED.STSIprop <- A.stsi.prop[[1]]-1.96*SE(A.stsi.prop) 
+IC_L.ED.STSIprop
+# EDSANTSOC
+#EDSANTSOC 0.07259556
+
+IC_R.ED.STSIprop <- A.stsi.prop[[1]]+1.96*SE(A.stsi.prop)
+IC_R.ED.STSIprop
+#EDSANTSOC
+#EDSANTSOC 0.2075618
+```
+Question 2. On étudie le comportement de l'estimateur de Horvitz-Thompson via des simulations. On calcule également les taux de couverture de $P_{ED}.$
+```{r, eval=FALSE}
+set.seed(123456)
+n.sim <- 10000
+p.ED.STSIprop <- numeric(n.sim)
+taux.ED.STSIprop <- numeric(n.sim)
+for (i in 1:n.sim)
+{
+  stsi.prop <- sampling::strata(emploi.order,"TUR",size=n.prop,
+                                method="srswor")
+  stsi.data.prop <- getdata(emploi.order,stsi.prop)
+  ech.stsi.prop <- svydesign(id=~1,strata=~TUR,
+                             weights=rep(Nh/n.prop,n.prop),
+                             fpc=rep(n.prop/Nh,n.prop),
+                             data=stsi.data.prop)
+  A.stsi.prop <- svymean(~EDSANTSOC,ech.stsi.prop)
+  p.ED.STSIprop[i] <- A.stsi.prop[[1]]
+  taux.ED.STSIprop[i] <- pED>= A.stsi.prop[[1]]-1.96*SE(A.stsi.prop) && pED<= A.stsi.prop[[1]]+1.96*SE(A.stsi.prop)
+}
+# biais relatif
+(mean(p.ED.STSIprop)-pED)/pED
+#[1] 0.002011636
+#coefficient de variation
+sd(p.ED.STSIprop)/mean(p.ED.STSIprop)
+#[1] 0.2058904
+mean(taux.ED.STSIprop)
+#[1] 0.9368
+```
+Question 3: on considère l'allocation optimale de Neyman
+```{r, eval=FALSE}
+n.opt.ED <- arrondi(n*Nh*sdED/sum(Nh*sdED))
+n.opt.ED
+
+#TUR
+#1  2  3  4  5 
+#29 16 21 20 14
+
+set.seed(123456)
+n.sim <- 10000
+p.ED.STSIopt <- numeric(n.sim)
+taux.ED.STSIopt <- numeric(n.sim)
+for (i in 1:n.sim)
+{
+  stsi.opt <- sampling::strata(emploi.order,"TUR",size=n.opt.ED,
+                                method="srswor")
+  stsi.data.opt <- getdata(emploi.order,stsi.opt)
+  ech.stsi.opt <- svydesign(id=~1,strata=~TUR,
+                             weights=rep(Nh/n.opt.ED,n.opt.ED),
+                             fpc=rep(n.opt.ED/Nh,n.opt.ED),
+                             data=stsi.data.opt)
+  A.stsi.opt <- svymean(~EDSANTSOC,ech.stsi.opt)
+  p.ED.STSIopt[i] <- A.stsi.opt[[1]]
+  taux.ED.STSIopt[i] <- pED >= A.stsi.opt[[1]]-1.96*SE(A.stsi.opt) && pED<= A.stsi.opt[[1]]+1.96*SE(A.stsi.opt)
+}
+
+# biais relatif
+(mean(p.ED.STSIopt)-pED)/pED
+#[1] 0.001293806
+
+#coefficient de variation
+sd(p.ED.STSIopt)/mean(p.ED.STSIopt)
+#[1] 0.2058425
+
+mean(taux.ED.STSIopt)
+#[1] 0.9407
+```
+On remarque que la stratégie basée sur une allocation optimale est très proche 
+en termes d'efficacité de celle basée sur une allocation proportionnelle 
+à la taille. Cela n'est pas surpernant car, comme remarqué ci-dessus, 
+les écarts-type de la variable EDSANTSOC sont quasiment les mêmes entre 
+les différentes strates.
+
+
+
+## Solution exercice 4.15
+
+
+

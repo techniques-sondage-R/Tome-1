@@ -12,6 +12,14 @@ navbar:
           href: code_r_chap1.html
         - text: "b) Chapitre 2"
           href: code_r_chap2.html
+        - text: "b) Chapitre 3"
+          href: code_r_chap3.html
+        - text: "b) Chapitre 4"
+          href: code_r_chap4.html  
+        - text: "b) Chapitre 5"
+          href: code_r_chap5.html  
+        - text: "b) Chapitre 6"
+          href: code_r_chap6.html  
     - text: "III. Correction Exercices"
       menu:
         - text: "a) Chapitre 1"

@@ -1,0 +1,320 @@
+---
+title: "Solutions exercices appliqués chapitre 5"
+header-includes:
+- \usepackage{amsmath,amssymb}
+- \newcommand{\E}{\mathbb{E}}
+- \DeclareMathOperator{\C}{Cov}
+- \DeclareMathOperator{\V}{V}
+- \DeclareMathOperator{\A}{AV}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Solution exercice 5.5
+On calcule le paramètre d'intérêt et les probabilités d'inclusion $\pi_{kI}, k\in U_I$ proportionnelles à la taille de la grappe, donnée dans ce cas par le BVQ\_N.
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
+require(sampling)
+require(survey)
+data(rec99)
+##simu: plan SI
+##paramètre d'intérêt 
+tLOGVAC <- sum(rec99$LOGVAC)
+
+nI <- 4
+taille_grappe <- table(rec99$BVQ_N)
+sum(taille_grappe)
+#[1] 554
+pik_rec <- inclusionprobabilities(taille_grappe,nI)
+```
+On évalue l'efficacité de cette stratégie par des simulations de MOnte-Carlo.
+```{r, eval=FALSE,}
+set.seed(123456)
+est.grap_sy <- matrix(1,10000,1)
+for (i in 1:10000)
+{
+  grap.rec_sy <- sampling::cluster(rec99,clustername=c("BVQ_N"),
+                                   size=nI,method="systematic",pik=pik_rec) 
+  grap.data_sy <- getdata(rec99,grap.rec_sy)
+  
+  ech.grap_sy <- svydesign(ids=~BVQ_N, probs = ~Prob, data=grap.data_sy ) 
+  est.grap_sy[i] <- svytotal(~LOGVAC,ech.grap_sy)[1]
+}
+#biais relatif
+br.grapsy <- (mean(est.grap_sy)-tLOGVAC)/tLOGVAC
+br.grapsy
+#[1] -0.001939559
+
+#coefficient de variation
+cv.grapsy <- sd(est.grap_sy)/mean(est.grap_sy)
+cv.grapsy
+#[1] 0.2783709
+```
+La section 5.5 du tome 1 traite les stratégies basées sur les plans SIC et STSIC avec l'estimateur de Hovitz-Thompson et leur efficacité est donnée dans le tableau 5.4. On peut vérifier que l'efficacité de la stratégie basée sur le plan SIC proportionnel au nombre de communes de chaque grappes est semblable à celle du plan statifié et meilleure que celle du plan SIC. 
+
+## Solution exercice 5.6
+On calcule le paramètre d'intérêt, le total de la variable $y$=\texttt{Surfacesbois}, et on l'estime avec un plan SIC de taille $n_I=6$, les grappes étant données par les cantons, variable \texttt{CT}.  
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
+require(sampling)
+require(survey)
+data("swissmunicipalities")
+
+swissmunicipalities$CT <- as.factor(swissmunicipalities$CT)
+summary(lm(swissmunicipalities$Surfacesbois~swissmunicipalities$CT,data=swissmunicipalities))
+#Adjusted R-squared:  0.162 
+
+##paramètre d'intérêt
+tbois <- sum(swissmunicipalities$Surfacesbois)
+###############################
+###plan srswor des cantons
+###dans la pop suisse des villes
+################################
+
+NI <- length(levels(swissmunicipalities$CT)); nI <- 6
+set.seed(123456)
+grap.swiss <- sampling::cluster(swissmunicipalities,
+                                clustername="CT",size=nI,method="srswor")
+grap.data <- getdata(swissmunicipalities,grap.swiss)
+
+nech <- nrow(grap.data)
+ech.grap <- svydesign(id=~1,weights=rep(NI/nI,nech),
+                      data=grap.data,fpc=rep(nI/NI,nech))
+svytotal(~Surfacesbois,ech.grap) 
+#              total    SE
+#Surfacesbois 838457 45045
+```
+On évalue l'effcacité de cette stratégie via des simulations de Monte-Carlo.
+```{r, eval=FALSE}
+set.seed(123456)
+n.sim <- 10000
+est.grap_si <- matrix(1,n.sim,1)
+for (i in 1:n.sim)
+{
+  grap.swiss <- sampling::cluster(swissmunicipalities,
+                                  clustername="CT",size=nI,method="srswor")
+  grap.data <- getdata(swissmunicipalities,grap.swiss)
+  
+  nech <- nrow(grap.data)
+  ech.grap <- svydesign(id=~1,weights=rep(NI/nI,nech),
+                        data=grap.data,fpc=rep(nI/NI,nech))
+  est.grap_si[i]<-svytotal(~Surfacesbois,ech.grap)[1] 
+}
+br.grap <- (mean(est.grap_si)-tbois)/tbois
+br.grap
+#[1] -0.002889166
+cv_grap_si <- sd(est.grap_si)/mean(est.grap_si)
+cv_grap_si
+#[1] 0.389648
+```
+
+## Solution exercice 5.7
+Suite de l'exercice 5.6
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
+require(sampling)
+require(survey)
+data("swissmunicipalities")
+
+##paramètre d'intérêt
+tbois <- sum(swissmunicipalities$Surfacesbois)
+
+NI <- length(levels(swissmunicipalities$CT)); nI <- c(6,8,12,16)
+set.seed(123456)
+n.sim <- 10000
+est.grap_si <- matrix(1,n.sim,4)
+for (j in 1:length(nI))
+{
+  for (i in 1:n.sim)
+    {
+    grap.swiss <- sampling::cluster(swissmunicipalities,
+                                  clustername="CT",size=nI[j],method="srswor")
+    grap.data <- getdata(swissmunicipalities,grap.swiss)
+    nech <- nrow(grap.data)
+    ech.grap <- svydesign(id=~1,weights=rep(NI/nI[j],nech),
+                        data=grap.data,fpc=rep(nI[j]/NI,nech))
+    est.grap_si[i,j]<-svytotal(~Surfacesbois,ech.grap)[1] 
+  }
+}
+br <- (apply(est.grap_si,2,mean)-tbois)/tbois
+cv <- apply(est.grap_si,2,sd)/apply(est.grap_si,2,mean)
+```
+## Solution exercice 5.8 
+Calcul du paramètre d'intérêt et des probabilités d'inclusion proprtionnelles à la surface du canton.
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
+require(sampling)
+require(survey)
+data("swissmunicipalities")
+
+##paramètre d'intérêt
+tbois <- sum(swissmunicipalities$Surfacesbois)
+
+swissmunicipalities$CT <- as.factor(swissmunicipalities$CT)
+nI <- 6
+##calcul de la surface totale de chaque canton
+A <- tapply(swissmunicipalities$HApoly, swissmunicipalities$CT, sum)
+##calcul des probabilités proportionnelles à la surface de chaque canton
+pik.swiss<- inclusionprobabilities(A,nI)
+```
+Estimation de la surface totale ocupée par des fôrets avec un plan sans remise avec des probabilités d'inclusion proportionnelles à la surface du canton. 
+```{r,eval=FALSE}
+set.seed(123456)
+ech.sy_grap2 <- sampling::cluster(swissmunicipalities,clustername=c("CT"),
+                                  size=nI,method="systematic",pik=pik.swiss) 
+grap.data_sy <- getdata(swissmunicipalities,ech.sy_grap2)
+
+ech.grap_sy2 <- svydesign(ids=~1, probs = ~Prob, data=grap.data_sy) 
+svytotal(~Surfacesbois,ech.grap_sy2) 
+#              total    SE
+#Surfacesbois 1365885 70202
+```
+## Solution exercice 5.9
+Calcul du paramètre d'intérêt et des probabilités d'inclusion proprtionnelles au nombre de communes de chaque canton.
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
+require(sampling)
+require(survey)
+data("swissmunicipalities")
+
+##paramètre d'intérêt
+tbois <- sum(swissmunicipalities$Surfacesbois)
+swissmunicipalities$CT <- as.factor(swissmunicipalities$CT)
+nI <- 6
+##calcul du nombre de communes de chaque canton
+A <- table(swissmunicipalities$CT)
+
+##calcul des probabilités proportionnelles au nombre de communes de chaque canton
+pik.swiss <- inclusionprobabilities(A,nI)
+```
+Estimation de la surface totale ocupée par des fôrets avec un plan sans remise avec des probabilités d'inclusion proportionnelles au nombres de communes de chaque canton.
+```{r,eval=FALSE}
+set.seed(123456)
+ech.sy_grap2 <- sampling::cluster(swissmunicipalities,clustername=c("CT"),
+                      size=nI,method="systematic",pik=pik.swiss,description=TRUE) 
+grap.data_sy <- getdata(swissmunicipalities,ech.sy_grap2)
+
+ech.grap_sy2 <- svydesign(ids=~1, probs = ~Prob, data=grap.data_sy) 
+svytotal(~Surfacesbois,ech.grap_sy2) 
+#              total    SE
+#Surfacesbois 920946 56957
+```
+
+Evaluation de l'efficacité de cette stratégie via des simulations de Monte-Carlo.
+
+```{r,eval=FALSE}
+n.sim <- 10000
+est.grap_sytaille <- numeric(n.sim)
+
+set.seed(123456)
+for (i in 1:10000)
+{
+ech.sy_grap2 <- sampling::cluster(swissmunicipalities,clustername=c("CT"),
+                                  size=nI,method="systematic",pik=pik.swiss) 
+grap.data_sy <- getdata(swissmunicipalities,ech.sy_grap2)
+
+ech.grap_sy2 <- svydesign(ids=~1, probs = ~Prob, data=grap.data_sy) 
+est.grap_sytaille[i] <- svytotal(~Surfacesbois,ech.grap_sy2)[[1]] 
+}
+
+##biais relatif
+br.grap_sytaille <- (mean(est.grap_sytaille)-tbois)/tbois
+br.grap_sytaille
+#[1] -0.0004751821
+##coefficient de variation 
+cv.grap_sytaille <- sd(est.grap_sytaille)/mean(est.grap_sytaille)
+cv.grap_sytaille
+#[1] 0.1678047
+```
+Cette stratigie est beaucoup plus efficace que celle basée sur un plan SI (vori l'exercice 5.6), cela n'est pas très étonnant car la variable donnée par le total de la surface de bois à l'intériuer de chaque canton et les probabilités d'inclusion sont très corrélées:   
+```{r,eval=FALSE}
+cor(tapply(swissmunicipalities$Surfacesbois,swissmunicipalities$CT, sum), A)
+##[1] 0.8049308
+```
+## Solution exercice 5.10
+```{r, eval=FALSE, message=FALSE, warning=FALSE}
+require(dplyr)
+require(sampling)
+require(survey)
+data("swissmunicipalities")
+
+##paramètre d'intérêt
+tpop <- sum(swissmunicipalities$POPTOT)
+
+##1. plan SI de cantons
+swissmunicipalities$CT <- as.factor(swissmunicipalities$CT)
+
+NI <- length(levels(swissmunicipalities$CT)); nI <- 6
+
+set.seed(123456)
+grap.swiss <- sampling::cluster(swissmunicipalities,
+                                clustername="CT",size=nI,method="srswor")
+grap.data <- getdata(swissmunicipalities,grap.swiss)
+
+nech <- nrow(grap.data)
+ech.grap <- svydesign(id=~1,weights=rep(NI/nI,nech),
+                      data=grap.data,fpc=rep(nI/NI,nech))
+svytotal(~POPTOT,ech.grap) 
+# total     SE
+# POPTOT 4741330 390996
+
+##2 plan stratifié
+
+##on crée trois strates de cantons en fonction de la taille des cantons
+##calcul du nombre de communes de chaque canton
+A <- table(swissmunicipalities$CT)
+strate_CT <- A
+
+strate_CT <- dplyr::case_when(
+  A <= 45 ~ 1,
+  A > 45 & A <= 126 ~2,
+  TRUE ~3
+)
+strate_CT <- as.factor(strate_CT)
+tapply(A, strate_CT, sd)
+#1        2        3 
+#13.47793 20.54148 89.75323 
+
+##on ajoute la nouvelle variable à la table 
+swiss2 <- swissmunicipalities[,c(1,22)]
+swiss2.CT <- aggregate(swiss2[,2], by= list(swiss2$CT), sum)
+swiss.new <- cbind(swiss2.CT,strate_CT)
+colnames(swiss.new) <- c("CT", "POPTOT", "strate_CT")
+N <- nrow(swiss.new); n <- 6 
+Nh <- table(swiss.new$strate_CT)
+n*Nh/N
+#       1        2        3 
+#2.538462 1.615385 1.846154 
+n.prop <- c(2,2,2)
+swiss.new <- swiss.new[order(strate_CT),]
+  
+stsi.swiss <- sampling::strata(swiss.new,"strate_CT",
+                              size=n.prop,method="srswor")
+stsi.data.swiss <- getdata(swiss.new,stsi.swiss)
+ech.stsi.pop <- svydesign(id=~1,strata=~strate_CT,
+                           weights=rep(Nh/n.prop,n.prop),
+                           fpc=rep(n.prop/Nh,n.prop),
+                           data=stsi.data.swiss)
+est.stsi.pop <- svytotal(~POPTOT,ech.stsi.pop)[1]
+#POPTOT 
+#5056846 
+
+##3. plan pips au nombre de menages de chaque canton, x=H00PTOT
+
+##calcul du nombre de menages de chaque canton
+Apop <- tapply(swissmunicipalities$H00PTOT,swissmunicipalities$CT,sum)
+
+##calcul des probabilités proportionnelles au nombre de menages de chaque canton
+pik.swisspop <- inclusionprobabilities(Apop,nI)
+
+set.seed(123456)
+ech.sy_grappop <- sampling::cluster(swissmunicipalities,clustername=c("CT"),
+                                  size=nI,method="systematic",pik=pik.swisspop) 
+grap.data_sypop <- getdata(swissmunicipalities,ech.sy_grappop)
+
+ech.grap_sypop <- svydesign(ids=~1, probs = ~Prob, data=grap.data_sypop) 
+svytotal(~POPTOT,ech.grap_sypop) 
+#        total      SE
+# POPTOT 6976291 1160600
+##avec simulations
+```
+
+

@@ -1,0 +1,178 @@
+---
+title: "Solutions exercices appliqués chapitre 3"
+header-includes:
+- \usepackage{amsmath,amssymb}
+- \newcommand{\E}{\mathbb{E}}
+- \DeclareMathOperator{\C}{Cov}
+- \DeclareMathOperator{\V}{V}
+- \DeclareMathOperator{\A}{AV}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message=FALSE, warning=FALSE}
+require(sampling)
+require(survey)
+data(rec99)
+data("swissmunicipalities")
+```
+
+## Solution exercice  3.11
+On calcule le paramètre d'intérêt.
+```{r, eval=FALSE}
+N <- nrow(rec99)
+tLOGVAC <- sum(rec99$LOGVAC)
+```
+
+1. On calcule les probabilités de sélection $p_k$:
+```{r,eval=FALSE}
+tLOG <- sum(rec99$LOG)
+pk <- rec99$LOG/tLOG
+
+#plot(rec99$LOGVAC, pk, main="", xlab="Probabilités de sélection, plan avec remise, m=70", ylab="LOGVAC")
+```
+2. Sélection d'un échantillon remise, $m=70$ et avec des probabilités de sélection $p_k, k\in U:$
+```{r,eval=FALSE}
+m <- 70
+recs <- cbind.data.frame(rec99, poids=1/(m*pk))
+
+set.seed(123456)
+R <- UPmultinomial(m*pk)
+#table(R)
+#R
+# 0   1   2   4 
+#495  50   8   1
+
+##communes sélectionnées avec les multiplicités
+ech.pps.o <- rep((1:N)[R!=0],R[R!=0])
+ech.pps.o
+
+#plot(recs$LOGVAC[ech.pps.o], pk[ech.pps.o], main="", xlab="Probabilités de sélection des communes sélectionnées", ylab="LOGVAC")
+```
+
+3. Estimation du total de LOGVAC aisni que de l'estimation de l'écart-type de l'estimateur de Horvitz-Thompson:
+```{r, eval=FALSE}
+ech.pps <- svydesign(id=~1,weights=recs[ech.pps.o,"poids"],
+                     data=recs[ech.pps.o,])
+est.pps <- svytotal(~LOGVAC, ech.pps)[[1]]
+est.pps
+#[1] 10265.59
+se.pps <- SE(svytotal(~LOGVAC, ech.pps))
+se.pps
+#       LOGVAC
+#LOGVAC 751.7469
+
+
+#vérification 
+tHH <- sum(recs$LOGVAC[ech.pps.o]*recs$poids[ech.pps.o])
+tHH
+#[1] 10265.59
+vHH <- (sum((recs$LOGVAC[ech.pps.o]/pk[ech.pps.o])^2)-m*tHH^2)/(m*(m-1))
+sqrt(vHH)
+#[1] 751.7469
+```
+
+4 et 5. avec simulations
+```{r,eval=FALSE}
+n.sim <- 10000
+taux.pps <- numeric(n.sim)
+est.pps <- numeric(n.sim) 
+
+set.seed(123456)
+for (i in 1:n.sim)
+{
+  R <- UPmultinomial(m*pk)
+  ech.pps.o <- rep((1:N)[R!=0],R[R!=0])
+  ech.pps <- svydesign(id=~1,weights=recs[ech.pps.o,"poids"], data=recs[ech.pps.o,])
+  A <- svytotal(~LOGVAC, ech.pps)
+  est.pps[i] <- A[[1]]
+  taux.pps[i] <- tLOGVAC >= A[[1]]-1.96*SE(A) && tLOGVAC<= A[[1]]+1.96*SE(A)
+}
+#biais relatif
+br.pps <- (mean(est.pps)-tLOGVAC)/tLOGVAC
+br.pps 
+#[1] 0.001077128
+
+#coefficient de variation
+cv.pps <- sd(est.pps)/mean(est.pps)
+cv.pps
+#[1] 0.07612369
+#taux de couverture 
+taux <- mean(taux.pps)
+taux
+#[1] 0.9395
+```
+
+## Solution exercice  3.12 
+On calcule le paramètre d'intérêt et les probabilités d'inclusion, proportionnelles à la surface d'une commune.
+```{r, eval=FALSE}
+N <- nrow(rec99)
+tLOGVAC <- sum(rec99$LOGVAC)
+n <- 70
+pik <- inclusionprobabilities(rec99$surf_m2,n)
+poids <- 1/pik
+cor(rec99$LOGVAC, rec99$surf_m2)
+#[1] 0.5168595
+```
+On étudie le comportement de l'estimateur de Horvitz-Thompson via des simulations de Monte-Carlo.
+```{r, eval=FALSE}
+n.sim <- 10000
+set.seed(123456)
+est.pips <- numeric(n.sim)
+
+for (i in 1:n.sim)
+{
+s <- UPsystematic(pik)
+ech.pips <- svydesign(id=~CODE_N, weights=poids[s==1], data=rec99[s==1,])
+A <- svytotal(~LOGVAC, ech.pips)
+est.pips[i] <- A[[1]]
+}
+#biais relatif
+br.pips <- (mean(est.pips)-tLOGVAC)/tLOGVAC
+br.pips 
+#[1] 0.0001418019
+#coefficient de variation
+cv.pips <- sd(est.pips)/mean(est.pips)
+cv.pips
+#[1] 0.1377014
+```
+
+
+## Solution exercice 3.13
+On calcule le paramètre d'intérêt et les probabilités d'inclusion, proportionnelles au nombre de logements vacants d'une commune.
+```{r, eval=FALSE}
+N <- nrow(rec99)
+tLOGVAC <- sum(rec99$LOGVAC)
+n <- 70
+pik <- inclusionprobabilities(rec99$LOG,n)
+poids <- 1/pik
+pk <- pik/n
+```
+On étudie le comportement de l'estimateur simplifié de la variance de l'estimateur de Horvitz-Thompson via des simulations de Monte-Carlo.
+```{r, eval=FALSE}
+n.sim <- 10000
+set.seed(123456)
+tHT <- varsimp.pips <- numeric(n.sim)
+
+for (i in 1:n.sim)
+{
+  s <- UPsystematic(pik)
+  tHT[i] <- sum(rec99$LOGVAC[s==1]*poids[s==1])
+  varsimp.pips[i] <- (sum((rec99$LOGVAC[s==1]/pk[s==1])^2)-n*tHT[i]^2)/(n*(n-1))
+}
+br.HT <- (mean(tHT)-tLOGVAC)/tLOGVAC
+br.HT 
+#[1] 0.000456236
+
+cv.varsimp <- sd(varsimp.pips)/mean(varsimp.pips)
+cv.varsimp
+#[1] 0.2487124
+```
+On compare avec la variance empirique de Monte-Carlo des estimations car la vraie variance de l'estimateur de Horvitz-Thompsonest est difficile à calculer pour un plan proportionnel à la taille sans remise.  
+```{r, eval=FALSE}
+(mean(varsimp.pips)-var(tHT))/var(tHT)
+#[1] 0.0005475045
+```
+

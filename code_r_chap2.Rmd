@@ -19,11 +19,159 @@ data(rec99)
 data("swissmunicipalities")
 ```
 
+## Solution exercice 2.17
+On considère les données emploi et on calcule le paramètre d'intérêt, la proportion de personnes actives travaillant dans l'agriculture, la sylviculture ou la pêche (la variable AGRI).
+```{r, eval=FALSE}
+##données emploi
+TUR <- c(rep(1,2070),rep(2,1193),rep(3,1359),rep(4,1342),rep(5,1140))
+AGRI <-c(rep(0,1828),rep(1,242),rep(0,1157),rep(1,36),rep(0,1343),rep(1,16),rep(0,1337),rep(1,5),rep(0,1140))
+EDSANTSOC <- c(rep(0,1468),rep(1,360),rep(0,1198),rep(1,201),rep(0,1076),rep(1,303),rep(0,1051),rep(1,302),rep(0,987),rep(1,158))
+emploi <- data.frame(TUR,AGRI,EDSANTSOC)
+
+##paramètre d'intérêt: proportion de personnes avec AGRI
+
+pAGRI <- mean(emploi$AGRI)
+pAGRI
+#[1] 0.04208896
+```
+1. Sélection d'un échantillon SI(100) et estimation de la proportion de personnes avec \texttt{AGRI}=1.
+```{r, eval=FALSE}
+N <- nrow(emploi); n <- 100
+set.seed(123456)
+
+s.emploi.SI <- srswor(n,N)
+ech.emploi.si <- svydesign(id=~1, weights=rep(N/n,n),
+                    fpc=rep(n/N,n),data=emploi[s.emploi.SI==1,])
+
+A.SI <- svymean(~AGRI,ech.emploi.si)
+A.SI[[1]]
+#[1] 0.04
+
+round(SE(A.SI), 3)
+#    AGRI
+#AGRI 0.02
+```
+2. Sélection d'un échantillon BE($\pi$) et estimation de $P_{AGRI}$.
+```{r,eval=FALSE}
+N <- nrow(emploi); n <- 100
+set.seed(123456)
+pik <- rep(n/N, N)
+s.emploi.be <- UPpoisson(pik)
+
+##calcul direct de l'estimation et de sa variance
+ (1/n) * sum(emploi$AGRI[s.emploi.be==1])#[1] 0.04
+(N/n-1)*(N/n)*sum(emploi$AGRI[s.emploi.be==1])/N^2#[1] 0.0003943694
+
+n.be <- sum(s.emploi.be==1)
+ech.emploi.be <- svydesign(id=~1, weights=rep(N/n,n.be),
+                           data=emploi[s.emploi.be==1,])
+A.be <- svytotal(~AGRI, ech.emploi.be)
+##estimation de la proportion P_AGRI
+A.be[[1]]/N 
+#[1] 0.04
+##estimation de la variance
+round(SE(A.be)/N, 3)
+#            AGRI
+#AGRI 0.02
+```
+Si on utilise svymean, c'est l'estimateur de Hajek qui est calculé et non l'estimateur de Horvitz-Thompson.
+
+3. Sélection d'un échantillon SY(100) et estimation de $P_{AGRI}$.  
+```{r, eval=FALSE}
+N <- nrow(emploi); n <- 100
+set.seed(123456)
+pik <- rep(n/N, N)
+s.emploi.sy <- UPsystematic(pik)
+##systématique dans la population emploi
+ech.emploi.sy <- svydesign(id=~1, weights=rep(N/n,n),fpc=rep(n/N,n),
+                     data=emploi[s.emploi.sy==1,])
+A.sy <- svymean(~AGRI, ech.emploi.sy)
+##estimation de la proportion P_AGRI
+A.sy[[1]]
+#[1] 0.05
+round(SE(A.sy),3)
+#  AGRI
+#AGRI 0.022
+```
+4. Comparaison de stratégies via de simulations de Monte-Carlo: 
+```{r,eval=FALSE}
+N <- nrow(emploi); n <- 100
+
+n.sim <- 10000
+taux.si <- taux.be <- taux.sy <- numeric(n.sim)
+p.agri.si <- p.agri.be <- p.agri.sy <- numeric(n.sim) 
+
+#plan SI
+set.seed(123456)
+for (i in 1:n.sim)
+{
+  s.emploi.SI <- srswor(n,N)
+  ech.emploi.si <- svydesign(id=~1, weights=rep(N/n,n),
+                             fpc=rep(n/N,n),data=emploi[s.emploi.SI==1,])
+  
+  A.SI <- svymean(~AGRI,ech.emploi.si)
+  p.agri.si[i] <- A.SI[[1]]
+  taux.si[i] <- pAGRI>= A.SI[[1]]-1.96*SE(A.SI) && pAGRI<= A.SI[[1]]+1.96*SE(A.SI)
+}
+##biais relatif
+br.pAGRI.si <- (mean(p.agri.si)-pAGRI)/pAGRI
+br.pAGRI.si
+#[1] -0.009740415
+
+##taux de couverture
+mean(taux.si)
+#[1] 0.9204
 
 
-## Solutions exercice  2.18
+#plan BE
+pik <- rep(n/N, N)
+set.seed(123456)
+for (i in 1:n.sim)
+{
+  s.emploi.be <- UPpoisson(pik)
+  n.be <- sum(s.emploi.be==1)
+  ech.emploi.be <- svydesign(id=~1, weights=rep(N/n,n.be),
+                             data=emploi[s.emploi.be==1,])
+  A.be <- svytotal(~AGRI, ech.emploi.be)
+  p.agri.be[i] <- A.be[[1]]/N
+  taux.be[i] <- pAGRI>= p.agri.be[i]-1.96*(SE(A.be))/N && pAGRI<= p.agri.be[i]+1.96*(SE(A.be))/N
+}
+##biais relatif
+br.pAGRI.be <- (mean(p.agri.be)-pAGRI)/pAGRI
+br.pAGRI.be
+#[1] 0.001426408
+
+##taux de couverture
+mean(taux.be)
+#[1] 0.9209
+
+#plan SY
+pik <- rep(n/N, N)
+set.seed(123456)
+for (i in 1:n.sim)
+{
+  s.emploi.sy <- UPsystematic(pik)
+  ech.emploi.sy <- svydesign(id=~1, weights=rep(N/n,n),fpc=rep(n/N,n),
+                             data=emploi[s.emploi.sy==1,])
+  A.sy <- svymean(~AGRI, ech.emploi.sy)
+  p.agri.sy[i] <- A.sy[[1]]
+  taux.sy[i] <- pAGRI>= A.sy[[1]]-1.96*SE(A.sy) && pAGRI<= A.sy[[1]]+1.96*SE(A.sy)
+}
+##biais relatif
+br.pAGRI.sy <- (mean(p.agri.sy)-pAGRI)/pAGRI
+br.pAGRI.sy
+#-0.0005693645
+##taux de couverture
+mean(taux.sy)
+```
+
+
+
+## Solution exercice  2.18
+On commence par calculer les paramètres d'intérêt, le total de la variable $y$ = \texttt{LOGVAC} et la variance de l'estimateur de Horvitz-Thompson de ce total selon les plans de sondage SI de taille $n$=70 et BE d'une taille moyenne $\E(n_s)=70.$  
 ```{r, eval=FALSE}
 N <- nrow(rec99); n <- 70
+
 ##paramètres d'intérêt
 ty <- sum(rec99$LOGVAC)
 ty
@@ -35,7 +183,9 @@ varHT.SI
 varHT.BE <- (N/n-1)*sum(rec99$LOGVAC^2)
 varHT.BE
 ##[1] 5670295
-
+```
+1. et 2. On compare, via des simulations de Monte-Carlo,  les stratégies SI et BE pour estimer le total de $y$=\texttt{LOGVAC} d'un point de vue du taux de couverture sous les deux plans de sondage. On calcule, à partir de mêmes 10000 estimations des variances obtenues selon les deux plans de sondage, les biais relatifs ainsi que les coefficients de variations des estimateurs de la variance.   
+```{r, eval=FALSE}
 ##plan SI
 n.sim <- 10000
 set.seed(123456)
@@ -51,18 +201,22 @@ for (i in 1:n.sim)
   taux.si[i] <-  ty>= A[[1]]-1.96*SE(A) && ty<= A[[1]]+1.96*SE(A)
 }
 
-##taux de couverture de ty
+##taux de couverture de ty, plan SI
 taux.couverture <- mean(taux.si)
 taux.couverture
 ##[1] 0.9014
-##coefficient de la variation  de l'estimateur de la variance
-cv.estvar.si<-sd(estvar.si)/mean(estvar.si)
-cv.estvar.si
-##[1] 0.6198478
+
+
+
 ##biais relatif de l'estimateur de la variance
 br.estvar.si <- (mean(estvar.si)-varHT.SI)/varHT.SI
 br.estvar.si
 #[1] 0.00478774
+
+##coefficient de variation  de l'estimateur de la variance
+cv.estvar.si<-sd(estvar.si)/mean(estvar.si)
+cv.estvar.si
+##[1] 0.6198478
 
 ##plan BE de paramètre pi=n/N
 pik <- rep(n/N, N)
@@ -78,33 +232,44 @@ for (i in 1:n.sim)
   estvar.be[i] <- (N/n-1)*(N/n)*sum(rec.be$LOGVAC^2)
   taux.be[i] <-  ty>= est.be-1.96*sqrt(estvar.si[i]) && ty<= est.be +1.96*sqrt(estvar.si[i])
 }
+
 ##taux de couverture de ty
 taux.couverture <- mean(taux.be)
 taux.couverture
-#[1] 0.8599
+##[1] 0.8599
+
 ##coefficient de la variation  de l'estimateur de la variance
 cv.estvar.be<-sd(estvar.be)/mean(estvar.be)
 cv.estvar.be
-#[1] 0.5546522
+##[1] 0.5546522
+
 ##biais relatif de l'estimateur de la variance
 br.estvar.be <- (mean(estvar.be)-varHT.BE)/varHT.BE
 br.estvar.be
-#[1] 0.004447049
+##[1] 0.004447049
+
+
 ```
 
 
-## Solution exo 2.19
+## Solution exercice 2.19
+On comance par calculer les paramètres d'intérêt. 
 ```{r, eval=FALSE}
 attach(swissmunicipalities)
+
 ##paramètre d'intérêt
 tbois <- sum(Surfacesbois)
 tbois
-#[1] 1270996
+##[1] 1270996
 
+```
+1. On considère un plan SY de taille $n=100$ dans la population initiale et ensuite dans la population triée selon la variable $x$=\texttt{Surfacescult}. On crée la population triée selon $x$=\texttt{Surfacescult}.
+```{r, eval=FALSE}
 n <- 100; N <- nrow(swissmunicipalities)
 
 ##tri selon la variable Surfacescult
 ordercult <- order(swissmunicipalities$Surfacescult)
+
 ##le data frame trié selon la variable Surfacescult
 swiss.tri <- swissmunicipalities[ordercult,]
 
@@ -124,17 +289,89 @@ for (i in 1:n.sim)
                        data=swiss.tri[sy.rec==1,])
   est.sy2[i] <- svytotal(~Surfacesbois, ech.sy2)[1]	
 }
+
+##biais relatifs des estimateurs
 br1 <- (mean(est.sy1)-tbois)/tbois
 br1
-#[1] 0.0005575598
+##[1] 0.0005575598
 br2 <- (mean(est.sy2)-tbois)/tbois
 br2
-#[1] 0.001991242
+##[1] 0.001991242
+
+##coefficients de variation des estimateurs 
 cv1 <- sd(est.sy1)/mean(est.sy1)
 cv1
-#[1] 0.1412229
+##[1] 0.1412229
 cv2 <- sd(est.sy2)/mean(est.sy2)
 cv2
-#[1] 0.1104339
+##[1] 0.1104339
 detach(swissmunicipalities)
+```
+
+## Solution exercice 2.20
+On teste pour la region 1.
+```{r, eval=FALSE}
+attach(swissmunicipalities)
+##distribution de la surface cultivée 
+##par région
+tapply(Surfacescult, REG, sum)
+#1      2      3      4      5      6      7 
+#154609 335290  84318  74899 202282 124416  11503 
+
+
+n <- 100; N <- nrow(swissmunicipalities)
+
+
+##paramètre d'intérêt
+tcult.REG1 <- sum(Surfacescult[REG==1])
+tcult.REG1
+#[1] 154609
+
+varcult.REG1 <- N^2*(1/n-1/N)*var(Surfacescult*as.numeric(REG==1))
+varcult.REG1
+##[1] 1703615846
+
+##estimation avec un seul échantillon dans la REG==1
+##option subset
+set.seed(123456)
+si.rec <- srswor(n,N)
+ech.si <- svydesign(id=~1, weights=rep(N/n,n),
+                    fpc=rep(n/N,n),data=swissmunicipalities[si.rec==1,])
+svytotal(~Surfacescult,subset(ech.si, REG=="1") )
+#total    SE
+#Surfacescult 135909 38244
+
+
+##avec des simulations
+n.sim <- 10000
+set.seed(123456)
+
+est.REG1 <- estvar.REG1 <- numeric(n.sim)
+ 
+for (i in 1:n.sim)
+{
+  si.rec <- srswor(n,N)
+  ech.si <- svydesign(id=~1, weights=rep(N/n,n),
+                      fpc=rep(n/N,n),data=swissmunicipalities[si.rec==1,])
+  A <- svytotal(~Surfacescult,subset(ech.si, REG=="1"))
+  est.REG1[i] <- A[[1]]
+  estvar.REG1[i] <- (SE(A))^2
+}
+##biais relatifs des estimateurs
+br.REG1 <- (mean(est.REG1)-tcult.REG1)/tcult.REG1
+br.REG1
+#[1] 0.001715684
+
+brvar.REG1 <- (mean(estvar.REG1)-varcult.REG1)/varcult.REG1
+brvar.REG1
+##[1] 0.00211326
+
+##coefficients de variation des estimateurs
+cv.REG1 <- sd(est.REG1)/mean(est.REG1)
+cv.REG1
+##[1] 0.2690772
+
+cvvar.REG1 <- sd(estvar.REG1)/mean(estvar.REG1)
+cvvar.REG1
+##[1] 0.4971137
 ```

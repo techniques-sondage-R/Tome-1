@@ -1,0 +1,212 @@
+---
+title: "Solutions exercices appliqués chapitre 6"
+header-includes:
+- \usepackage{amsmath,amssymb}
+- \newcommand{\E}{\mathbb{E}}
+- \DeclareMathOperator{\C}{Cov}
+- \DeclareMathOperator{\V}{V}
+- \DeclareMathOperator{\A}{AV}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Solution exercice 6.4
+
+On considère l'estimation de la variable \texttt{POPSDC99}=la population
+plan SI, SI à deux degrès, UP=les \texttt{BVQ_N} et US=les communes
+de taille nI=14 UP au premier degré, ni=5 au 2nd degré dans chaque 
+UP sélectionnée
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+require(sampling)
+require(survey)
+data(rec99)
+##données sur la population 
+NI <- length(table(rec99$BVQ_N))
+NI
+#[1] 32
+##parametres d'interêt
+##1. la population totale
+tpop <- sum(rec99$POPSDC99)
+tpop
+#[1] 460394
+```
+
+
+2. On calcule la variance de l'estimateur HT, voir la section 6.2.1 du tome 1 pour le  plan à deux degrés SI,SI
+de taille nI=14 UP et ni=5 US dans chaque UP sélectionnée:
+```{r,eval=FALSE}
+nI <- 14; ni <- 5
+tUI <- tapply(rec99$POPSDC99, rec99$BVQ_N, sum)
+var_UP <-NI^2*(1/nI-1/NI)*var(tUI)
+var_UP
+#[1] 9830261215
+
+Ni <- table(rec99$BVQ_N)
+varUi <- tapply(rec99$POPSDC99, rec99$BVQ_N, var)
+var_US <- (NI/nI)*sum(Ni^2*(1/ni-1/Ni)*varUi)
+var_US
+#[1] 4118795611
+
+var_tot2deg <- var_UP +var_US
+var_tot2deg
+#[1] 13949056826
+var_UP/var_tot2deg
+#[1] 0.7047259
+```
+
+On prépare la table pour le tirage à deux degrés:
+```{r, eval=FALSE}
+o <- cbind.data.frame(table(rec99$BVQ_N), NI)
+names(o) <- c("BVQ_N", "Ni", "NI")
+rec_2deg <- merge(rec99,o)
+
+rec_2deg.ord <- rec_2deg[order(rec_2deg$BVQ_N,rec_2deg$CODE_N),]
+```
+On évalue l'efficacité (via des simulations de Monte-Carlo) des estimateurs de la variance (de type Horvitz-Thomspon et l'estimateur simplifié) de l'estimateur de Horvitz-Thompson de la population totale:
+```{r,eval=FALSE}
+N1 <- rep(NI, nI*ni)
+n.sim <- 10000
+set.seed(123456)
+est.SISI  <- var.SISI<- var.SISI.SIMP <- numeric(n.sim)
+for (i in 1:n.sim)
+{
+  deg.rec <- mstage(rec_2deg.ord,stage=c("cluster","cluster"),
+                    varnames=list("BVQ_N","CODE_N"),
+                    size=list(nI ,c(rep(ni,nI))), 
+                    method=c("srswor","srswor"))
+  deg2.rec <- getdata(rec_2deg.ord,deg.rec)[[2]]
+  ech.2deg <- svydesign(id=~BVQ_N+CODE_N,fpc=~N1+Ni,data=deg2.rec)
+  est.SISI[i] <- svytotal(~POPSDC99, ech.2deg)[1]
+  var.SISI[i] <- (SE(svytotal(~POPSDC99, ech.2deg)))^2
+  ##est de la variance simplifiée
+  ech.2degSIMP <- svydesign(id=~BVQ_N,fpc=~N1,weights=(NI/nI)*(deg2.rec$Ni/ni), 
+                            data=deg2.rec)
+  
+  var.SISI.SIMP[i] <- (SE(svytotal(~POPSDC99, ech.2degSIMP)))^2
+}
+#biais relatif de l'estimateur de la population
+br_est <- (mean(est.SISI)-tpop)/tpop
+br_est
+#[1] 0.002093423
+
+#biais relatif de l'estimateur de la variance
+br_estvar <- (mean(var.SISI)-var_tot2deg)/var_tot2deg
+br_estvar
+#[1] 0.005610094
+
+#biais relatif de l'estimateur de la variance simplifié
+br_estvarSIMP <- (mean(var.SISI.SIMP)-var_tot2deg)/var_tot2deg
+br_estvarSIMP
+#[1] -0.1243742
+```
+
+
+
+## Solution exercice 6.6
+
+On souhaite estimater le total de la variable $y$=\texttt{LOGVAC} avec un. plan à deux degrés et vérifier l'efficacité des estimateurs de la variance de l'estimateur de Horvitz-Thompson: 
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+require(sampling)
+require(survey)
+data(rec99)
+tLOGVAC <- sum(rec99$LOGVAC)
+tLOGVAC 
+#[1] 10768
+```
+On calcule les paramètres d'intérêt:
+```{r, eval=FALSE}
+##données sur la population
+NI <- length(table(rec99$BVQ_N))
+NI
+#[1] 32
+Ni <- table(rec99$BVQ_N)
+##paramètre d'intérêt
+##variance de l'estimateur HT, section 6.2.1 tome 1 
+##plan à deux degrés SI,SI
+##de taille nI=14 UP et ni=5 US dans chaque UP sélectionnée
+nI <- 14; ni <- 5
+tUI <- tapply(rec99$LOGVAC, rec99$BVQ_N, sum)
+var_UP <-NI^2*(1/nI-1/NI)*var(tUI)
+var_UP
+#[1] 2167820
+
+varUi <- tapply(rec99$LOGVAC, rec99$BVQ_N, var)
+var_US <- (NI/nI)*sum(Ni^2*(1/ni-1/Ni)*varUi)
+var_US
+#[1] 4351786
+
+var_tot2deg <- var_UP +var_US
+var_tot2deg
+#[1] 6519606
+
+var_UP/var_tot2deg
+```
+On prépare la table pour le tirage à deux degrés:
+```{r, eval=FALSE}
+o <- cbind.data.frame(table(rec99$BVQ_N), NI)
+names(o) <- c("BVQ_N", "Ni", "NI")
+rec_2deg <- merge(rec99,o)
+
+rec_2deg.ord <- rec_2deg[order(rec_2deg$BVQ_N,rec_2deg$CODE_N),]
+
+N1 <- rep(NI, nI*ni)
+```
+On désire évaluer (par des simulations de Monte-Carlo)  l'efficacité 
+de deux estimateurs de la variance et calculer 
+les taux de couverture de tLOGVAC.
+```{r,eval=FALSE}
+set.seed(123456)
+n.sim <- 10000
+var.SISI <- var.SISI.V0 <- numeric(n.sim)
+taux.var <- taux.var.V0 <- numeric(n.sim)
+for (i in 1:n.sim)
+{
+  deg.rec <- mstage(rec_2deg.ord,stage=c("cluster","cluster"),
+                    varnames=list("BVQ_N","CODE_N"),
+                    size=list(nI ,c(rep(ni,nI))), 
+                    method=c("srswor","srswor"))
+  deg2.rec <- getdata(rec_2deg.ord,deg.rec)[[2]]
+  ech.2deg <- svydesign(id=~BVQ_N+CODE_N,fpc=~N1+Ni,data=deg2.rec)
+  A <- svytotal(~LOGVAC, ech.2deg)
+  ##est de la variance
+  var.SISI[i] <- (SE(A))^2
+  ##taux de couverture
+  taux.var[i] <- tLOGVAC >= A[[1]]-1.96*SE(A) && tLOGVAC<= A[[1]]+1.96*SE(A)
+  ##est de la variance simplifiée
+  ech.2degSIMP <- svydesign(id=~BVQ_N,fpc=~N1,weights=(NI/nI)*(deg2.rec$Ni/ni), 
+                            data=deg2.rec)
+  A0 <- svytotal(~LOGVAC, ech.2degSIMP)
+  var.SISI.V0[i] <- (SE(A0))^2/(1-nI/NI)
+  ##taux de couverture
+  taux.var.V0[i] <- tLOGVAC >= A[[1]]-1.96*sqrt(var.SISI.V0[i])  && tLOGVAC<=A[[1]]+1.96*sqrt(var.SISI.V0[i])
+}
+
+#biais relatif de l'estimateur de la variance
+br_estvar <- (mean(var.SISI)-var_tot2deg)/var_tot2deg
+br_estvar
+#[1] 0.00812897
+
+#biais relatif de l'estimateur de la variance simplifié
+#en mimant un plan avec remise
+br_estvar.SISI.V0 <- (mean(var.SISI.V0)-var_tot2deg)/var_tot2deg
+br_estvar.SISI.V0
+#[1] 0.2677377
+
+#rapport entre les deux estimateurs de la variance
+
+#0%       25%       50%       75%      100% 
+#0.5802558 0.7028953 0.7563254 0.8268344 1.2608326 
+#hist(var.SISI/var.SISI.V0)
+
+#taux de couverture de tLOGVAC
+mean(taux.var)
+#[1] 0.8884
+mean(taux.var.V0)
+#[1] 0.9163
+```
+
