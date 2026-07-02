@@ -1,5 +1,5 @@
 ---
-title: "II. Code R - Chapitre 1"
+title: "II. Solution exercice appliqué - chapitre 1"
 ---
 
 <!-- ÉCRIVEZ VOTRE CODE R MARKDOWN ICI -->
@@ -9,6 +9,8 @@ title: "II. Code R - Chapitre 1"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Chapitre 1
+# Solution exercice 1.15
 
-Votre code R ici.
+A venir
+
+

@@ -12,14 +12,416 @@ header-includes:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Solution exercice 3.8
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+library(sampling)
+library(ggplot2)
+data(rec99)
+```
+On calcule le paramètre d'intérêt:
+```{r, eval=FALSE}
+attach(rec99)
+y <- LOGVAC
+#paramètre d'intérêt
+ty <- sum(y)
+ty
+#[1] 10768
+```
+1. On calcule les probabilités d'inclusion égales nécessaires pour le plan de sondage  aléatoire simple sans remise (SI) de taille n=70:
+```{r, eval=FALSE}
+N <- nrow(rec99); n <- 70
+pik.egales <- rep(n/N,N)
+```
+On considère la variable auxiliaire x=LOG:
+```{r, eval=FALSE}
+x <- LOG
+min(x)
+#[1] 12
+```
+Toutes les valeurs de la variables x=LOG sont strictement positives, on peut calculer les probabilités d'inclusion inégales proportionnelles à x=1/LOG:
+```{r, eval=FALSE}
+pik <- inclusionprobabilities(1/x,n)
+plot(pik,y)
+```
+Le nuage des points des valeurs de la variable d'intérêt y=LOGVAC en fonction des probabilités d'inclusion proportionnelles à x=1/LOG
+a une forme non-linéaire, on s'attend à ce que la stratégie
+basée sur un plan proportionnel à x=1/LOG soit très inefficace 
+pour estimer le total de y=LOGVAC. Par ailleurs, la corrélation entre y=LOGVAC et les probabilités d'inclusion proportionnelles à x=1/LOG est négative:
+```{r,eval=FALSE}
+cor(y,pik)
+#[1] -0.3899007
+```
+On compare les trois stratégies d'échantillonnage via des simulations de Monte-Carlo:
+```{r,eval=FALSE}
+n.sim <- 10000
+set.seed(123456)
+#plan SI de taille n et estimateur de Horvitz-Thompson
+r1 <- replicate(n.sim, srswor(n,N))
+ht1 <- apply(r1, 2, FUN=function(s,y,pik)
+            HTestimator(y[s==1],pik[s==1]),y,pik.egales)
+#plan Poisson proportionnel à x=1/LOG et estimateur de Horvitz-Thompson
+r2 <- replicate(n.sim, UPpoisson(pik))
+ht2 <- apply(r2, 2, FUN=function(s,y,pik)
+           HTestimator(y[s==1],pik[s==1]),y,pik)
+#plan systématique proportionnel à x=1/LOG et estimateur de Horvitz-Thompson
+r3 <- replicate(n.sim, UPsystematic(pik))
+ht3 <- apply(r3, 2, FUN=function(s,y,pik)
+            HTestimator(y[s==1],pik[s==1]),y,pik)
+#biais relatifs
+br1 <- (mean(ht1)-ty)/ty
+br1
+#[1] 0.002925289
+
+br2 <- (mean(ht2)-ty)/ty
+br2
+#[1] -0.009519575
+
+br3 <- (mean(ht3)-ty)/ty
+br3
+#[1] -0.006124904
+
+#coefficient de variations
+cv1 <- sd(ht1)/mean(ht1)
+cv1
+#[1] 0.1896896
+cv2 <- sd(ht2)/mean(ht2)
+cv2
+#[1] 1.110687
+
+cv3 <- sd(ht3)/mean(ht3)
+cv3
+#[1] 1.087417
+```
+On remarque que les biais relatifs des estimateurs de Horvitz-Thompson 
+sont très faibles pour les trois plans de sondage, résultat attendu car 
+l'estimateur de Horvitz-Thompson est sans biais.
+En revanche, les coefficients de variation des estimations 
+obtenues selon les stratégies basées sur 
+des probabilités proportionnelles à x=1/LOG sont très élevés (supérieurs à 1),
+dus à de très fortes  sur-estimations, 
+comme on peut le vérifier en traçant les histogrammes des estimations 
+ainsi que les boxplots. Les distributions des estimations HT 
+sont fortement asymétriques pour les plans de Poisson et systématiques.
+
+On peut conclure que la stratégie basée sur le plan SI avec l'estimateur de Horvitz-Thompson
+est à privilégier dans cette situation. Les stratégies basées sur les plans à probabilités inégales proportionnelles aux valeurs de 1/LOG ne sont pas efficaces dans ce cas.
+
+```{r,eval=FALSE}
+#boîtes à moustaches 
+res <- cbind.data.frame(ht1,ht2,ht3)
+names(res) <- c("SI","Poisson","Systématique")
+boxplot(res)
+#ou utiliser
+res <- c(ht1,ht2,ht3)
+res <- cbind.data.frame(res,c(rep("SI",n.sim),rep("Poisson proportionnel à x=1/LOG",n.sim),rep("Systématique proportionnel à x=1/LOG",n.sim)))
+names(res) <- c("estimations","plan")
+ggplot(aes(x=estimations, y=plan),data=res) +
+  geom_boxplot() 
+detach(rec99)
+```
+
+
+2. Cas 1: on simule des valeurs pour y pour avoir une corrélation très proche de 0, positive, entre x et y:
+```{r, eval=FALSE}
+x <- 1:N
+set.seed(123)
+y <- 0.2+rnorm(N)
+cor(x,y)
+#[1] 0.04264787
+
+#paramètre d'intérêt 
+ty <- sum(y)
+```
+
+On considère de nouveau les probabilités d'inclusion égales à n/N et on 
+calcule les probabilités d'inclusion proportionnelles à x:
+```{r, eval=FALSE}
+pik.egales <- rep(n/N,N)
+pik <- inclusionprobabilities(x,n)
+plot(pik,y)
+```
+
+On compare par simulations de Monte Carlo les stratégies basées sur l'estimateur de Horvitz-Thompson et les plans SI, Poisson et systématique proportionnels à x:
+```{r, eval=FALSE}
+set.seed(123456)
+r1 <- replicate(n.sim, srswor(n,N))
+ht1 <- apply(r1, 2, FUN=function(s,y,pik)
+  HTestimator(y[s==1],pik[s==1]),y,pik.egales)
+r2 <- replicate(n.sim, UPpoisson(pik))
+ht2 <- apply(r2, 2, FUN=function(s,y,pik)
+  HTestimator(y[s==1],pik[s==1]),y,pik)
+r3 <- replicate(n.sim, UPsystematic(pik))
+ht3 <- apply(r3, 2, FUN=function(s,y,pik)
+  HTestimator(y[s==1],pik[s==1]),y,pik)
+
+#biais relatifs
+br1 <- (mean(ht1)-ty)/ty
+br1
+#[1] -0.006060067
+
+br2 <- (mean(ht2)-ty)/ty
+br2
+#[1] -0.0225209
+
+br3 <- (mean(ht3)-ty)/ty
+br3
+#[1] -0.01120059
+
+
+#coefficient de variations
+cv1 <- sd(ht1)/mean(ht1)
+cv1
+#[1] 0.5774391
+
+cv2 <- sd(ht2)/mean(ht2)
+cv2
+#[1] 1.069505
+
+cv3 <- sd(ht3)/mean(ht3)
+cv3
+#[1] 1.016908
+
+#boîtes à moustaches 
+res <- cbind.data.frame(ht1,ht2,ht3)
+names(res)<-c("SI","Poisson","systèmatique")
+boxplot(res)
+```
+
+Les biais relatifs de l'estimateur de Horvitz-Thompson  
+sont très faibles pour les trois plans de sondage, par contre, 
+les coefficients de variation sont élévés pour les trois stratégies, 
+inclus pour celle basée sur le plan SI. Ces valeurs très élevées des CV sont dues à quelles estimations extrêmes rencontrées parmi les 10000.  
+
+Dans les situations quand la corrélation entre la variable d'intérêt et une variable auxiliaire x est très proche de zéro, il ne faut pas considérer des plans de sondage proportionnels à cette variable x et privilégier le plan SI, à probabilités égales.
+
+Dans le cas du plan de Poisson
+proportionnel à x, la stratégie est encore moins efficace, due à la taille aléatoire de l'échantillon. Les distributions
+des estimations sont très asymètriques, comme on peut le remarquer sur
+les histogrammes. 
+
+
+
+
+
+2. Cas 2: on simule des valeurs pour y pour avoir une corrélation positive faible entre x et y:
+```{r, eval=FALSE}
+x <- 1:N
+set.seed(123)
+y <- 0.2+0.001*x+rnorm(N)
+cor(x,y)
+#[1] 0.191328
+
+# paramètre d'intérêt
+ty <- sum(y)
+```
+
+On considère de nouveau les probabilités d'inclusion égales à n/N et on 
+calcule les probabilités d'inclusion proportionnelles à x:
+```{r, eval=FALSE}
+pik.egales <- rep(n/N,N)
+pik <- inclusionprobabilities(x,n)
+cor(y,pik)
+#[1] 0.191328
+plot(pik,y)
+plot(y/pik)
+```
+Le plot des rapports entre les valeurs de y et des probabilités d'inclusion proportionnelles à x montre qu'il y a des valeurs extrêment faibles ou fortes, avec $min(y/pik)=-789.4856$ et $max(y/pik)=1289.696, $ ce qui nous indique qu'une stratégie de taille fixe basée sur ces probabilités d'inclusion ne sera pas efficace (la variance de l'estimateur de Horvitz-Thompson calculée selon la formule de Yates-Grundy-Sen sera très élevée).  
+
+On peut refaire les simulations comme précédemment, les biais relatifs sont très faibles pour les trois stratégies. Les coefficients de variation de trois stratégies sont plus faibles que ceux obtenus dans le cas d'une corrélation quasiment nulle entre y et les probabilités d'inclusion, plus précisément $cv1\simeq 0.21$ (le plan SI), $cv2\simeq 0.41$ (Poisson proportionnel à x),    $cv3\simeq 0.35$ (systématique proportionnel à x).  L'efficacité des stratégies basées sur des probabilités proportionnelles à x a augmenté et cela est due au fait que la corrélation entre x et y est plus forte que das le point précédent. 
+
+2. cas 3: on simule des valeurs de y avec une corrélation positive moyenne entre x et y:
+```{r, eval=FALSE}
+x <- log(rec99$LOG)
+set.seed(123)
+y <- 2+0.6*x+rnorm(N)
+
+cor(x,y)
+#[1] 0.6235901
+
+#paramètre d'intérêt
+ty <- sum(y)
+```
+On calcule les probabilités d'inclusion pour un plan de sondage de taille fixe n et proportionnelles à x:
+```{r, eval=FALSE}
+pik <- inclusionprobabilities(x,n)
+plot(y/pik)
+quantile(y/pik)
+#0%      25%      50%      75%     100% 
+#18.47740 34.88451 39.96528 46.06766 77.04224 
+```
+On remarque que l'étendue des valeurs des rapports $y_k/\pi_k, k\in U$ est beaucoup plus serrée dans ce cas, on s'attend à ce qu'une stratégie basée sur ces probabilités d'inclusion soit assez performante, d'un point de vue de la variance, confirmé aussi par les simulations par Monte-Carlo (refaire les codes ci-dessus pour cette nouvelle configuration de valeurs de x et y).     
+
+2. cas 4: on simule des valeurs telles que la corrélation entre x et y est positive, très forte.  
+```{r, eval=FALSE}
+x <- log(rec99$LOG)
+set.seed(123)
+y <- 2+5*x+rnorm(N)
+cor(x,y)
+#[1] 0.9876494
+plot(y/pik)
+quantile(y/pik)
+#      0%      25%      50%      75%     100% 
+#195.6640 212.0711 217.1519 223.2542 254.2288 
+```
+Les stratégies basées sur ces probabilités d'inclusion sont très performantes dans ce cas de forte corrélation entre y et les probabilités d'inclusion. 
+
+En conclusion, la corrélation entre y et les probabilités d'inclusion joue un rôle important.
+Si elle est positive et élevée, on gagne en précision en utilisant un plan systématique basé sur ces probabilités d'inclusion plutôt qu'un plan SI.
+L'existence des valeurs pik=1 assure de meilleurs résultats, car les unités correspondantes sont directement sélectionnées dans l'échantillon et la taille aléatoire concerne moins d'unités.   
+
+
+## Solution exercice 3.9 
+
+A venir...
+
+## Solution exercice 3.10
+On considère les données de municipalités suédoises et les variables y=RMT85 (variable d'intérêt) et x=P75 (variable auxiliaire), qui sont fortement corréllées (positivement):
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+data(MU284)
+attach(MU284)
+# taille de la population
+N <- nrow(MU284)
+N
+#[1] 284
+
+x <- P75
+y <- RMT85
+cor(x,y)
+#[1] 0.9667896
+```
+Le paramètre d'intérêt est:
+```{r, eval=FALSE}
+ty <- sum(y)
+ty
+#[1] 69605
+```
+On souhaite sélectionner un échantillon de taille $n=50,$ respectivement $n=70,$ selon un plan de sondage systématique proportionnel à la variable x:
+```{r, eval=FALSE}
+n <- 50 #resp. 70
+# probabilités d'inclusion proportionnelles à x, plan de taille n sans remise
+pik <- inclusionprobabilities(x,n)
+plot(y/pik)
+quantile(y/pik)
+ #      0%       25%       50%       75%      100% 
+# 512.5869  662.6123  720.1220  807.0699 6720.0000
+```
+
+On remarque qu'il y a quelques rapports $y_k/\pi_k$ qui sont très élevés. On compare via des simulations de Monte-Carlo les stratégies basées sur un plan systématique, avec et sans ordre aléatoire, proportionnel à la variable x:   
+```{r, eval=FALSE}
+#simulation de Monte Carlo
+n.sim <- 10000
+set.seed(123456)
+# plan systématique proportionnel à x=P75 et estimateur HT
+r1 <- replicate(n.sim, UPsystematic(pik))
+ht1 <- apply(r1, 2, FUN=function(s,y,pik)
+  HTestimator(y[s==1],pik[s==1]),y,pik)
+# plan systématique proportionnel à x=P75, avec ordre aléatoire,
+#et estimateur HT
+r2 <- replicate(n.sim, UPrandomsystematic(pik))
+ht2 <- apply(r2, 2, FUN=function(s,y,pik)
+  HTestimator(y[s==1],pik[s==1]),y,pik)
+
+
+#biais relatifs
+br1 <- (mean(ht1)-ty)/ty
+br1
+#[1] -1.133494e-05
+
+br2 <- (mean(ht2)-ty)/ty
+br2
+#[1] 7.303279e-05
+
+
+cv1 <- sd(ht1)/mean(ht1)
+cv1
+#[1] 0.009336439
+
+cv2 <- sd(ht2)/mean(ht2)
+cv2
+#[1] 0.01364705
+
+#histogrammes
+par(mfrow=c(1,2))
+hist(ht1, main="plan syst.")
+hist(ht2,main="syst. à tri aléatoire")
+```
+On peut remarquer que la stratégie basée sur un plan systématique avec ordre aléatoire  est légèrement moins bonne mais la distribution des estimations obtenues avec ce plan est plus proche d'une distribution normale. 
+
+
+Le code ci-dessus peut être réproduit facilement pour les variables x=log(P75) et y=log(RMT85). Il faut remarquer quand même que, dans un contexte de sondage, où l'intérêt est d'estimer le total des revenus de fiscalité (RMT85), le passage au log n'a pas de sens comme dans le cadre de la statistique classique, où l'objectif est de prédire y et non la somme de valeurs de y.   
+
+Les résultats sont similaires pour $n=70. $ On simule, à partir de MU284, une population de taille plus grande. 
+```{r,eval=FALSE}
+set.seed(123)
+U <- sample(1:nrow(MU284), 10000, replace=TRUE)
+# taille de la population
+N <- nrow(U)
+# taille de l'échantillon
+n <- 50 #resp. 70
+x <- P75[U]
+
+y <- RMT85[U]
+cor(x,y)
+#[1] 0.969844
+
+#paramètre d'intérêt
+ty <- sum(y)
+ty
+#[1] 2547076
+```
+On refait les simulations de Monte-Carlo:
+```{r, eval=FALSE}
+#calculer les prob. d'inclusion inégales prop. à x
+pik <- inclusionprobabilities(x,n)
+#simulation de Monte Carlo
+set.seed(123456)
+r1 <- replicate(n.sim, UPsystematic(pik))
+ht1 <- apply(r1, 2, FUN=function(s,y,pik)
+  HTestimator(y[s==1],pik[s==1]),y,pik)
+r2 <- replicate(n.sim, UPrandomsystematic(pik))
+ht2 <- apply(r2, 2, FUN=function(s,y,pik)
+  HTestimator(y[s==1],pik[s==1]),y,pik)
+
+
+#biais relatifs
+br1 <- (mean(ht1)-ty)/ty
+br1
+#[1] 0.0001634037
+
+br2 <- (mean(ht2)-ty)/ty
+br2
+#[1] 0.0001357936
+
+
+cv1 <- sd(ht1)/mean(ht1)
+cv1
+#[1] 0.03432142
+
+cv2 <- sd(ht2)/mean(ht2)
+cv2
+#[1] 0.02886414
+#histogrammes
+par(mfrow=c(1,2))
+hist(ht1, main="plan syst.")
+hist(ht2,main="syst. à tri aléatoire")
+detach(MU284)
+```
+
+Lorsque la taille de la population est grande (deuxième cas, N=10000) et la taille de l'échantillon $n$ suffisamment grande aussi, la distribution  des estimations de Horvitz-Thompson du total avec un plan systématique s'approche très bien d'une loi normale. 
+Pour le plan systématique à tri aléatoire, la distribution est proche d'une loi normale, peu importe la taille de la population.
+Ce comportement par rapport à la loi normale est lié à la notion d'entropie : le plan systématique
+a une faible entropie, tandis que celui à tri aléatoire a une entropie plus grande.
+L'entropie mesure la richesse du mécanisme aléatoire du plan. 
+Plus cette richesse est grande, 
+plus l'estimateur de Horvitz–Thompson a tendance à satisfaire les conditions permettant l'application d'un théorème central limite et donc à présenter une distribution proche d'une loi normale.
+
+## Solution exercice  3.11
 ```{r, message=FALSE, warning=FALSE}
 require(sampling)
 require(survey)
 data(rec99)
-data("swissmunicipalities")
 ```
-
-## Solution exercice  3.11
 On calcule le paramètre d'intérêt.
 ```{r, eval=FALSE}
 N <- nrow(rec99)
@@ -52,7 +454,7 @@ ech.pps.o
 #plot(recs$LOGVAC[ech.pps.o], pk[ech.pps.o], main="", xlab="Probabilités de sélection des communes sélectionnées", ylab="LOGVAC")
 ```
 
-3. Estimation du total de LOGVAC aisni que de l'estimation de l'écart-type de l'estimateur de Horvitz-Thompson:
+3. Estimation du total de LOGVAC ainsi que de l'estimation de l'écart-type de l'estimateur de Hansen-Hurvitz sont obtenues ci-dessous:
 ```{r, eval=FALSE}
 ech.pps <- svydesign(id=~1,weights=recs[ech.pps.o,"poids"],
                      data=recs[ech.pps.o,])
@@ -74,7 +476,7 @@ sqrt(vHH)
 #[1] 751.7469
 ```
 
-4 et 5. avec simulations
+4 et 5. On teste l'efficacité de la stratégie basée sur un plan de sondage avec remise et proportionnel à la variable x=LOG, via des  simulations de Monte-Carlo:
 ```{r,eval=FALSE}
 n.sim <- 10000
 taux.pps <- numeric(n.sim)
@@ -104,8 +506,15 @@ taux <- mean(taux.pps)
 taux
 #[1] 0.9395
 ```
+On remarque que le biais relatif, ainsi que le coefficient de variation,  des estimations de type Hansen-Hurvitz du total de y=LOGVAC sont très faibles, cette stratégie est efficace. Le taux de couverture est très proche de 95%. 
+
 
 ## Solution exercice  3.12 
+```{r, message=FALSE, warning=FALSE}
+require(sampling)
+require(survey)
+data(rec99)
+```
 On calcule le paramètre d'intérêt et les probabilités d'inclusion, proportionnelles à la surface d'une commune.
 ```{r, eval=FALSE}
 N <- nrow(rec99)
@@ -138,9 +547,14 @@ cv.pips <- sd(est.pips)/mean(est.pips)
 cv.pips
 #[1] 0.1377014
 ```
-
+Cette stratégie d'échantillonnage basée sur un plan systématique proportionnel à la variable x=surf\_m2 est assez efficace pour estimer le total de y=LOGVAC, cela est dû au fait que les deux variables x et y sont (moyennement) corrélées. 
 
 ## Solution exercice 3.13
+```{r, message=FALSE, warning=FALSE}
+require(sampling)
+require(survey)
+data(rec99)
+```
 On calcule le paramètre d'intérêt et les probabilités d'inclusion, proportionnelles au nombre de logements vacants d'une commune.
 ```{r, eval=FALSE}
 N <- nrow(rec99)
@@ -170,9 +584,242 @@ cv.varsimp <- sd(varsimp.pips)/mean(varsimp.pips)
 cv.varsimp
 #[1] 0.2487124
 ```
-On compare avec la variance empirique de Monte-Carlo des estimations car la vraie variance de l'estimateur de Horvitz-Thompson  est difficile à calculer pour un plan proportionnel à la taille sans remise.  
+La vraie variance de l'estimateur de Horvitz-Thompson  est difficile à calculer pour un plan proportionnel à la taille sans remise, on ne peut pas donc calculer le biais relatif comme pour les autres paramètres d'intérêt. Dans cette situation, on compare la moyenne des estimations simplifiées de la variance   avec la variance empirique de Monte-Carlo des estimations de Horvitz-Thompson: 
 ```{r, eval=FALSE}
 (mean(varsimp.pips)-var(tHT))/var(tHT)
 #[1] 0.0005475045
 ```
 
+## Solution exercice 3.14
+On commence par lire la table des données et calculer le paramètre d'intérêt:
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+library(sampling)
+data(belgianmunicipalities)
+attach(belgianmunicipalities)
+# taille de la population
+N <- nrow(belgianmunicipalities)
+N
+#[1] 589
+#la variable d'intérêt et paramètre d'intérêt
+y <- TaxableIncome
+ty <- sum(y)
+ty
+#[1] 121128481686
+```
+On calcule les probabilités d'inclusion d'un plan aléatoire simple sans remise de taille $n=200$ et proportionnelles à la variable x=Tot04 (toujours sans remise et de taille $n$):
+```{r, eval=FALSE}
+# taille de l'échantillon
+n <- 200
+# probabilités d'inclusion pour un plan simple sans remise
+pik.egales <- rep(n/N,N)
+#calcul prob. d'inclusion pour les plans à prob. inégales 
+pik <- inclusionprobabilities(Tot04,n)
+summary(pik)
+sum(pik) 
+#200
+```
+
+
+1. Pour les trois plans de sondage (SI, PO et SY), on sélectionne un échantillon, on estime le total de y= TaxableIncome, on estime la variance de l'estimateur de Horvitz-Thompson et on dérive aussi une estimation par intervalle de confiance à 95%:
+```{r, eval=FALSE}
+# plan simple sans remise
+#tirage d'un échantillon
+set.seed(123456)
+s1 <- srswor(n,N) 
+Ys <- y[s1==1]
+
+# probabilités d'inclusion pour un plan simple sans remise sur s1
+piks.egales <- pik.egales[s1==1]
+#estimation HT du total de y
+tHT.SI <- HTestimator(Ys,piks.egales)
+tHT.SI
+#[,1]
+#[1,] 137424494420
+
+# estimation de la variance de l'estimateur HT
+v1 <- N^2*(1/n-1/N)*var(Ys)
+v1
+#[1] 2.586351e+20
+
+# une estimation par intervalle de confiance à 95% 
+c(tHT.SI-qnorm(0.975)*sqrt(v1),tHT.SI+qnorm(0.975)*sqrt(v1))
+#[1]  105904089171 168944899670
+
+#vérification si le vrai total se trouve dedans
+tHT.SI-qnorm(0.975)*sqrt(v1)<=ty && ty <=tHT.SI+qnorm(0.975)*sqrt(v1)
+#[1] TRUE
+
+
+
+# plan de Poisson, proportionnel à x=Tot04
+# tirage d'un échantillon
+set.seed(123456)
+s2 <- UPpoisson(pik)
+# taille de l'échantillon tiré
+sum(s2)
+#[1] 195
+# la variable d'intérêt sur s2
+Ys <- y[s2==1]
+piks <- pik[s2==1]
+
+#estimation HT du total de y
+tHT.PO <- HTestimator(Ys,piks)
+tHT.PO
+#[,1]
+#[1,] 118947352094
+
+# estimation de la variance
+v2 <- sum((1-piks)*(Ys^2)/(piks^2))
+v2
+#[1] 2.394367e+19
+
+# une estimation par intervalle de confiance à 95%
+c(tHT.PO-qnorm(0.975)*sqrt(v2),tHT.PO+qnorm(0.975)*sqrt(v2))
+#[1] 109356804215 128537899974
+
+#vérification si le vrai total se trouve dedans
+tHT.PO-qnorm(0.975)*sqrt(v2)<=ty && ty <= tHT.PO+qnorm(0.975)*sqrt(v2)
+#[1] TRUE
+
+# plan systématique à prob. inégales, proportionnelles à x=Tot04 
+# tirage d'un échantillon
+set.seed(123456)
+s3 <- UPsystematic(pik)  
+# taille de l'échantillon tiré
+sum(s3)
+#[1] 200
+# la variable d'intérêt
+Ys <- y[s3==1]
+piks <- pik[s3==1]
+
+#estimation du total de y
+tHT.SY <- HTestimator(Ys,piks)
+#[,1]
+#[1,] 121044239710tHT.SY
+
+
+# estimation  de la variance
+v3 <- varest(Ys,pik=piks)
+v3
+#[1] 5.877774e+17
+# une estimation par intervalle de confiance à 95%
+c(tHT.SY-qnorm(0.975)*sqrt(v3), tHT.SY +qnorm(0.975)*sqrt(v3))
+#[1] 119541601200 122546878219
+
+#vérification si le vrai total se trouve dedans
+tHT.SY-qnorm(0.975)*sqrt(v3)<=ty && ty <= tHT.SY+qnorm(0.975)*sqrt(v3)
+#[1] TRUE
+```
+
+2. Simulations de Monte-Carlo, estimation du total de y:
+```{r, eval=FALSE}
+n.sim <- 10000
+set.seed(123456)
+
+#plan SI, estimation HT du total de y
+r1 <- replicate(n.sim, srswor(n,N))
+ht1 <- apply(r1, 2, FUN=function(s,y,pik) HTestimator(y[s==1],pik[s==1]),y,pik.egales)
+
+#plan de Poisson, estimation HT du total de y
+r2 <- replicate(n.sim, UPpoisson(pik))
+ht2 <- apply(r2, 2, FUN=function(s,y,pik) HTestimator(y[s==1],pik[s==1]),y,pik)
+
+#plan systématique, estimation HT du total de y
+r3 <- replicate(n.sim, UPsystematic(pik))
+ht3 <- apply(r3, 2, FUN=function(s,y,pik) HTestimator(y[s==1],pik[s==1]),y,pik)
+
+#moyennes de Monte-Carlo des estimations  HT
+mean_MC <- c(mean(ht1), mean(ht2), mean(ht3))
+#variances de Monte-Carlo des estimations  HT
+Var_MC <- c(var(ht1),var(ht2),var(ht3))
+
+#biais relatifs 
+
+br <- (mean_MC-ty)/ty
+br
+#[1] -1.278015e-03
+#[2] -5.514737e-04
+#[3]  1.757185e-05
+
+#coefficients de variation
+cv <- sqrt(Var_MC)/mean_MC
+round(cv, 3)
+#[1] 0.089 0.041 0.003
+
+#boîtes à moustaches 
+res <- cbind.data.frame(ht1,ht2,ht3)
+names(res) <- c("plan simple","Poisson","syst.")
+boxplot(res)
+```
+Les stratégies d'échantillonnage basées sur les plans de sondage à probabilités proportionnelles à la variable x=Tot04 sont très performantes et cela n'est pas étonant car la corrélation entre la variable d'intérêt $ et x=Tot04 est très élevée, égale à 0.98. La stratégie basée sur le  plan de Poisson, proportionnelle à la la variable x=Tot04, est moins performante que celel basée sur le plan systématique due à la taille aléatoire de l'échantillon.  
+
+On peut faire une simulation de Monte-Carlo pour tester également l'efficacité des estimateurs de la variance.
+```{r, eval=FALSE}
+#plan SI
+r1 <- replicate(n.sim, srswor(n,N))
+v1 <- apply(r1,2,FUN=function(s,y) N^2*(1/n-1/N)*var(y[s==1]),y)
+mean(v1)
+#[1] 1.195234e+20
+
+#plan de Poisson
+r2 <- replicate(n.sim, UPpoisson(pik))
+v2 <- apply(r2,2,FUN=function(s,pik,y) sum((1-pik[s==1])*(y[s==1]^2)/(pik[s==1]^2)),pik,y)
+mean(v2)
+#[1] 2.505167e+19
+
+#plan systématique
+r3 <- replicate(n.sim, UPsystematic(pik))
+v3 <- apply(r3,2,FUN=function(s,pik,y) varest(y[s==1],pik=pik[s==1]),pik,y)
+mean(v3)
+#[1] 5.606567e+17
+```
+Pour tester l'efficacité des estimateurs de la variance, 
+on devrait comparer les moyennes de estimations de la variance 
+avec les vraies variances. Pour les plans SI et PO, les formules
+de variance se calculent simplement; en revanche, pour le plan systématique, 
+la variance de l'estimateur de Horvitz-Thompson est plus difficile à 
+calculer car on utilise une méthode basée sur des nombres aléatoires uniformes
+pour garantir la taille fixe n des échantillons systématiques. On compare 
+alors les moyennes des estimations de la variance avec la variance de 
+Monte-Carlo des etimations de type HT (et cela pour les trois plans):
+
+```{r, eval=FALSE}
+(c(mean(v1),mean(v2),mean(v3))-Var_MC)/Var_MC
+#[1] 0.02674608 0.02314261 3.31485539
+
+#boîtes à moustaches des estimateurs de variance
+res <- cbind.data.frame(v1,v2,v3)
+names(res) <- c("plan simple","Poisson","syst.")
+boxplot(res)
+```
+On observe que l'estimateur donné par varest() 
+surestime la variance de MC dans le cas du plan systématique. 
+Pour les deux autres cas, les estimateurs sont similaires aux 
+valeurs de la la variance de MC. 
+L'estimateur donné par varest() pour le plan systématique a une
+très faible variance;
+il est suivi par celui du plan de Poisson, puis par celui du plan SI.
+
+On calcule les taux de couverture empiriques à 95%. On rappele d'abord la valeur du paramètre d'intérêt:   
+```{r,eval=FALSE}
+ty <- sum(y)
+#on recalcule les estimateurs de HT sur les mêmes échantillons utilisés pour estimer la variance dans le dernier point ci-dessus
+ht1 <- apply(r1, 2, FUN=function(s,y,pik) HTestimator(y[s==1],pik[s==1]),y,pik.egales)
+ht2 <- apply(r2, 2, FUN=function(s,y,pik) HTestimator(y[s==1],pik[s==1]),y,pik)
+ht3 <- apply(r3, 2, FUN=function(s,y,pik) HTestimator(y[s==1],pik[s==1]),y,pik)
+#taux empiriques de couverture à 95%
+#plan SI
+IC95.SI <- cbind(ht1-1.96*sqrt(v1),ht1+1.96*sqrt(v1))
+100*mean(ty>=IC95.SI[,1] & ty<=IC95.SI[,2])
+#[1] 88.47
+#Poisson 
+IC95.PO <- cbind(ht2-1.96*sqrt(v2),ht2+1.96*sqrt(v2))
+100*mean(ty>=IC95.PO[,1] & ty<=IC95.PO[,2])
+#[1] 94.74
+#systématique
+IC95.SY <- cbind(ht3-1.96*sqrt(v3),ht3+1.96*sqrt(v3))
+100*mean(ty>=IC95.SY[,1] & ty<=IC95.SY[,2])
+#100
+```
+Commentaire : le taux empirique de couverture est loin de 95 % pour le plan simple sans remise. Le taux empirique est proche de 95% pour le plan de Poisson et 100% pour le
+plan systématique car la variance est beaucoup sur-estimée.  
