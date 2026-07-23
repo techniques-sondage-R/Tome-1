@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Solution exercice 6.4
 
 On considère l'estimation du total de la variable POPSDC99 (la population d'une commune) avec un 
-plan SI, SI à deux degrès, où UP=les BVQ_N et US=les communes,
+plan SI, SI à deux degrés, où UP=les BVQ_N et US=les communes,
 de taille nI=14 UP au premier degré, ni=5 au 2nd degré dans chaque 
 UP sélectionnée.
 

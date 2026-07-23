@@ -555,13 +555,15 @@ U_I}\frac{V_i}{\pi_{Ii}}=\text{Var}(\hat{t}_{y\text{HT}})
 <h2>Solution exercice 6.2</h2>
 <p>L’estimateur simplifié de la variance est donné par <span
 class="math display">\[
-\hat{\V}_0(\hat t_{y\rm{HT}})=\frac{1}{n_I(n_I-1)}\sum_{i\in
-s_I}\left(\frac{\hat t_{i\rm{HT}}}{p_i}-\hat t_{y\rm{HT}}\right)^2,
+\hat{\mathop{\mathrm{V}}}_0(\hat
+t_{y\rm{HT}})=\frac{1}{n_I(n_I-1)}\sum_{i\in s_I}\left(\frac{\hat
+t_{i\rm{HT}}}{p_i}-\hat t_{y\rm{HT}}\right)^2,
 \]</span> où <span class="math inline">\(\hat t_{i\rm{HT}}\)</span> est
 l’estimateur de <span class="math inline">\(t_i=\sum_{k\in
 U_i}y_k\)</span> issu du deuxième degré avec <span
-class="math inline">\(\E_{II}(\hat t_{i\rm{HT}}|s_I)=t_i\)</span> pour
-tout <span class="math inline">\(i\in U_I\)</span> et <span
+class="math inline">\(\mathbb{E}_{II}(\hat
+t_{i\rm{HT}}|s_I)=t_i\)</span> pour tout <span
+class="math inline">\(i\in U_I\)</span> et <span
 class="math inline">\(p_i\)</span> est tel que <span
 class="math inline">\(\pi_{Ii}=n_Ip_i\)</span> pour tout <span
 class="math inline">\(i\in U_I.\)</span> Le plan de sondage <span
@@ -573,45 +575,50 @@ class="math inline">\(\hat t_{y\rm{HT}}=N_I\sum_{i\in s_I}\hat
 t_{i\rm{HT}}/n_I.\)</span> Soit <span class="math inline">\(I_i\)</span>
 l’indicatrice d’appartenance à un échantillon sélectionné au premier
 degré, on peut écrire: <span class="math display">\[\begin{eqnarray*}
-\hat{\V}_0(\hat t_{y\rm{HT}})&amp;=&amp;\frac{1}{n_I(n_I-1)}\sum_{i\in
+\hat{\mathop{\mathrm{V}}}_0(\hat
+t_{y\rm{HT}})&amp;=&amp;\frac{1}{n_I(n_I-1)}\sum_{i\in
 U_I}\left(\frac{\hat t_{i\rm{HT}}}{p_i}-\hat t_{y\rm{HT}}\right)^2I_i\\
 &amp;=&amp; \frac{1}{n_I(n_I-1)}\left(\sum_{i\in U_I}\frac{\hat
 t^2_{i\rm{HT}}}{p^2_i}I_i-2\hat t_{y\rm{HT}}\sum_{i\in U_I}\frac{\hat
 t_{i\rm{HT}}}{p_i}I_i+n_I\hat t^2_{y\rm{HT}}\right)
 \end{eqnarray*}\]</span> car <span class="math inline">\(\sum_{i\in
 U_I}I_i=n_I\)</span> et <span class="math display">\[\begin{eqnarray*}
-\E(\hat{\V}_0(\hat
-t_{y\rm{HT}}))&amp;=&amp;\frac{1}{n_I(n_I-1)}\left[\underbrace{\E\left(\sum_{i\in
+\mathbb{E}(\hat{\mathop{\mathrm{V}}}_0(\hat
+t_{y\rm{HT}}))&amp;=&amp;\frac{1}{n_I(n_I-1)}\left[\underbrace{\mathbb{E}\left(\sum_{i\in
 U_I}\frac{\hat
-t^2_{i\rm{HT}}}{p^2_i}I_i\right)}_{(1)}\underbrace{-2\E\left(\hat
+t^2_{i\rm{HT}}}{p^2_i}I_i\right)}_{(1)}\underbrace{-2\mathbb{E}\left(\hat
 t_{y\rm{HT}}\sum_{i\in U_I}\frac{\hat
-t_{i\rm{HT}}}{p_i}I_i\right)}_{(2)}+\underbrace{\E(n_I\hat
+t_{i\rm{HT}}}{p_i}I_i\right)}_{(2)}+\underbrace{\mathbb{E}(n_I\hat
 t^2_{y\rm{HT}})}_{(3)}\right]
 \end{eqnarray*}\]</span> On calcule séparément chaque terme et on
 utilise le fait que <span
-class="math inline">\(\E(\cdot)=\E_I\E_{II}(\cdot|s_I)\)</span>. Pour le
-premier terme: <span class="math display">\[\begin{eqnarray*}
-(1) &amp;=&amp; \E_I\E_{II}\left(\sum_{i\in U_I}\frac{\hat
-t^2_{i\rm{HT}}}{p^2_i}I_i|s_I\right)=\E_I\left(\sum_{i\in
+class="math inline">\(\mathbb{E}(\cdot)=\mathbb{E}_I\mathbb{E}_{II}(\cdot|s_I)\)</span>.
+Pour le premier terme: <span class="math display">\[\begin{eqnarray*}
+(1) &amp;=&amp; \mathbb{E}_I\mathbb{E}_{II}\left(\sum_{i\in
+U_I}\frac{\hat
+t^2_{i\rm{HT}}}{p^2_i}I_i|s_I\right)=\mathbb{E}_I\left(\sum_{i\in
 U_I}\frac{t^2_i+V_i}{p^2_i}I_i\right)=\frac{n_I}{N_I}\sum_{i\in
 U_I}\frac{t^2_i+V_i}{p^2_i}=n_I\sum_{i\in U_I}\frac{t^2_i+V_i}{p_i},
-\end{eqnarray*}\]</span> car <span class="math inline">\(\E_{II}(\hat
+\end{eqnarray*}\]</span> car <span
+class="math inline">\(\mathbb{E}_{II}(\hat
 t^2_{i\rm{HT}}|s_I)=t^2_i+V_i\)</span> et <span
 class="math inline">\(E_I(I_i)=\pi_{Ii}=n_I/N_I\)</span> pour tout <span
 class="math inline">\(i\in U_I\)</span> et <span
 class="math inline">\(p_i=\pi_{Ii}/n_I=1/N_I, i\in U_i.\)</span> Le
 troisième terme devient: <span class="math display">\[\begin{eqnarray*}
-(3) &amp;=&amp; \E(n_I\hat t^2_{y\rm{HT}})= n_I\left(\V(\hat
-t_{y\rm{HT}})+t^2_{yU}\right).
+(3) &amp;=&amp; \mathbb{E}(n_I\hat t^2_{y\rm{HT}})=
+n_I\left(\mathop{\mathrm{V}}(\hat t_{y\rm{HT}})+t^2_{yU}\right).
 \end{eqnarray*}\]</span> Pour le second terme, sachant que <span
-class="math inline">\(\E_{II}(\hat t_{i\rm{HT}}\hat
+class="math inline">\(\mathbb{E}_{II}(\hat t_{i\rm{HT}}\hat
 t_{j\rm{HT}}|s_I)=t_it_j\)</span> pour <span class="math inline">\(i\neq
 j\)</span>: <span class="math display">\[\begin{eqnarray*}
-(2) &amp;=&amp; -2\E\left(\sum_{i\in U_I}\sum_{j\in U_I}\frac{\hat
-t_{i\rm{HT}}\hat t_{j\rm{HT}}}{\pi_{Ii}p_j}I_iI_j\right)\\
-&amp;= &amp;-2\E_I\E_{II} \left(\sum_{i\in U_I}\frac{\hat
-t^2_{i\rm{HT}}}{\pi_{Ii}p_i}I_i|s_I\right)-2\E_I\E_{II} \left(\sum_{i\in
-U_I}\sum_{j\neq i\in U_I}\frac{\hat t_{i\rm{HT}}\hat
+(2) &amp;=&amp; -2\mathbb{E}\left(\sum_{i\in U_I}\sum_{j\in
+U_I}\frac{\hat t_{i\rm{HT}}\hat
+t_{j\rm{HT}}}{\pi_{Ii}p_j}I_iI_j\right)\\
+&amp;= &amp;-2\mathbb{E}_I\mathbb{E}_{II} \left(\sum_{i\in
+U_I}\frac{\hat
+t^2_{i\rm{HT}}}{\pi_{Ii}p_i}I_i|s_I\right)-2\mathbb{E}_I\mathbb{E}_{II}
+\left(\sum_{i\in U_I}\sum_{j\neq i\in U_I}\frac{\hat t_{i\rm{HT}}\hat
 t_{j\rm{HT}}}{\pi_{Ii}p_j}I_iI_j|s_I\right)\\
 &amp;=&amp; -2\sum_{i\in U_I}\frac{t^2_i+V_i}{p_i}- 2\sum_{i\in
 U_I}\sum_{j\neq i\in U_I}\frac{t_it_j}{\pi_{Ii}p_j}\pi_{Iij}\\
@@ -626,19 +633,21 @@ U_I}t_it_j\right)\\
 &amp;=&amp;  -2n_I\left(\sum_{i\in U_I}\frac{V_i}{\pi_{Ii}}+\sum_{i\in
 U_I}\sum_{j\in
 U_I}\frac{t_it_j}{\pi_{Ii}\pi_{Ij}}\Delta_{Iij}+t^2_{yU}\right)\\
-&amp;=&amp;-2n_I(\V(\hat t_{y\rm{HT}})+t^2_{yU}).
+&amp;=&amp;-2n_I(\mathop{\mathrm{V}}(\hat t_{y\rm{HT}})+t^2_{yU}).
 \end{eqnarray*}\]</span> Enfin, <span
 class="math display">\[\begin{eqnarray*}
-\E(\hat{\V}_0(\hat t_{y\rm{HT}}))-\V(\hat
+\mathbb{E}(\hat{\mathop{\mathrm{V}}}_0(\hat
+t_{y\rm{HT}}))-\mathop{\mathrm{V}}(\hat
 t_{y\rm{HT}})&amp;=&amp;\frac{1}{(n_I-1)}\left(\sum_{i\in
-U_I}\frac{t^2_i+V_i}{p_i}-2(\V(\hat t_{y\rm{HT}})+t^2_{yU})+\V(\hat
-t_{y\rm{HT}})+t^2_{yU}\right)-\V(\hat t_{y\rm{HT}})\\
+U_I}\frac{t^2_i+V_i}{p_i}-2(\mathop{\mathrm{V}}(\hat
+t_{y\rm{HT}})+t^2_{yU})+\mathop{\mathrm{V}}(\hat
+t_{y\rm{HT}})+t^2_{yU}\right)-\mathop{\mathrm{V}}(\hat t_{y\rm{HT}})\\
 &amp;=&amp; \frac{1}{(n_I-1)}\left(\sum_{i\in
-U_I}\frac{t^2_i+V_i}{p_i}-\V(\hat t_{y\rm{HT}})-t^2_{yU}\right)-\V(\hat
-t_{y\rm{HT}})
+U_I}\frac{t^2_i+V_i}{p_i}-\mathop{\mathrm{V}}(\hat
+t_{y\rm{HT}})-t^2_{yU}\right)-\mathop{\mathrm{V}}(\hat t_{y\rm{HT}})
 \end{eqnarray*}\]</span> On a par ailleurs <span
 class="math display">\[\begin{eqnarray*}
-\V(\hat t_{y\rm{HH}})&amp;=&amp;\frac{1}{n_I}\sum_{i\in
+\mathop{\mathrm{V}}(\hat t_{y\rm{HH}})&amp;=&amp;\frac{1}{n_I}\sum_{i\in
 U_I}p_i\left(\frac{t_i}{p_i}-t_{yU}\right)^2+\frac{1}{n_I}\sum_{i\in
 U_I}\frac{V_i}{p_i}\\
 &amp;=&amp; \frac{1}{n_I}\sum_{i\in
@@ -648,15 +657,19 @@ U_I}\frac{V_i}{p_i}\\
 U_I}\frac{t^2_i+V_i}{p_i}-t^2_{yU}\right),
 \end{eqnarray*}\]</span> car <span class="math inline">\(\sum_{i\in
 U_i}p_i=1.\)</span> Donc, <span class="math display">\[
-\sum_{i\in U_I}\frac{t^2_i+V_i}{p_i}=n_I\V(\hat t_{y\rm{HH}})+t^2_{yU}
+\sum_{i\in U_I}\frac{t^2_i+V_i}{p_i}=n_I\mathop{\mathrm{V}}(\hat
+t_{y\rm{HH}})+t^2_{yU}
 \]</span> et <span class="math display">\[\begin{eqnarray*}
-\E(\hat{\V}_0(\hat t_{y\rm{HT}}))-\V(\hat t_{y\rm{HT}}) &amp;=&amp;
-\frac{1}{(n_I-1)}\left(n_I\V(\hat t_{y\rm{HH}})+t^2_{yU}-\V(\hat
-t_{y\rm{HT}})-t^2_{yU}\right)-\V(\hat t_{y\rm{HT}})\\
-&amp;=&amp; \frac{1}{(n_I-1)}\left(n_I\V(\hat t_{y\rm{HH}})-\V(\hat
-t_{y\rm{HT}})\right)-\V(\hat t_{y\rm{HT}})\\
-&amp;=&amp; \frac{n_I(\V(\hat t_{y\rm{HH}})-\V(\hat
-t_{y\rm{HT}}))}{(n_I-1)}\cdot
+\mathbb{E}(\hat{\mathop{\mathrm{V}}}_0(\hat
+t_{y\rm{HT}}))-\mathop{\mathrm{V}}(\hat t_{y\rm{HT}}) &amp;=&amp;
+\frac{1}{(n_I-1)}\left(n_I\mathop{\mathrm{V}}(\hat
+t_{y\rm{HH}})+t^2_{yU}-\mathop{\mathrm{V}}(\hat
+t_{y\rm{HT}})-t^2_{yU}\right)-\mathop{\mathrm{V}}(\hat t_{y\rm{HT}})\\
+&amp;=&amp; \frac{1}{(n_I-1)}\left(n_I\mathop{\mathrm{V}}(\hat
+t_{y\rm{HH}})-\mathop{\mathrm{V}}(\hat
+t_{y\rm{HT}})\right)-\mathop{\mathrm{V}}(\hat t_{y\rm{HT}})\\
+&amp;=&amp; \frac{n_I(\mathop{\mathrm{V}}(\hat
+t_{y\rm{HH}})-\mathop{\mathrm{V}}(\hat t_{y\rm{HT}}))}{(n_I-1)}\cdot
 \end{eqnarray*}\]</span></p>
 </div>
 

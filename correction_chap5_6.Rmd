@@ -1,5 +1,11 @@
 ---
 title: "Solutions chapitres 5 et 6"
+header-includes:
+- \usepackage{amsmath,amssymb}
+- \newcommand{\E}{\mathbb{E}}
+- \DeclareMathOperator{\C}{Cov}
+- \DeclareMathOperator{\V}{V}
+- \DeclareMathOperator{\A}{AV}
 ---
 
 ```{r setup, include=FALSE}

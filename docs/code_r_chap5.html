@@ -498,7 +498,7 @@ div.tocify {
 <span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co">#[1] 554</span></span>
 <span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>pik_rec <span class="ot">&lt;-</span> <span class="fu">inclusionprobabilities</span>(taille_grappe,nI)</span></code></pre></div>
 <p>On évalue l’efficacité de cette stratégie par des simulations de
-MOnte-Carlo.</p>
+Monte-Carlo.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123456</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>est.grap_sy <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>,<span class="dv">10000</span>,<span class="dv">1</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>)</span>
@@ -520,10 +520,10 @@ MOnte-Carlo.</p>
 <span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>cv.grapsy</span>
 <span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co">#[1] 0.2783709</span></span></code></pre></div>
 <p>La section 5.5 du tome 1 traite les stratégies basées sur les plans
-SIC et STSIC avec l’estimateur de Hovitz-Thompson et leur efficacité est
-donnée dans le tableau 5.4. On peut vérifier que l’efficacité de la
+SIC et STSIC avec l’estimateur de Horvitz-Thompson et leur efficacité
+est donnée dans le tableau 5.4. On peut vérifier que l’efficacité de la
 stratégie basée sur le plan SIC proportionnel au nombre de communes de
-chaque grappes est semblable à celle du plan statifié et meilleure que
+chaque grappe est semblable à celle du plan stratifié et meilleure que
 celle du plan SIC.</p>
 </div>
 <div id="solution-exercice-5.6" class="section level2">
@@ -615,7 +615,8 @@ Monte-Carlo.</p>
 <div id="solution-exercice-5.8" class="section level2">
 <h2>Solution exercice 5.8</h2>
 <p>Calcul du paramètre d’intérêt et des probabilités d’inclusion
-proprtionnelles à la surface du canton.</p>
+proportionnelles au nombre de communes de chaque canton (variable
+HApoly).</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">require</span>(sampling)</span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">require</span>(survey)</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;swissmunicipalities&quot;</span>)</span>
@@ -625,13 +626,13 @@ proprtionnelles à la surface du canton.</p>
 <span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a></span>
 <span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>swissmunicipalities<span class="sc">$</span>CT <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(swissmunicipalities<span class="sc">$</span>CT)</span>
 <span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>nI <span class="ot">&lt;-</span> <span class="dv">6</span></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="do">##calcul de la surface totale de chaque canton</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="do">##calcul du nombre total de communes de chaque canton</span></span>
 <span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">tapply</span>(swissmunicipalities<span class="sc">$</span>HApoly, swissmunicipalities<span class="sc">$</span>CT, sum)</span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="do">##calcul des probabilités proportionnelles à la surface de chaque canton</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="do">##calcul des probabilités proportionnelles au nombre total de communes de ##chaque canton</span></span>
 <span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>pik.swiss<span class="ot">&lt;-</span> <span class="fu">inclusionprobabilities</span>(A,nI)</span></code></pre></div>
-<p>Estimation de la surface totale ocupée par des fôrets avec un plan
-sans remise avec des probabilités d’inclusion proportionnelles à la
-surface du canton.</p>
+<p>Estimation de la surface totale occupée par des forêts avec un plan
+sans remise avec des probabilités d’inclusion proportionnelles au nombre
+total de communes de chaque canton.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123456</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>ech.sy_grap2 <span class="ot">&lt;-</span> sampling<span class="sc">::</span><span class="fu">cluster</span>(swissmunicipalities,<span class="at">clustername=</span><span class="fu">c</span>(<span class="st">&quot;CT&quot;</span>),</span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>                                  <span class="at">size=</span>nI,<span class="at">method=</span><span class="st">&quot;systematic&quot;</span>,<span class="at">pik=</span>pik.swiss) </span>
@@ -645,7 +646,7 @@ surface du canton.</p>
 <div id="solution-exercice-5.9" class="section level2">
 <h2>Solution exercice 5.9</h2>
 <p>Calcul du paramètre d’intérêt et des probabilités d’inclusion
-proprtionnelles au nombre de communes de chaque canton.</p>
+proportionnelles au nombre de communes de chaque canton.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">require</span>(sampling)</span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">require</span>(survey)</span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;swissmunicipalities&quot;</span>)</span>
@@ -659,9 +660,9 @@ proprtionnelles au nombre de communes de chaque canton.</p>
 <span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a></span>
 <span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="do">##calcul des probabilités proportionnelles au nombre de communes de chaque canton</span></span>
 <span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>pik.swiss <span class="ot">&lt;-</span> <span class="fu">inclusionprobabilities</span>(A,nI)</span></code></pre></div>
-<p>Estimation de la surface totale ocupée par des fôrets avec un plan
-sans remise avec des probabilités d’inclusion proportionnelles au
-nombres de communes de chaque canton.</p>
+<p>Estimation de la surface totale occupée par des forêts avec un plan
+sans remise avec des probabilités d’inclusion proportionnelles au nombre
+de communes de chaque canton.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123456</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>ech.sy_grap2 <span class="ot">&lt;-</span> sampling<span class="sc">::</span><span class="fu">cluster</span>(swissmunicipalities,<span class="at">clustername=</span><span class="fu">c</span>(<span class="st">&quot;CT&quot;</span>),</span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>                      <span class="at">size=</span>nI,<span class="at">method=</span><span class="st">&quot;systematic&quot;</span>,<span class="at">pik=</span>pik.swiss,<span class="at">description=</span><span class="cn">TRUE</span>) </span>
@@ -695,7 +696,7 @@ Monte-Carlo.</p>
 <span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a>cv.grap_sytaille <span class="ot">&lt;-</span> <span class="fu">sd</span>(est.grap_sytaille)<span class="sc">/</span><span class="fu">mean</span>(est.grap_sytaille)</span>
 <span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a>cv.grap_sytaille</span>
 <span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a><span class="co">#[1] 0.1678047</span></span></code></pre></div>
-<p>Cette stratigie est beaucoup plus efficace que celle basée sur un
+<p>Cette stratégie est beaucoup plus efficace que celle basée sur un
 plan SI (voir l’exercice 5.6), cela n’est pas très étonnant car la
 variable donnée par le total de la surface de bois à l’intérieur de
 chaque canton et les probabilités d’inclusion sont très corrélées:</p>
@@ -770,7 +771,7 @@ chaque canton et les probabilités d’inclusion sont très corrélées:</p>
 <span id="cb12-64"><a href="#cb12-64" tabindex="-1"></a><span class="co">#POPTOT </span></span>
 <span id="cb12-65"><a href="#cb12-65" tabindex="-1"></a><span class="co">#5056846 </span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li>Plan de sondage sans remise, proportionnel au nombre de menages de
+<li>Plan de sondage sans remise, proportionnel au nombre de ménages de
 chaque canton, <span class="math inline">\(x\)</span>=H00PTOT.</li>
 </ol>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="do">##calcul du nombre de menages de chaque canton</span></span>

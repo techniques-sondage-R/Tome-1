@@ -29,7 +29,7 @@ sum(taille_grappe)
 #[1] 554
 pik_rec <- inclusionprobabilities(taille_grappe,nI)
 ```
-On évalue l'efficacité de cette stratégie par des simulations de MOnte-Carlo.
+On évalue l'efficacité de cette stratégie par des simulations de Monte-Carlo.
 ```{r, eval=FALSE,}
 set.seed(123456)
 est.grap_sy <- matrix(1,10000,1)
@@ -52,7 +52,7 @@ cv.grapsy <- sd(est.grap_sy)/mean(est.grap_sy)
 cv.grapsy
 #[1] 0.2783709
 ```
-La section 5.5 du tome 1 traite les stratégies basées sur les plans SIC et STSIC avec l'estimateur de Hovitz-Thompson et leur efficacité est donnée dans le tableau 5.4. On peut vérifier que l'efficacité de la stratégie basée sur le plan SIC proportionnel au nombre de communes de chaque grappes est semblable à celle du plan statifié et meilleure que celle du plan SIC. 
+La section 5.5 du tome 1 traite les stratégies basées sur les plans SIC et STSIC avec l'estimateur de Horvitz-Thompson et leur efficacité est donnée dans le tableau 5.4. On peut vérifier que l'efficacité de la stratégie basée sur le plan SIC proportionnel au nombre de communes de chaque grappe est semblable à celle du plan stratifié et meilleure que celle du plan SIC. 
 
 ## Solution exercice 5.6
 On calcule le paramètre d'intérêt, le total de la variable $y$=Surfacesbois, et on l'estime avec un plan SIC de taille $n_I=6$, les grappes étant données par les cantons, variable CT.  
@@ -140,7 +140,7 @@ br <- (apply(est.grap_si,2,mean)-tbois)/tbois
 cv <- apply(est.grap_si,2,sd)/apply(est.grap_si,2,mean)
 ```
 ## Solution exercice 5.8 
-Calcul du paramètre d'intérêt et des probabilités d'inclusion proprtionnelles à la surface du canton.
+Calcul du paramètre d'intérêt et des probabilités d'inclusion proportionnelles à la surface totale de chaque canton (variable HApoly).
 ```{r, eval=FALSE, message=FALSE, warning=FALSE}
 require(sampling)
 require(survey)
@@ -151,12 +151,12 @@ tbois <- sum(swissmunicipalities$Surfacesbois)
 
 swissmunicipalities$CT <- as.factor(swissmunicipalities$CT)
 nI <- 6
-##calcul de la surface totale de chaque canton
+## calcul de la surface totale de chaque canton
 A <- tapply(swissmunicipalities$HApoly, swissmunicipalities$CT, sum)
-##calcul des probabilités proportionnelles à la surface de chaque canton
+##calcul des probabilités proportionnelles à la surface totale de chaque canton
 pik.swiss<- inclusionprobabilities(A,nI)
 ```
-Estimation de la surface totale ocupée par des fôrets avec un plan sans remise avec des probabilités d'inclusion proportionnelles à la surface du canton. 
+Estimation de la surface totale occupée par des forêts avec un plan sans remise avec des probabilités d'inclusion proportionnelles à la surface totale de chaque canton. 
 ```{r,eval=FALSE}
 set.seed(123456)
 ech.sy_grap2 <- sampling::cluster(swissmunicipalities,clustername=c("CT"),
@@ -169,7 +169,7 @@ svytotal(~Surfacesbois,ech.grap_sy2)
 #Surfacesbois 1365885 70202
 ```
 ## Solution exercice 5.9
-Calcul du paramètre d'intérêt et des probabilités d'inclusion proprtionnelles au nombre de communes de chaque canton.
+Calcul du paramètre d'intérêt et des probabilités d'inclusion proportionnelles au nombre de communes de chaque canton.
 ```{r, eval=FALSE, message=FALSE, warning=FALSE}
 require(sampling)
 require(survey)
@@ -185,7 +185,7 @@ A <- table(swissmunicipalities$CT)
 ##calcul des probabilités proportionnelles au nombre de communes de chaque canton
 pik.swiss <- inclusionprobabilities(A,nI)
 ```
-Estimation de la surface totale ocupée par des fôrets avec un plan sans remise avec des probabilités d'inclusion proportionnelles au nombres de communes de chaque canton.
+Estimation de la surface totale occupée par des forêts avec un plan sans remise avec des probabilités d'inclusion proportionnelles au nombre de communes de chaque canton.
 ```{r,eval=FALSE}
 set.seed(123456)
 ech.sy_grap2 <- sampling::cluster(swissmunicipalities,clustername=c("CT"),
@@ -224,7 +224,7 @@ cv.grap_sytaille <- sd(est.grap_sytaille)/mean(est.grap_sytaille)
 cv.grap_sytaille
 #[1] 0.1678047
 ```
-Cette stratigie est beaucoup plus efficace que celle basée sur un plan SI (voir l'exercice 5.6), cela n'est pas très étonnant car la variable donnée par le total de la surface de bois à l'intérieur de chaque canton et les probabilités d'inclusion sont très corrélées:   
+Cette stratégie est beaucoup plus efficace que celle basée sur un plan SI (voir l'exercice 5.6), cela n'est pas très étonnant car la variable donnée par le total de la surface de bois à l'intérieur de chaque canton et les probabilités d'inclusion sont très corrélées:   
 ```{r,eval=FALSE}
 cor(tapply(swissmunicipalities$Surfacesbois,swissmunicipalities$CT, sum), A)
 ##[1] 0.8049308
@@ -299,7 +299,7 @@ est.stsi.pop <- svytotal(~POPTOT,ech.stsi.pop)[1]
 ```
 
 
-3. Plan de sondage sans remise, proportionnel  au nombre de menages de chaque canton, $x$=H00PTOT.
+3. Plan de sondage sans remise, proportionnel  au nombre de ménages de chaque canton, $x$=H00PTOT.
 ```{r, eval=FALSE}
 ##calcul du nombre de menages de chaque canton
 Apop <- tapply(swissmunicipalities$H00PTOT,swissmunicipalities$CT,sum)
