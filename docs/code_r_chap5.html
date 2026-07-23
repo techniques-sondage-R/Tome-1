@@ -615,7 +615,7 @@ Monte-Carlo.</p>
 <div id="solution-exercice-5.8" class="section level2">
 <h2>Solution exercice 5.8</h2>
 <p>Calcul du paramètre d’intérêt et des probabilités d’inclusion
-proportionnelles au nombre de communes de chaque canton (variable
+proportionnelles à la surface totale de chaque canton (variable
 HApoly).</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">require</span>(sampling)</span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">require</span>(survey)</span>
@@ -626,13 +626,13 @@ HApoly).</p>
 <span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a></span>
 <span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>swissmunicipalities<span class="sc">$</span>CT <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(swissmunicipalities<span class="sc">$</span>CT)</span>
 <span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>nI <span class="ot">&lt;-</span> <span class="dv">6</span></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="do">##calcul du nombre total de communes de chaque canton</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="do">## calcul de la surface totale de chaque canton</span></span>
 <span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">tapply</span>(swissmunicipalities<span class="sc">$</span>HApoly, swissmunicipalities<span class="sc">$</span>CT, sum)</span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="do">##calcul des probabilités proportionnelles au nombre total de communes de ##chaque canton</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="do">##calcul des probabilités proportionnelles à la surface totale de chaque canton</span></span>
 <span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>pik.swiss<span class="ot">&lt;-</span> <span class="fu">inclusionprobabilities</span>(A,nI)</span></code></pre></div>
 <p>Estimation de la surface totale occupée par des forêts avec un plan
-sans remise avec des probabilités d’inclusion proportionnelles au nombre
-total de communes de chaque canton.</p>
+sans remise avec des probabilités d’inclusion proportionnelles à la
+surface totale de chaque canton.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123456</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>ech.sy_grap2 <span class="ot">&lt;-</span> sampling<span class="sc">::</span><span class="fu">cluster</span>(swissmunicipalities,<span class="at">clustername=</span><span class="fu">c</span>(<span class="st">&quot;CT&quot;</span>),</span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>                                  <span class="at">size=</span>nI,<span class="at">method=</span><span class="st">&quot;systematic&quot;</span>,<span class="at">pik=</span>pik.swiss) </span>
